@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/02 18:39:14 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/02 23:23:29 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
-	char **av = malloc (sizeof(char *) * ft_lstsize(tokens) + 1);
+	char **av = malloc (sizeof(char *) * (ft_lstsize(tokens) + 1));
 	int i = 0;
 	while (current)
 	{
@@ -92,8 +92,9 @@ void excutefilepath(t_line *final,char *path,char **env)
 			free(to_excute);
 		i++;
 	}
-	free(paths);
+	free_double(paths);
 	free(command_path);
+	exit(1);
 	}
 	else
 		wait(NULL);
@@ -107,4 +108,5 @@ void free_double(char **str)
 	j = 0;
 	while (str[j])
 		free(str[j++]);
+	free(str);
 }

@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/02 17:33:06 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/02 23:12:43 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+void handle_pipe(t_line *final)
+{
+	if (!final->next)
+		return;
+	else
+	
+		while (final)
+		{
+			
+		}
+}
 void execute_the_thing(t_line *final,char **env,env_vars *list)
 {
 	char **builtins;
@@ -19,7 +29,7 @@ void execute_the_thing(t_line *final,char **env,env_vars *list)
 	char *str;
 	int i;
 	i = 1;
-
+	
 	str = get_path(env,"PATH=");
 	builtins = split("cd echo pwd export unset env exit", ' ');//echo hello
 	

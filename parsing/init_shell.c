@@ -77,7 +77,6 @@ void display_prompt(t_list shell, char **env)
         lines = tokens_to_lines(list);
         execute_the_thing(lines,env,liiiist);
         // print_lines(lines);
-
     }
 }
 
