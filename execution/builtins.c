@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:36:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:46:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 #include <errno.h>
 #include <stdio.h>
 
-void echoo(char **av)
+void echoo(t_line *final)
 {
     int i = 1;         
     int newline = 1; 
-
-    while (av[i] && strcmp(av[i], "-n") == 0)
+	t_node *current = final->tokens->next;
+    while (current && strcmp(current->content, "-n") == 0)
 	{
         newline = 0;
-        i++; 
+		current = current->next;
     }
-    while (av[i])
+    while (current)
 	{
-        printf("%s", av[i]);
-        if (av[i + 1])
+        printf("%s", current->content);
+        if (current->next)
 		{ 
             printf(" ");
         }

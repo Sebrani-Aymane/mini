@@ -1,34 +1,33 @@
 #include "../minishell.h"
 
-void print_token(t_node *token)
-{
-    printf("Token: %s, Type: %d\n", token->content, token->type);
-}
+// void print_token(t_node *token)
+// {
+//     printf("Token: %s, Type: %d\n", token->content, token->type);
+// }
 
-// Function to print all tokens in a line
-void print_line(t_line *line)
-{
-    t_node *current_token = line->tokens;
-    printf("Line:\n");
-    while (current_token)
-    {
-        print_token(current_token);
-        current_token = current_token->next;
-    }
-    printf("\n");
-}
+// void print_line(t_line *line)
+// {
+//     t_node *current_token = line->tokens;
+//     printf("Line:\n");
+//     while (current_token)
+//     {
+//         print_token(current_token);
+//         current_token = current_token->next;
+//     }
+//     printf("\n");
+// }
 
-// Function to print all lines
-void print_lines(t_line *lines)
-{
-    t_line *current_line = lines;
-    while (current_line)
-    {
-        print_line(current_line);
-        current_line = current_line->next;
-    }
-}
 
+// void print_lines(t_line *lines)
+// {
+//     t_line *current_line = lines;
+//     while (current_line)
+//     {
+//         print_line(current_line);
+//         current_line = current_line->next;
+//     }
+// }
+   
 char **copy_env(char **env)
 {
     int size;
@@ -54,14 +53,14 @@ char **copy_env(char **env)
     return (to_copy);
 }
 
-void display_prompt(t_list shell)
+void display_prompt(t_list shell, char **env)
 {
     char *input;
     t_node *list;
-    env_vars *liiiist;
-
+    (void)shell;
     t_line *lines;
-    // int i = 0;
+    env_vars *liiiist;
+    liiiist = list_init(env);
     while(1)
     {
         input = readline("minishell$  ");
@@ -76,22 +75,9 @@ void display_prompt(t_list shell)
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
         lines = tokens_to_lines(list);
-        // t_line *copy = lines;
-        print_lines(lines);
-        liiiist = list_init(shell.env_var);
-        execute_the_thing(&input,shell.env_var,liiiist);
-        // while(copy)
-        // {
-        //     printf("%s\n", copy->tokens->content);
-        //     copy = copy->next;
-        // }
-        // while(shell.tokens[i])
-        // {
-        //     printf("%s       %d\n", shell.tokens[i]->content, shell.tokens[i]->need_expand);
-        //     i++;
-        // }
+        execute_the_thing(lines,env,liiiist);
+        // print_lines(lines);
+
     }
 }
-        // i = 0;
-        
-        // printf("%d\n", tokens_number(input));
+

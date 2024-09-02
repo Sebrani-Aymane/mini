@@ -3,65 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:31:14 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:39:14 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <string.h>
 
-env_vars *execute_builtins(char* builtin, char **av, env_vars *list,char **env)
+env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env)
 {
-	
-	int l;
+	(void)env;
 	
     if (strcmp(builtin, "echo") == 0)
-        echoo(av);
+        echoo(final);
     else if (strcmp(builtin, "pwd") == 0) 
         pwdd(1);
     else if (strcmp(builtin, "export") == 0)
 	{
-		if (!(av[1]))
+		if (!(final->tokens->next))
 			envpp(list);
 		else
-	    	export_all(list,av);
+	    	export_all(list,final);
 	}
 	else if (strcmp(builtin, "env") == 0)
     	envpp(list);
-	else if (strcmp(builtin, "cd") == 0)
-	{
-		l = chdirr(env,av);
-		if (l == -1)
-			printf("%s: No such file or directory\n",av[1]);
-	}
+	// else if (strcmp(builtin, "cd") == 0)
+	// {
+	// 	//l = chdirr(env,f);
+	// 	if (l == -1)
+	// 		printf("%s: No such file or directory\n",final->tokens->next->content);
+
 	else if (strcmp(builtin, "unset") == 0)
 	{
-		unset(list,av);
+		unset(list, final);
 	}
 	else if (strcmp(builtin, "exit") == 0)
-		exitt (list,av);	
+		exitt (list, final);	
 	return(list);
 }
+char **create_av(t_node *tokens)
+{
+	t_node *current = tokens;
+	char **av = malloc (sizeof(char *) * ft_lstsize(tokens) + 1);
+	int i = 0;
+	while (current)
+	{
+		av[i] = strdup(current->content);
+		current = current->next;
+		i++;
+	}
+	av[i] = NULL;
+	return av;
+}
 
-void excutefilepath(char **av,char *path,char **env)
+void excutefilepath(t_line *final,char *path,char **env)
 {
 	char *to_excute;
 	int i=0;
 	char **paths;
 	char *command_path;
 	int pid;
-
+	char **av = create_av(final->tokens);
 	pid = fork();
-	if (pid ==0)
+	if (pid == 0)
 	{
-	int lenght = ft_strlen(av[0]);
-/*  */
+	int lenght = ft_strlen(final->tokens->content);
 	command_path = malloc(lenght);
 	if (!command_path)
 		return;
-	command_path  = str_joiner("/",av[0]);
+	command_path  = str_joiner("/",final->tokens->content);
 	int lenght1= ft_strlen(command_path);
 	paths = split(path, ':');
 	if (!paths)
@@ -74,7 +87,7 @@ void excutefilepath(char **av,char *path,char **env)
 			return;
 		to_excute = str_joiner(paths[i],command_path);
 		if (access(to_excute, X_OK) == 0)
-			execve(to_excute, av, env);
+			execve(to_excute, av, env); 
 		else
 			free(to_excute);
 		i++;
@@ -84,9 +97,7 @@ void excutefilepath(char **av,char *path,char **env)
 	}
 	else
 		wait(NULL);
-		
 	return;
-
 }
 
 void free_double(char **str)

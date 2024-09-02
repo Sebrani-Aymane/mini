@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:31:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:56:10 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ void 	export_it(env_vars *env,char *str)
 	valid_to_add(env, str);
 }
 
-void export_all(env_vars *env,char **av)
+void export_all(env_vars *env, t_line *final)
 {
-	int i=1;
-
-	while (av[i])
+	
+	t_node *current = final->tokens->next;
+	while (current)
 	{
-		if(strchr(av[i],'+'))
-			export_with_plus(av[i],env);	
-		else if (!(strchr(av[i],'=') ))
-			first_in(av[i],env);
-		else if (strchr(av[i],'='))
-			export_it(env,av[i]);
-		i++;
+		if(strchr(current->content,'+'))
+			export_with_plus(current->content,env);	
+		else if (!(strchr(current->content,'=') ))
+			first_in(current->content,env);
+		else if (strchr(current->content,'='))
+			export_it(env,current->content);
+		current = current->next;
 	}
 }

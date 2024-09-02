@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/01 16:36:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:46:23 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,56 @@ heredoc 3
 infile 4
 outfile 5
 */
+
+char *remove_quotes(char *content)
+{
+	char	c;
+	char	*final;
+    int     i = 0;
+    int     j = 0;
+
+	final = calloc(sizeof(char), ft_strlen(content) + 1);
+	if (!final)
+		return (NULL);
+
+	while (content[i])
+	{
+		if (content[i] == '\'' || content[i] == '\"')
+		{
+			c = content[i++];
+			while (content[i])
+			{
+				if (content[i] != c)
+					final[j++] = content[i];
+				else if (content[i] == c)
+					break;
+				i++;
+			}
+		}
+		else
+			final[j++] = content[i];
+		i++;
+	}
+	final[j] = '\0';
+	return (final);
+}
+
+void final_tokens(t_node *token)
+{
+    t_node *current = token;
+    char *final;
+
+    while (current)
+    {
+        final = remove_quotes(current->content);
+        if (final)
+        {
+            free(current->content);
+            current->content = final;
+        }
+        current = current->next;
+    }
+}
 
 void	redirections_classifier(t_node **lst_token)
 {
@@ -78,9 +128,9 @@ t_line *create_line(t_node *node)
         t_node *new_node = malloc(sizeof(t_node));
         if (!new_node)
             return NULL;
-        new_node->content = current->content; // Copy the content
-        new_node->type = current->type;       // Copy the type
-        new_node->next = NULL;                // Initialize next to NULL
+        new_node->content = current->content; 
+        new_node->type = current->type;   
+        new_node->next = NULL;              
         
         if (!first)
         {
@@ -107,24 +157,11 @@ t_line *tokens_to_lines(t_node *tokens)
     t_line *first_line = NULL;
     t_line *last_line = NULL;
     t_line *line;
-
     giving_type(tokens);
-    // t_node *cpy = tokens;
-    // while (cpy)
-    // {
-    //     printf("%s\n", cpy->content);
-    //     cpy = cpy->next;
-    // }
-    // t_node *cpy_two;
+    final_tokens(tokens);
     while (tokens)
     {
         line = create_line(tokens);
-    //     cpy_two = tokens;
-    //     while (cpy_two)
-    // {
-    //     printf("%s\n", cpy_two->content);
-    //     cpy_two = cpy_two->next;
-    // }
         if (!first_line)
             first_line = line;
         else
@@ -132,48 +169,14 @@ t_line *tokens_to_lines(t_node *tokens)
         last_line = line;
         while (tokens && strcmp(tokens->content, "|") != 0)
         {
-            
-            // printf("%s\n", tokens->content);
             tokens = tokens->next;
             
         }
-        // printf("%s\n", tokens->content);
         
         if (tokens && strcmp(tokens->content, "|") == 0)
         {
             tokens = tokens->next;
-            // printf("///////////////\n");
         }
     }
     return first_line;
 }
-// t_line *create_line(t_node *node)
-// {
-//     t_line *line;
-//     t_node *current = node;
-//     t_node *first = NULL;
-//     t_node *last = NULL;
-//     t_node *cpy = node;
-
-//     line = malloc(sizeof(t_line));
-//     if (!line)
-//         return NULL;
-//     line->tokens = NULL;
-//     while (current && strcmp(current->content, "|") != 0)
-//     {
-//         if (!first)
-//         {
-//             first = current;
-//             line->tokens = first;
-//         }
-//         else
-//             last->next = current;
-//         last = current;
-//         current = current->next;
-//     }
-//     if (last)
-//         last->next = NULL;
-//     line->next = NULL;
-//     redirections_classifier(&line->tokens);
-//     return line;
-// }

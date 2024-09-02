@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:32:12 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:08:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void unset(env_vars *env, char **av)
+void unset(env_vars *env, t_line *final)
 {
-    int i = 1;
+    t_node *current = final->tokens->next;
 
-    while (av[i])
+    while (current)
     {
         env_vars *curr = env;
         env_vars *prev = NULL;
 
         while (curr)
         {
-            if (ft_strcmp(curr->vars, av[i]) == 0)
+            if (ft_strcmp(curr->vars, current->content) == 0)
             {
                 if (prev == NULL)
                     env = curr->next; 
@@ -37,13 +37,15 @@ void unset(env_vars *env, char **av)
             prev = curr;
             curr = curr->next;
         }
-        i++;
+        current = current->next;
     }
 }
-void exitt(env_vars *env, char **av)
+void exitt(env_vars *env, t_line *final)
 {
     int num = 0;
     env_vars *temp;
+    t_node *current = final->tokens->next;
+
     while(env)
     {
         temp = env->next;  
@@ -52,10 +54,15 @@ void exitt(env_vars *env, char **av)
         free(env);                   
         env = temp;
     }
-    if (av && av[1])
+    if (current->next)
     {
-        num = atoi(av[1]);
+        printf("exit: too many arguments\n");
+        return ;
     }
-
+    if (current)
+    {
+        num = atoi(current->content);
+    }
+    
     exit(num);
 }

@@ -8,19 +8,20 @@ int can_expand(char *input)
 
     while (input[i])
     {
-        if (input[i] == '"')
+        if (input[i] == '"' && s_quote == 0)
             d_quote = !d_quote;
 
         if (input[i] == '\'' && d_quote == 0)
             s_quote = !s_quote; 
 
-        if (input[i] == '$' && (d_quote || !s_quote))
+        if (input[i] == '$' && (d_quote || (!s_quote && !d_quote)))
             return (1);
 
         i++;
     }
     return (0);
 }
+
 int dollars_number(char *content, int need_exp)
 {
     int i = 0;
@@ -43,6 +44,7 @@ char *variable_name(char *input)
     int start = 0;
     int i = 0;
     int len;
+    int end;
     
     while (input[i] && input[i] != '$')
         i++;
@@ -50,10 +52,13 @@ char *variable_name(char *input)
     i++;
     while (input[i] && input[i] != ' ' && input[i] != '$')
         i++;
-    if (input[0] == '"' && input[i] == '\0')
-      len = i - start - 1;
-    else
-      len = i - start;
+    end = i - 1;
+    if ((input[0] == '"' || input[0] == '\'') && input[i] == '\0')
+    {
+        while (input[end] == '"' || input[end] == '\'')
+            end--;
+    }
+    len = end - start + 1;
     char *var_name = malloc(sizeof(char) * (len + 1));
     if (var_name) {
         strncpy(var_name, input + start, len);
@@ -66,32 +71,26 @@ char *variable_name(char *input)
 char *get_value(char **env_vars, int len, char *name)
 {
     int i = 0;
-    int j = 0;
-    char *value;
+    int j;
     while (env_vars[i])
     {
-        if (strncmp(name, env_vars[i], len) == 0)
+        if (strncmp(name, env_vars[i], len) == 0 && env_vars[i][len] == '=')
         {
-            len++;
-            break;
+            j = len + 1;
+            while (env_vars[i][j])
+                j++;
+            char *value = malloc(sizeof(char) * (j - len));
+            if (!value)
+                return (NULL);
+            strncpy(value, env_vars[i] + len + 1, j - len - 1);
+            value[j - len - 1] = '\0';
+            return value;
         }
         i++;
     }
-    j = len;
-    while (env_vars[i][j])
-        j++;
-    value = malloc(sizeof(char) * (j - len + 1));
-    j = 0;
-    while(env_vars[i][len])
-    {
-        value[j] = env_vars[i][len];
-        j++;
-        len++;
-    }
-    value[j] = '\0';
-    return (value);
-
+    return (NULL);
 }
+
 
 char *replace_value(char *token, char *value, char *name)
 {
@@ -144,10 +143,11 @@ void expand(t_token **tokens, t_list shell)
         temp_token = tokens[i]->content;
         while (counter)
         {
-            
             name = variable_name(temp_token);
             name_len = strlen(name);
             value = get_value(shell.env_var, name_len, name);
+            if (value == NULL)
+                value = "";
             new_token = replace_value(temp_token, value, name);
             temp_token = new_token;
             counter--;

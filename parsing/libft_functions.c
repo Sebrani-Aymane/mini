@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:20:17 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/01 16:35:27 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:26:36 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,31 @@ t_node	*ft_lstlast(t_node *lst)
 	return (last);
 }
 
-void	ft_lstadd_back(t_node **lst, t_node *neew)
+void	ft_lstadd_back(t_node **lst, t_node *new)
 {
 	t_node	*last;
 
-	if (!lst || !neew)
+	if (!lst || !new)
 		return ;
 	if (*lst)
 	{
 		last = ft_lstlast(*lst);
-		last->next = neew;
+		last->next = new;
 	}
 	else
-		*lst = neew;
+		*lst = new;
+}
+int	ft_lstsize(t_node *lst)
+{
+	int	i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

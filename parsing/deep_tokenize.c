@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   deep_tokenize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/01 16:32:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:45:59 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 int inside_quotes(char *str)
 {
     int len = ft_strlen(str);

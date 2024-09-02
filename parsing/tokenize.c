@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-
 int tokens_number(char *input)
 {
     int i = 0;
@@ -64,28 +63,7 @@ int divide(char *input, int start)
     end = start;
     return (end);
 }
-// t_token *cat_token(char *input, int start, int end)
-// {
-//     t_token *token;
-//     int i = 0;
-//     int len = end - start + 1;
-//     token = malloc (sizeof(t_token));
-//     token->content = malloc (sizeof(char) * len);
-//     while (start < end)
-//     {
-//         while (input[start] == '"' || input[start] == '\'')
-//             start++; 
-//         while (input[end] == '"' || input[end] == '\'')
-//             end--;
-//         token->content[i] = input[start];
-//         start++;
-//         i++;
-//     }
-//     token->content[i] = '\0';
-//     token->type = NULL;
-//     // token[i] = '\0';
-//     return (token);
-// }
+
 char *cat_token(char *input, int start, int end)
 {
     char *token;
@@ -94,10 +72,6 @@ char *cat_token(char *input, int start, int end)
     token = malloc (sizeof(char) * len);
     while (start < end)
     {
-        // while (input[start] == '"' || input[start] == '\'')
-        //     start++; 
-        // while (input[end] == '"' || input[end] == '\'')
-        //     end--;
         token[i] = input[start];
         start++;
         i++;
