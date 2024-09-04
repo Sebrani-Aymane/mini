@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/02 18:44:52 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/04 02:02:48 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef struct s_node
 typedef struct s_line
 {
     t_node *tokens;
-    int redic;
+    int fd_in;
+	int fd_out;
     struct s_line *next;
 } t_line;
 
@@ -95,7 +96,7 @@ char **joker(env_vars *list);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
 char *ret(char *in);
 void excutefilepath(t_line *final,char *path,char **env);
-
+int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
 env_vars *exportt_plus(char **av,env_vars *list);
@@ -111,7 +112,7 @@ int already_vars(env_vars *list, char *str);
 env_vars *update_value(env_vars **list,char **str);
 char *ret(char *in);
 int	chdirr(char **env, char **av);
-
+void handle_pipe(t_line *final,char **env,env_vars *list);
 //////////////////*PARSING*//////////////////////////
 
 

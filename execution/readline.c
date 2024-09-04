@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/02 23:23:29 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/04 02:25:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,8 @@ void excutefilepath(t_line *final,char *path,char **env)
 	int i=0;
 	char **paths;
 	char *command_path;
-	int pid;
+
 	char **av = create_av(final->tokens);
-	pid = fork();
-	if (pid == 0)
-	{
 	int lenght = ft_strlen(final->tokens->content);
 	command_path = malloc(lenght);
 	if (!command_path)
@@ -95,9 +92,6 @@ void excutefilepath(t_line *final,char *path,char **env)
 	free_double(paths);
 	free(command_path);
 	exit(1);
-	}
-	else
-		wait(NULL);
 	return;
 }
 
