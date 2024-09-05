@@ -67,7 +67,7 @@ void display_prompt(t_list shell, char **env)
         if (!input)
             exit(1);
         add_history(input);
-        if (check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input))
+        if (check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
             continue;
         shell.tokens = into_tokens(input);
         check_token_dollar(shell.tokens);

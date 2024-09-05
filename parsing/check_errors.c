@@ -89,3 +89,36 @@ int validate_redirection_syntax(char *input)
     }
     return 1;
 }
+
+int pipe_syntax(char *input)
+{
+    int i = 0;
+    int in_quotes = 0;
+    
+    while (input[i] == ' ')
+        i++;
+    if (input[i] == '|')
+    {
+        printf("syntax error near unexpected token `|'\n");
+        return 0;
+    }
+
+    while (input[i])
+    {
+        if (input[i] == '\'' || input[i] == '\"') 
+            in_quotes = !in_quotes;
+        if (input[i] == '|' && !in_quotes)
+        {
+            i++;
+            while (input[i] == ' ')
+                i++;
+            if (input[i] == '\0' || input[i] == '|')
+            {
+                printf("syntax error near unexpected token `|'\n");
+                return 0; 
+            }
+        }
+        i++;
+    }
+    return 1;
+}

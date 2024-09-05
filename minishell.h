@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/04 02:02:48 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:44:20 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,4 +139,5 @@ t_node *search_token(t_token **tokens);
 t_line *tokens_to_lines(t_node *tokens);
 t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
+int pipe_syntax(char *input);
 #endif
