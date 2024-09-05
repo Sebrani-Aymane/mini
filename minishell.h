@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/05 16:44:20 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/05 17:25:31 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <strings.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <fcntl.h>
 
 typedef struct s_token
 {
@@ -140,4 +141,5 @@ t_line *tokens_to_lines(t_node *tokens);
 t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
 int pipe_syntax(char *input);
+void open_files(t_line *lines);
 #endif

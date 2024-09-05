@@ -1,33 +1,5 @@
 #include "../minishell.h"
 
-// void print_token(t_node *token)
-// {
-//     printf("Token: %s, Type: %d\n", token->content, token->type);
-// }
-
-// void print_line(t_line *line)
-// {
-//     t_node *current_token = line->tokens;
-//     printf("Line:\n");
-//     while (current_token)
-//     {
-//         print_token(current_token);
-//         current_token = current_token->next;
-//     }
-//     printf("\n");
-// }
-
-
-// void print_lines(t_line *lines)
-// {
-//     t_line *current_line = lines;
-//     while (current_line)
-//     {
-//         print_line(current_line);
-//         current_line = current_line->next;
-//     }
-// }
-   
 char **copy_env(char **env)
 {
     int size;
@@ -75,8 +47,8 @@ void display_prompt(t_list shell, char **env)
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
         lines = tokens_to_lines(list);
+        open_files(lines);
         handle_pipe(lines,env,liiiist);
-        // print_lines(lines);
     }
 }
 

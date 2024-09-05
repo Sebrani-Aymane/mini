@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/02 16:46:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/05 17:20:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ t_line *create_line(t_node *node)
     
     line->next = NULL;
     redirections_classifier(&line->tokens);
+    line->fd_in = 0;
+    line->fd_out = 1;
     return line;
 }
 
