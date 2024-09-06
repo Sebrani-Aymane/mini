@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 18:58:17 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:42:18 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env)
 {
 	(void)env;
+	int l = 0;
 	
     if (strcmp(builtin, "echo") == 0)
         echoo(final);
@@ -26,16 +27,17 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 		if (!(final->tokens->next))
 			envpp(list);
 		else
-	    	export_all(list,final);
+			export_all(list,final);
 	}
+	
 	else if (strcmp(builtin, "env") == 0)
     	envpp(list);
-	// else if (strcmp(builtin, "cd") == 0)
-	// {
-	// 	//l = chdirr(env,f);
-	// 	if (l == -1)
-	// 		printf("%s: No such file or directory\n",final->tokens->next->content);
-
+	else if (strcmp(builtin, "cd") == 0)
+	{
+		l = chdirr(env,final);
+		if (l == -1)
+			printf("%s: No such file or directory\n",final->tokens->next->content);
+	}
 	else if (strcmp(builtin, "unset") == 0)
 	{
 		unset(list, final);
@@ -65,6 +67,7 @@ void excutefilepath(t_line *final,char *path,char **env)
 	int i=0;
 	char **paths;
 	char *command_path;
+	int ret =0;
 
 
 	char **av = create_av(final->tokens);
@@ -74,28 +77,34 @@ void excutefilepath(t_line *final,char *path,char **env)
 	if (!command_path)
 		return;
 	paths = split(path, ':');
+	
 	if (final->tokens->content[i] != '/')
 	{
-	command_path  = str_joiner("/",final->tokens->content);
-	int lenght1= ft_strlen(command_path);
-	if (!paths)
-		return;
-	while(paths[i])
-	{
-		lenght = ft_strlen(paths[i]);
-		to_excute = malloc(lenght + lenght1);
-		if (!to_excute)
+		command_path  = str_joiner("/",final->tokens->content);
+		int lenght1= ft_strlen(command_path);
+		if (!paths)
 			return;
-		to_excute = str_joiner(paths[i],command_path);
-		if (access(to_excute, X_OK) == 0)
-			execve(to_excute, av, env); 
-		else
-			free(to_excute);
-		i++;
-	}
+		while(paths[i])
+		{
+			lenght = ft_strlen(paths[i]);
+			to_excute = malloc(lenght + lenght1);
+			if (!to_excute)
+				return;
+			to_excute = str_joiner(paths[i],command_path);
+			if (access(to_excute, X_OK) == 0)
+				execve(to_excute, av, env); 
+			else
+				free(to_excute);
+			i++;
+		}
 	}
 	else
-		execve(final->tokens->content, av, env);
+	{
+		ret = execve(final->tokens->content, av, env);
+		if(ret == -1)
+			printf("bash: %s: No such file or directory\n",final->tokens->content);
+	}
+	
 	free_double(paths);
 	free(command_path);
 	return;

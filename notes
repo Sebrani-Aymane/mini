@@ -1,8 +1,9 @@
 absolute path like /bin/ls ------->>>>> done
--n in echo
+-n in echo -->>>>done
 exit check alpha ---------->done
 $? ///// $? + $?
 Signals \\\\\\\\
-cd
+cd --->half done
 unset $PATH the commands should not work;
 redirections
+doc

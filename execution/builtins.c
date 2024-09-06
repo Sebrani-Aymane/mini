@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 18:17:57 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:48:53 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@
 
 void echoo(t_line *final)
 {
-
     int newline = 1; 
 	t_node *current = final->tokens->next;
-	
-    while (current && strncmp(current->content, "-n",ft_strlen(current->content)) == 0)
-	{
-        newline = 0;
-		current = current->next;
-    }
+	t_node* tmp;
+	tmp = current;
+	if (check_eccho(current))
+    {
+		while(check_eccho(current))
+			current = current ->next;
+		tmp = current;
+		newline = 0;
+	}
+	current = tmp;
     while (current)
 	{
         printf("%s", current->content);
@@ -72,13 +75,13 @@ env_vars *envpp(env_vars *list)
 	return(tmp);
 }
 
-int	chdirr(char **env,char **av)
+int	chdirr(char **env,t_line *final)
 {
-	int res =-1;
+	int res = -1;
 
-	if(!av[1])
+	if(!final->tokens->next)
 		res = chdir(get_path(env,"HOME="));
 	else
-		res = chdir(av[1]);
+		res = chdir(final->tokens->content);
 	return(res);
 }

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 18:32:39 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:39:04 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void handle_redirections(t_line *final)
 void execute_the_thing(t_line *final,char **env,env_vars *list)
 {
 	char **builtins;
-	int j=0;
+	int j=-1;
 	char *str;
 	int i;
 	i = 1;
@@ -45,17 +45,17 @@ void execute_the_thing(t_line *final,char **env,env_vars *list)
 	{
 		if (strcmp(final->tokens->content,builtins[j]) == 0)
 		{
-			i = 0;
 			list = execute_builtins(builtins[j],final ,list,env);
+			i = 0;
 		}
 	}
 	free_double(builtins);
 	if (i)
 	{
-		i = 2;
 		excutefilepath(final,str,env);
+		i = 2;
 	}
-	if (i == 2)
+	else if (i == 2)
 		printf("minishell; %s: command not found\n",final->tokens->content);
 	return;
 }
