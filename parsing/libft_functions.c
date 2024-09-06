@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:20:17 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/06 16:59:43 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/06 18:07:19 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,18 @@ int	ft_lstsize(t_node *lst)
 	return (i);
 }
 
+
 static int	is_space(int c)
 {
 	return (c == 32 || (c >= 9 && c <= 13));
 }
-
+int	ft_isdigit(int c)
+{
+	if (c <= '9' && c >= '0')
+		return (1);
+	else
+		return (0);
+}
 int	ft_atoi(const char *str)
 {
 	int		sign;
@@ -101,3 +108,4 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
+

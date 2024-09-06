@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 16:25:44 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/06 18:07:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char *get_till(char *str, char c);
 void piipe(env_vars *list,char **av,char **env);
 void exitt(env_vars *env, t_line *final);
 void first_in(char *str,env_vars *env);
-
+int	ft_isalpha(int c);
 void unset(env_vars *env, t_line *final);
 void valid_to_add_plus(env_vars *env,char *str);
 env_vars *export_if_plus(char **input,env_vars *list);
@@ -118,7 +118,6 @@ void handle_pipe(t_line *final,char **env,env_vars *list);
 //////////////////*PARSING*//////////////////////////
 
 
-
 void display_prompt(t_list shell, char **env);
 char **copy_env(char **env);
 int check_unclosed_quotes(char *input);
@@ -143,4 +142,5 @@ t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
 int pipe_syntax(char *input);
 void open_files(t_line *lines);
+int	ft_atoi(const char *str);
 #endif

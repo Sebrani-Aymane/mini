@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 17:38:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/06 18:16:57 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ void unset(env_vars *env, t_line *final)
         current = current->next;
     }
 }
+int check_exit_stat(t_line *final)
+{
+    t_node *curr = final->tokens->next;
+    int i =0;
+    
+    while (curr ->content[i])
+    {
+        if (!ft_isalpha(curr->content[i]))
+            return(255);
+        i++;
+    }
+    return(0);
+}
 void exitt(env_vars *env, t_line *final)
 {
     int num = 0;
@@ -55,22 +68,19 @@ void exitt(env_vars *env, t_line *final)
     }
     if (current)
     {
-        num = atoi(current->content);
+        if (!check_exit_stat(final))
+        {
+            printf("minishell$: exit: %s: numeric argument required",current->content);
+            exit (255);
+        }
+        num = ft_atoi(current->content);
     }
     else if (!current)
-    {
         exit (0);
-    }
     if (current->next)
     {
-        printf("exit: too many arguments\n");
+        printf("minishell$: exit: too many arguments\n");
         return ;
     }
     exit(num);
-}
-int check_exit_stat(t_line *final)
-{
-    t_node *curr = final->tokens->next;
-    
-
 }

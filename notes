@@ -1,6 +1,6 @@
-absolute path like /bin/ls
+absolute path like /bin/ls ------->>>>> done
 -n in echo
-exit check alpha
+exit check alpha ---------->done
 $? ///// $? + $?
 Signals \\\\\\\\
 cd

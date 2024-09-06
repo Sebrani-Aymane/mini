@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/02 23:29:25 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:17:57 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void echoo(t_line *final)
 
     int newline = 1; 
 	t_node *current = final->tokens->next;
-    while (current && strcmp(current->content, "-n") == 0)
+	
+    while (current && strncmp(current->content, "-n",ft_strlen(current->content)) == 0)
 	{
         newline = 0;
 		current = current->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 16:55:14 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/06 18:32:39 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,22 @@ void execute_the_thing(t_line *final,char **env,env_vars *list)
 	
 	str = get_path(env,"PATH=");
 	builtins = split("cd echo pwd export unset env exit", ' ');
-
 	while (builtins[++j])
 	{
 		if (strcmp(final->tokens->content,builtins[j]) == 0)
 		{
-			list = execute_builtins(builtins[j],final ,list,env);
 			i = 0;
+			list = execute_builtins(builtins[j],final ,list,env);
 		}
 	}
+	free_double(builtins);
 	if (i)
 	{
-		excutefilepath(final,str,env);
 		i = 2;
+		excutefilepath(final,str,env);
 	}
-	else if (i == 2)
-	{
+	if (i == 2)
 		printf("minishell; %s: command not found\n",final->tokens->content);
-	}
-	free_double(builtins);
 	return;
 }
 
