@@ -54,6 +54,8 @@ int validate_redirection_syntax(char *input)
     q_type = 0;
     inside_q = 0;
     i = 0;
+    if (!input[0])
+        return 0;
     while (input[i])
     {
         if (input[i] == '"' || input[i] == '\'')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/04 02:25:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:52:26 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 		unset(list, final);
 	}
 	else if (strcmp(builtin, "exit") == 0)
-		exitt (list, final);	
+		exit(0);
 	return(list);
 }
 char **create_av(t_node *tokens)

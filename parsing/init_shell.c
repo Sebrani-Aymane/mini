@@ -47,7 +47,7 @@ void display_prompt(t_list shell, char **env)
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
         lines = tokens_to_lines(list);
-        open_files(lines);
+        // open_files(lines);
         handle_pipe(lines,env,liiiist);
     }
 }

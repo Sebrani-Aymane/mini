@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/02 16:45:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/06 15:53:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void add_node(t_node **list, char *content)
 {
     t_node *new_node = ft_lstnew(content);
     if (!new_node)
-        return; 
+        return;
     ft_lstadd_back(list, new_node);
 }
 

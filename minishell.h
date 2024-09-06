@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/05 17:25:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/06 16:25:44 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <fcntl.h>
+#include <signal.h>
 
 typedef struct s_token
 {

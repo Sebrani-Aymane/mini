@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/04 01:31:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:38:02 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void exitt(env_vars *env, t_line *final)
     int num = 0;
     env_vars *temp;
     t_node *current = final->tokens->next;
-
     while(env)
     {
         temp = env->next;  
@@ -59,11 +58,19 @@ void exitt(env_vars *env, t_line *final)
         num = atoi(current->content);
     }
     else if (!current)
-        exit(0);
+    {
+        exit (0);
+    }
     if (current->next)
     {
         printf("exit: too many arguments\n");
         return ;
     }
     exit(num);
+}
+int check_exit_stat(t_line *final)
+{
+    t_node *curr = final->tokens->next;
+    
+
 }

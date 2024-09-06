@@ -1,0 +1,8 @@
+absolute path like /bin/ls
+-n in echo
+exit check alpha
+$? ///// $? + $?
+Signals \\\\\\\\
+cd
+unset $PATH the commands should not work;
+redirections

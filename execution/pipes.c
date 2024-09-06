@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/04 02:40:42 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:55:14 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@
 
 void handle_redirections(t_line *final)
 {
-	if(final->fd_in != 0)
-{		dup2(final->fd_in,0);
-	close(final->fd_in);
-}
-	if (final ->fd_out != 1)
-{		dup2(final->fd_out,1);
-	close(final->fd_out);
-	}	return;
+    if(final->fd_in != 0)
+	{
+    	dup2(0,final->fd_in);
+    	close(final->fd_in);
+    	close(0);
+	}
+    if (final ->fd_out != 1)
+	{        
+		dup2(1,final->fd_out);
+    	close(final->fd_out);
+   		close(1);
+    }    
+	return;
 }
 
 void execute_the_thing(t_line *final,char **env,env_vars *list)
@@ -36,7 +41,7 @@ void execute_the_thing(t_line *final,char **env,env_vars *list)
 	
 	str = get_path(env,"PATH=");
 	builtins = split("cd echo pwd export unset env exit", ' ');
-	handle_redirections(final);
+
 	while (builtins[++j])
 	{
 		if (strcmp(final->tokens->content,builtins[j]) == 0)
@@ -69,6 +74,8 @@ void handle_pipe(t_line *final,char **env,env_vars *list)
 	int in_dup = dup(0);
 	while (++i < pipes_count)
 	{
+			if (strcmp(final->tokens->content, "exit") == 0)
+				exitt(list, final);
 			if (pipes_count > 1 && pipe(fd) == -1)
 				return ;
 			pid = fork();
@@ -78,10 +85,12 @@ void handle_pipe(t_line *final,char **env,env_vars *list)
 			{
 				if (i != pipes_count - 1)
 				{
+					
 					dup2(fd[1], 1);
 					close(fd[1]);
 					close(fd[0]);
 				}
+				handle_redirections(final);
 				execute_the_thing(final,env,list);
 			}
 			else

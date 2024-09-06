@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/05 17:26:30 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/05 20:39:31 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int in_file(t_line *line)
 int out_file(t_line *line)
 {
     t_node *current = line->tokens;
-    while (current)
+    while (current && current->next)
     {
         if (current->type == 5 && current->next->type == 5)
         {
@@ -56,6 +56,7 @@ void open_files(t_line *lines)
     {
         in = in_file(current);
         out = out_file(current);
+        
         if (!in || !out)
         {
             printf("Error in opening the file\n");
