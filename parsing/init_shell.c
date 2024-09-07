@@ -36,8 +36,16 @@ void display_prompt(t_list shell, char **env)
     while(1)
     {
         input = readline("minishell$  ");
-        if (!input)
-            exit(1);
+        if (input == NULL)
+        {
+            printf("exit\n");
+            exit(0);
+        }
+        else if (ft_strlen(input) == 0)
+        {
+            free(input);
+            continue;
+        }
         add_history(input);
         if (check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
             continue;

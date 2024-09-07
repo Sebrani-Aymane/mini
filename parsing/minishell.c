@@ -1,8 +1,14 @@
 #include "../minishell.h"
+
+void sigint_handler(int signal)
+{
+    (void)signal;
+    write(1, "\nminishell$  ", 13);
+}
 void handle_signals(void)
 {
+    signal(SIGINT, sigint_handler);
     signal(SIGQUIT, SIG_IGN);
-
 }
 int main(int ac, char **av, char **env)
 {
