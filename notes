@@ -1,9 +1,10 @@
 absolute path like /bin/ls ------->>>>> done
 -n in echo -->>>>done
 exit check alpha ---------->done
-$? ///// $? + $?
+$? ///// $? + $?---------------------> execution 
 Signals \\\\\\\\--------------->done
 cd --->half done
 unset $PATH the commands should not work;
 redirections
 doc
+shell level //////// 
