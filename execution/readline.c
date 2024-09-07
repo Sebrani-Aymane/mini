@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 22:42:18 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:08:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,20 @@ char **create_av(t_node *tokens)
 	return av;
 }
 
-void excutefilepath(t_line *final,char *path,char **env)
+void excutefilepath(t_line *final,env_vars *list,char **env)
 {
 	char *to_excute;
 	int i=0;
 	char **paths;
 	char *command_path;
+	char *path;
 	int ret =0;
 
 
 	char **av = create_av(final->tokens);
 	int lenght = ft_strlen(final->tokens->content);
 	
+	path = get_path_from_list(list);
 	command_path = malloc(lenght);
 	if (!command_path)
 		return;
@@ -102,7 +104,7 @@ void excutefilepath(t_line *final,char *path,char **env)
 	{
 		ret = execve(final->tokens->content, av, env);
 		if(ret == -1)
-			printf("bash: %s: No such file or directory\n",final->tokens->content);
+			printf("minishell: %s: No such file or directory\n",final->tokens->content);
 	}
 	
 	free_double(paths);

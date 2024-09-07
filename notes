@@ -4,6 +4,66 @@ exit check alpha ---------->done
 $? ///// $? + $?
 Signals \\\\\\\\
 cd --->half done
-unset $PATH the commands should not work;
+unset PATH the commands should not work ---->>>done;
 redirections
 doc
+
+
+
+
+ls $hghggh
+echo "$"HOME======\\\\\\\\\
+bash-3.2$ echo \$HOME $USER
+$HOME asebrani
+
+define SET 1
+define GET 2
+
+int exit_status(int type, int value)
+{
+	static int var = 0;
+
+	if (type == GET)
+		return (var);
+	else if (type == SET)
+	{
+		var = value;
+		return var;
+	}
+	return var;
+}
+
+exit_status(SET, 127);
+int d = exit_status(GET, 0)
+\\\\\\\\\\\\
+minishell$  ls $dsds
+ls: : No such file or directory
+minishell$  echo "'$HOME''$HOME'"
+'/Users/asebrani'
+minishell$  echo $HOME > f2
+/Users/asebrani > f2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\\\\\\\\\\\\

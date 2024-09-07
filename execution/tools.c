@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:32:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:53:58 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*get_path(char **envp,char *str)
 {
 	char	*path;
 	int i=0;
+	
 	if (!envp || !(*envp))
 		return(NULL);
 	while (envp[i] && strncmp(envp[i], str, 5) != 0)

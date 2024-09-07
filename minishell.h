@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 22:40:22 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:38:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
+#define GET 1
+#define SET 2
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 #include <string.h>
 #include <strings.h>
 #include <readline/readline.h>
@@ -69,7 +72,7 @@ typedef struct shell{
 }t_shell;
 
 void	clear_strss(char **strs, int n);
-void execute_the_thing(t_line *final,char **env,env_vars *list);
+int execute_the_thing(t_line *final,char **env,env_vars *list);
 void 	export_with_plus(char *av,env_vars *env);
 int ft_strcmp(char *str,char *str1);
 env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env);
@@ -97,7 +100,7 @@ char	*return_word(char *str, char c);
 char **joker(env_vars *list);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
 char *ret(char *in);
-void excutefilepath(t_line *final,char *path,char **env);
+void excutefilepath(t_line *final,env_vars *list,char **env);
 int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
@@ -109,13 +112,16 @@ void free_double(char **str);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
 int already_var(env_vars *list, char *str);
+
 char** split_by_first_occurrence(char *str, char delimiter);
 int already_vars(env_vars *list, char *str);
 env_vars *update_value(env_vars **list,char **str);
 char *ret(char *in);
 int	chdirr(char **env, t_line *final);
-void handle_pipe(t_line *final,char **env,env_vars *list);
+int handle_pipe(t_line *final,char **env,env_vars *list);
 int check_eccho(t_node *final);
+char *get_path_from_list(env_vars *list);
+int exit_status(int type, int value);
 //////////////////*PARSING*//////////////////////////
 
 

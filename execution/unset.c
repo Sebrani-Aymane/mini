@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 18:16:57 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:29:16 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void unset(env_vars *env, t_line *final)
 {
-    t_node *current = final->tokens->next;
-
-    while (current)
-    {
+        t_node *current;
         env_vars *curr = env;
         env_vars *prev = NULL;
 
+        if (final->tokens->next)
+            current = final->tokens->next;
+        else
+         return;
         while (curr)
         {
             if (ft_strcmp(curr->vars, current->content) == 0)
@@ -37,9 +38,8 @@ void unset(env_vars *env, t_line *final)
             prev = curr;
             curr = curr->next;
         }
-        current = current->next;
-    }
 }
+
 int check_exit_stat(t_line *final)
 {
     t_node *curr = final->tokens->next;
@@ -83,4 +83,17 @@ void exitt(env_vars *env, t_line *final)
         return ;
     }
     exit(num);
+}
+int exit_status(int type, int value)
+{
+	static int var = 0;
+
+	if (type == GET)
+		return (var);
+	else if (type == SET)
+	{
+		var = value;
+		return var;
+	}
+	return var;
 }

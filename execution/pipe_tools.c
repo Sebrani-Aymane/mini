@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/04 01:33:38 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:08:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_listsize(t_line *lst)
 {
 	int	i;
-
 	i = 0;
 	if (!lst)
 		return (0);
@@ -25,4 +24,21 @@ int	ft_listsize(t_line *lst)
 		i++;
 	}
 	return (i);
+}
+
+
+char *get_path_from_list(env_vars *list)
+{
+	char *path;
+	
+	while (list)
+	{
+		if(strcmp(list->vars,"PATH") == 0)
+		{
+			path = strdup(list->var_value);
+			return(path);
+		}
+		list = list-> next;
+	}
+	return(NULL);
 }
