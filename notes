@@ -1,12 +1,13 @@
 absolute path like /bin/ls ------->>>>> done
 -n in echo -->>>>done
 exit check alpha ---------->done
-$? ///// $? + $?
-Signals \\\\\\\\
+$? ///// $? + $?---------------------> execution 
+Signals \\\\\\\\--------------->done
 cd --->half done
 unset PATH the commands should not work ---->>>done;
 redirections
 doc
+<<<<<<< HEAD
 
 
 
@@ -42,28 +43,3 @@ minishell$  echo "'$HOME''$HOME'"
 '/Users/asebrani'
 minishell$  echo $HOME > f2
 /Users/asebrani > f2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\\\\\\\\\\\\
