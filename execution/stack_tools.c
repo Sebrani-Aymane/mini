@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:31:58 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:58:25 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,21 @@ int check_key(char *str)
 		i++;
 	}
 	return(1);
+}
+
+int check_builtin(t_line *final, env_vars *list,char **env)
+{
+	char **builtins;
+	int j = -1;
+	(void) list;
+		if (!get_path(env,"PATH="))
+			return 0;
+		builtins = split("cd echo pwd export unset env exit", ' ');
+		while (builtins[++j])
+		{
+			if (strcmp(final->tokens->content,builtins[j]) == 0)		
+				return(1);
+		}
+		free_double(builtins);
+		return(0);
 }

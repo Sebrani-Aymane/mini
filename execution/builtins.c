@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 15:30:34 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/08 19:06:57 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@
 void echoo(t_line *final)
 {
     int newline = 1; 
-	t_node *current = final->tokens->next;
+	t_node *current;
 	t_node* tmp;
-	tmp = current;
+	if (final->tokens->next)
+	{
+		current = final->tokens->next;
+		tmp = current;
+	}
+	else 
+		current = NULL;
 	if (check_eccho(current))
     {
 		while(check_eccho(current))
