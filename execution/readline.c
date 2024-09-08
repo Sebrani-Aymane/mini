@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 16:13:14 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/08 19:24:31 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,24 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
-	char **av = malloc (sizeof(char *) * (ft_lstsize(tokens) + 1));
+	int count = 0;
+	printf("here");
+	while (current && strlen(current->content) == 0)
+	{
+		count ++;
+		current = current->next;
+	}
+	char **av = malloc (sizeof(char *) * (count + 2));
 	int i = 0;
+	current = tokens;
 	while (current)
 	{
-		av[i] = strdup(current->content);
+		if (strlen(current->content) != 0)
+		{
+			av[i] = strdup(current->content);
+			i++;
+		}
 		current = current->next;
-		i++;
 	}
 	av[i] = NULL;
 	return av;

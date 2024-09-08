@@ -15,8 +15,10 @@ int can_expand(char *input)
             s_quote = !s_quote; 
 
         if (input[i] == '$' && (d_quote || (!s_quote && !d_quote)))
-            return (1);
-
+        {
+            // if (i != 0 && input[i - 1] != '\\')
+                return (1);
+        }
         i++;
     }
     return (0);
@@ -50,7 +52,10 @@ char *variable_name(char *input)
         i++;
     start = i + 1;
     i++;
-    while (input[i] && input[i] != ' ' && input[i] != '$')
+    while (input[i] && input[i] != ' ' && input[i] != '$' && 
+       input[i] != ';' && input[i] != '|' && input[i] != '<' &&
+       input[i] != '>' && input[i] != '&' && input[i] != '=' &&
+       input[i] != '"' && input[i] != '\'')
         i++;
     end = i - 1;
     if ((input[0] == '"' || input[0] == '\'') && input[i] == '\0')

@@ -12,18 +12,17 @@ doc
 
 
 
-ls $hghggh
+ls $hghggh////////////////// if strlen(final->token->content) == 0;
 echo "$"HOME======\\\\\\\\\-------->DONE;
 bash-3.2$ echo \$HOME $USER
 $HOME asebrani
-
 
 exit_status(SET, 127);
 int d = exit_status(GET, 0)
 \\\\\\\\\\\\
 minishell$  ls $dsds
 ls: : No such file or directory
-minishell$  echo "'$HOME''$HOME'" ///////////////
+minishell$  echo "'$HOME''$HOME'" ///////////////-------> done
 '/Users/asebrani'
 minishell$  echo $HOME > f2
 /Users/asebrani > f2
