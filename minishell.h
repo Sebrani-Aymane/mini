@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/07 22:38:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:07:50 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,5 @@ int	ft_lstsize(t_node *lst);
 int pipe_syntax(char *input);
 void open_files(t_line *lines);
 int	ft_atoi(const char *str);
+int dollar_inside_quotes_alone(char *content);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/06 22:48:53 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:30:34 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	chdirr(char **env,t_line *final)
 	int res = -1;
 	char *path;
 
-	path = get_path(env,"HOME=")
+	path = get_path(env,"HOME=");
 	if(!final->tokens->next)
 	{
 		res = chdir(path);

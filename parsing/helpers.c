@@ -67,3 +67,15 @@ int ft_strlen(char *str)
         i++;
     return i;
 }
+
+int dollar_inside_quotes_alone(char *content)
+{
+    int i = 1;
+    while(content[i] && content[i + 1])
+    {
+        if (content[i] == '$' && content[i - 1] == '"' && content[i + 1] == '"')
+            return 1;
+        i++;
+    }
+    return 0;
+}

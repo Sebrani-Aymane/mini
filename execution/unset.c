@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/07 22:29:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:40:58 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int check_exit_stat(t_line *final)
     t_node *curr = final->tokens->next;
     int i =0;
     
+    if (!curr)
+        return (0);
     while (curr ->content[i])
     {
         if (!ft_isalpha(curr->content[i]))

@@ -26,7 +26,7 @@ int dollars_number(char *content, int need_exp)
 {
     int i = 0;
     int counter = 0;
-    if (can_expand(content) && need_exp)
+    if (can_expand(content) && need_exp && !dollar_inside_quotes_alone(content))
     {
         while(content[i])
         {

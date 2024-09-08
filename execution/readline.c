@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/07 22:08:22 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:13:14 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void excutefilepath(t_line *final,env_vars *list,char **env)
 				free(to_excute);
 			i++;
 		}
+		free (to_excute);
 	}
 	else
 	{
@@ -106,7 +107,7 @@ void excutefilepath(t_line *final,env_vars *list,char **env)
 		if(ret == -1)
 			printf("minishell: %s: No such file or directory\n",final->tokens->content);
 	}
-	free (to_excute);
+	
 	free_double(paths);
 	free(command_path);
 	return;

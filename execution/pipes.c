@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/07 22:34:17 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:51:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 
 void handle_redirections(t_line *final)
 {
+	open_files(final);
+	printf("%d\n", final->fd_in );
+	printf("%d\n", final->fd_out );
     if(final->fd_in != 0)
 	{
     	dup2(0,final->fd_in);
-    	close(final->fd_in);
-    	close(0);
+
+
 	}
     if (final ->fd_out != 1)
 	{   
 		dup2(1,final->fd_out);
-    	close(final->fd_out);
-   		close(1);
+
     }    
 	return;
 }
@@ -91,8 +93,8 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 					dup2(fd[1], 1);
 					close(fd[1]);
 					close(fd[0]);
-				}
 				handle_redirections(final);
+				}
 				ret = execute_the_thing(final,env,list);
 			}
 			else
