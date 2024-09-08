@@ -106,7 +106,7 @@ void excutefilepath(t_line *final,env_vars *list,char **env)
 		if(ret == -1)
 			printf("minishell: %s: No such file or directory\n",final->tokens->content);
 	}
-	
+	free (to_excute);
 	free_double(paths);
 	free(command_path);
 	return;

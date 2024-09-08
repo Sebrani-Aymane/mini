@@ -16,8 +16,6 @@
 
 void handle_redirections(t_line *final)
 {
-	printf("%d\n",final->fd_in);
-	printf("%d\n",final->fd_out);
     if(final->fd_in != 0)
 	{
     	dup2(0,final->fd_in);
@@ -37,12 +35,11 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 {
 	char **builtins;
 	int j=-1;
-	char *str;
 	int i;
 	i = 1;
 	
-	str = get_path(env,"PATH=");
-	if (!str)
+	
+	if (!get_path(env,"PATH="))
 		return 0;
 	builtins = split("cd echo pwd export unset env exit", ' ');
 	while (builtins[++j])

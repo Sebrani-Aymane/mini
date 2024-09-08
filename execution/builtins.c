@@ -78,9 +78,14 @@ env_vars *envpp(env_vars *list)
 int	chdirr(char **env,t_line *final)
 {
 	int res = -1;
+	char *path;
 
+	path = get_path(env,"HOME=")
 	if(!final->tokens->next)
-		res = chdir(get_path(env,"HOME="));
+	{
+		res = chdir(path);
+		free (path);
+	}
 	else
 		res = chdir(final->tokens->content);
 	return(res);

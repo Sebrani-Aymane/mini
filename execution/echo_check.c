@@ -15,7 +15,7 @@
 int check_eccho(t_node *node)
 {
 	int i = 0;
-
+		printf("here");
 	if (node->content[i] == '-' && node->content[i + 1] == 'n')
 	{
 		i++;
