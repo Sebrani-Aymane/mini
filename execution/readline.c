@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/08 18:46:29 by asebrani         ###   ########.fr       */
-=======
 /*   Updated: 2024/09/08 19:24:31 by cbajji           ###   ########.fr       */
->>>>>>> 64879defa25b3b8bf4d0248f10e2c3d85e2d54d2
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <string.h>
 
-void execute_builtins(char* builtin, t_line *final, env_vars **list,char **env)
+env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env)
 {
 	(void)env;
 	int l = 0;
@@ -29,13 +25,13 @@ void execute_builtins(char* builtin, t_line *final, env_vars **list,char **env)
     else if (strcmp(builtin, "export") == 0)
 	{
 		if (!(final->tokens->next))
-			envpp(*list);
+			envpp(list);
 		else
-			export_all(*list,final);
+			export_all(list,final);
 	}
 	
 	else if (strcmp(builtin, "env") == 0)
-    	envpp(*list);
+    	envpp(list);
 	else if (strcmp(builtin, "cd") == 0)
 	{
 		l = chdirr(env,final);
@@ -44,12 +40,12 @@ void execute_builtins(char* builtin, t_line *final, env_vars **list,char **env)
 	}
 	else if (strcmp(builtin, "unset") == 0)
 	{
-		unset(*list, final);
+		unset(list, final);
 	}
 	else if (strcmp(builtin, "exit") == 0)
 		exit(0);
+	return(list);
 }
-
 char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
@@ -76,7 +72,7 @@ char **create_av(t_node *tokens)
 	return av;
 }
 
-int excutefilepath(t_line *final,env_vars *list,char **env)
+void excutefilepath(t_line *final,env_vars *list,char **env)
 {
 	char *to_excute;
 	int i=0;
@@ -92,20 +88,21 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	path = get_path_from_list(list);
 	command_path = malloc(lenght);
 	if (!command_path)
-		return -1;
+		return;
 	paths = split(path, ':');
+	
 	if (final->tokens->content[i] != '/')
 	{
 		command_path  = str_joiner("/",final->tokens->content);
 		int lenght1= ft_strlen(command_path);
 		if (!paths)
-			return -1;
+			return;
 		while(paths[i])
 		{
 			lenght = ft_strlen(paths[i]);
 			to_excute = malloc(lenght + lenght1);
 			if (!to_excute)
-				return -1;
+				return;
 			to_excute = str_joiner(paths[i],command_path);
 			if (access(to_excute, X_OK) == 0)
 				execve(to_excute, av, env); 
@@ -113,6 +110,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 				free(to_excute);
 			i++;
 		}
+		free (to_excute);
 	}
 	else
 	{
@@ -120,9 +118,10 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		if(ret == -1)
 			printf("minishell: %s: No such file or directory\n",final->tokens->content);
 	}
+	
 	free_double(paths);
 	free(command_path);
-	return 2;
+	return;
 }
 
 void free_double(char **str)
