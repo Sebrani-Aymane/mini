@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 18:57:55 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:53:27 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 		}
 		}
 		else
-			execute_builtins(final->tokens->content,final,&list,env);
+			execute_builtins(final->tokens->content,final,list,env);
 }
 	while (pipes_count-- > 0)
 		wait(NULL);

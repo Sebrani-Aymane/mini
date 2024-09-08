@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 19:24:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/08 19:54:34 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char **create_av(t_node *tokens)
 	return av;
 }
 
-void excutefilepath(t_line *final,env_vars *list,char **env)
+int excutefilepath(t_line *final,env_vars *list,char **env)
 {
 	char *to_excute;
 	int i=0;
@@ -88,7 +88,7 @@ void excutefilepath(t_line *final,env_vars *list,char **env)
 	path = get_path_from_list(list);
 	command_path = malloc(lenght);
 	if (!command_path)
-		return;
+		return 0;
 	paths = split(path, ':');
 	
 	if (final->tokens->content[i] != '/')
@@ -96,13 +96,13 @@ void excutefilepath(t_line *final,env_vars *list,char **env)
 		command_path  = str_joiner("/",final->tokens->content);
 		int lenght1= ft_strlen(command_path);
 		if (!paths)
-			return;
+			return 0 ;
 		while(paths[i])
 		{
 			lenght = ft_strlen(paths[i]);
 			to_excute = malloc(lenght + lenght1);
 			if (!to_excute)
-				return;
+				return 0;
 			to_excute = str_joiner(paths[i],command_path);
 			if (access(to_excute, X_OK) == 0)
 				execve(to_excute, av, env); 
@@ -121,7 +121,7 @@ void excutefilepath(t_line *final,env_vars *list,char **env)
 	
 	free_double(paths);
 	free(command_path);
-	return;
+	return ret;
 }
 
 void free_double(char **str)

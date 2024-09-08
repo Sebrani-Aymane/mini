@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 16:35:46 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:53:18 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	clear_strss(char **strs, int n);
 int execute_the_thing(t_line *final,char **env,env_vars *list);
 void 	export_with_plus(char *av,env_vars *env);
 int ft_strcmp(char *str,char *str1);
-void execute_builtins(char* builtin, t_line *final, env_vars **list,char **env);
+env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env);
 void valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);
 void piipe(env_vars *list,char **av,char **env);
@@ -100,7 +100,7 @@ char	*return_word(char *str, char c);
 char **joker(env_vars *list);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
 char *ret(char *in);
-int excutefilepath(t_line *final,env_vars *list,char **env);
+int  excutefilepath(t_line *final,env_vars *list,char **env);
 int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
