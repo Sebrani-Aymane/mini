@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 19:54:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:05:32 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ char **create_av(t_node *tokens)
 	t_node *current = tokens;
 	int count = 0;
 	printf("here");
-	while (current && strlen(current->content) == 0)
+	while (current && strlen(current->content) != 0)
 	{
 		count ++;
 		current = current->next;
 	}
-	char **av = malloc (sizeof(char *) * (count + 2));
+	char **av = malloc (sizeof(char *) * (count + 1));
 	int i = 0;
 	current = tokens;
 	while (current)
