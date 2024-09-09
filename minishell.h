@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 19:53:18 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:29:25 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ typedef struct shell{
 	int fd_in;
 	int fd_out;
 }t_shell;
+
+typedef struct s_coll{
+    void *ptr;
+    struct s_coll *next;
+} t_coll;
 
 void	clear_strss(char **strs, int n);
 int execute_the_thing(t_line *final,char **env,env_vars *list);
@@ -149,6 +154,7 @@ t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
 int pipe_syntax(char *input);
 void open_files(t_line *lines);
+void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
 int dollar_inside_quotes_alone(char *content);
 #endif

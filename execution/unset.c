@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 15:40:58 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:35:23 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,22 @@ void exitt(env_vars *env, t_line *final)
         if (!check_exit_stat(final))
         {
             printf("minishell$: exit: %s: numeric argument required",current->content);
+            c_malloc(0, 0);
             exit (255);
         }
         num = ft_atoi(current->content);
     }
     else if (!current)
+    {
+        c_malloc(0, 0);
         exit (0);
+    }
     if (current->next)
     {
         printf("minishell$: exit: too many arguments\n");
         return ;
     }
+    c_malloc(0, 0);
     exit(num);
 }
 int exit_status(int type, int value)

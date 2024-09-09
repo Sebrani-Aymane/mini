@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/05 17:20:15 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:30:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,14 @@ t_line *create_line(t_node *node)
     t_node *first = NULL;
     t_node *last = NULL;
 
-    line = malloc(sizeof(t_line));
+    line = c_malloc(sizeof(t_line), 1);
     if (!line)
         return NULL;
     line->tokens = NULL;
     
     while (current && strcmp(current->content, "|") != 0)
     {
-        t_node *new_node = malloc(sizeof(t_node));
+        t_node *new_node = c_malloc(sizeof(t_node), 1);
         if (!new_node)
             return NULL;
         new_node->content = current->content; 

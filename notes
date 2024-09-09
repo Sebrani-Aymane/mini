@@ -26,3 +26,8 @@ minishell$  echo "'$HOME''$HOME'" ///////////////-------> done
 '/Users/asebrani'
 minishell$  echo $HOME > f2
 /Users/asebrani > f2
+    ``
+minishell$  echo -n
+0
+1
+[1]    24161 segmentation fault  ./minishell

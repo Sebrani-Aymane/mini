@@ -73,7 +73,7 @@ int validate_redirection_syntax(char *input)
             i++;
             while (input[i] == ' ')
                 i++;
-            if (input[i] == '\0' || (is_redirection_op(input[i]) && input[i - 1] == ' '))
+            if (input[i] == '\0' || (is_redirection_op(input[i]) && input[i - 1] == ' ') || input[i] == '|')
             {
                 printf("Syntax error: Invalid redirection\n");
                 return 0;
@@ -84,7 +84,7 @@ int validate_redirection_syntax(char *input)
         }
         i++;
     }
-    if (is_redirection_op(input[0]) || is_redirection_op(input[i - 1]) || more_than_op(input))
+    if (is_redirection_op(input[i - 1]) || more_than_op(input))
     {
         printf("Redirection error\n");
         return 0;

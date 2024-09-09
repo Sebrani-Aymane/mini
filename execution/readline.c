@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 20:05:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:36:07 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 		unset(list, final);
 	}
 	else if (strcmp(builtin, "exit") == 0)
+	{
+		c_malloc(0, 0);
 		exit(0);
+	}
 	return(list);
 }
 char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
 	int count = 0;
-	printf("here");
 	while (current && strlen(current->content) != 0)
 	{
 		count ++;

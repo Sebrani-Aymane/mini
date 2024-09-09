@@ -10,9 +10,10 @@ char **copy_env(char **env)
     size = 0;
     while (env[size])
         size++;
-    to_copy = malloc (sizeof(char *) * (size + 1));
+    to_copy = c_malloc ((sizeof(char *) * (size + 1)), 1);
     if (!to_copy)
     {
+        c_malloc(0, 0);
         exit(1);
     }
     
@@ -39,6 +40,7 @@ void display_prompt(t_list shell, char **env)
         if (input == NULL)
         {
             printf("exit\n");
+            c_malloc(0, 0);
             exit(0);
         }
         else if (ft_strlen(input) == 0)

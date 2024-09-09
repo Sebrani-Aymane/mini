@@ -64,7 +64,7 @@ char *variable_name(char *input)
             end--;
     }
     len = end - start + 1;
-    char *var_name = malloc(sizeof(char) * (len + 1));
+    char *var_name = c_malloc((sizeof(char) * (len + 1)), 1);
     if (var_name) {
         strncpy(var_name, input + start, len);
         var_name[len] = '\0';
@@ -84,7 +84,7 @@ char *get_value(char **env_vars, int len, char *name)
             j = len + 1;
             while (env_vars[i][j])
                 j++;
-            char *value = malloc(sizeof(char) * (j - len));
+            char *value =c_malloc((sizeof(char) * (j - len)), 1);
             if (!value)
                 return (NULL);
             strncpy(value, env_vars[i] + len + 1, j - len - 1);
@@ -115,7 +115,7 @@ char *replace_value(char *token, char *value, char *name)
         ignore_dollar = (pos - token) - 1;
         new_token_len = (token_len - name_len - 1) + value_len;
     }
-    char *new_token = malloc (sizeof(char) * new_token_len + 1);
+    char *new_token = c_malloc ((sizeof(char) * new_token_len + 1), 1);
 
     strncpy(new_token, token, ignore_dollar);
     new_token[ignore_dollar] = '\0';

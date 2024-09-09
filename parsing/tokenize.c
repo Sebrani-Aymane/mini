@@ -69,7 +69,7 @@ char *cat_token(char *input, int start, int end)
     char *token;
     int i = 0;
     int len = end - start + 1;
-    token = malloc (sizeof(char) * len);
+    token = c_malloc ((sizeof(char) * len), 1);
     while (start < end)
     {
         token[i] = input[start];
@@ -91,10 +91,10 @@ t_token **into_tokens(char *input)
     i = 0;
     start = 0;
     count = tokens_number(input);
-    tokens = malloc(sizeof(t_token *) * (count + 1));
+    tokens = c_malloc((sizeof(t_token *) * (count + 1)), 1);
     while (i < count)
     {
-        tokens[i] = malloc(sizeof(t_token));
+        tokens[i] = c_malloc(sizeof(t_token), 1);
         if (start == 0)
             last_start = 0;
         else

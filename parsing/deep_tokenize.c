@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/06 15:53:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:33:31 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void divide_and_add(t_node **list, char *content)
             if (i > start)
             {
                 int len = i - start;
-                token = malloc(sizeof(char) * (len + 1));
+                token = c_malloc((sizeof(char) * (len + 1)), 1);
                 if (!token) return; 
                 strncpy(token, content + start, len);
                 token[len] = '\0';
@@ -60,7 +60,7 @@ void divide_and_add(t_node **list, char *content)
 
             if (content[i + 1] == content[i])
             {
-                token = malloc(sizeof(char) * 3);
+                token = c_malloc((sizeof(char) * 3), 1);
                 if (!token) return; 
                 token[0] = content[i];
                 token[1] = content[i];
@@ -70,7 +70,7 @@ void divide_and_add(t_node **list, char *content)
             }
             else 
             {
-                token = malloc(sizeof(char) * 2);
+                token = c_malloc((sizeof(char) * 2), 1);
                 if (!token) return; 
                 token[0] = content[i];
                 token[1] = '\0';
@@ -89,7 +89,7 @@ void divide_and_add(t_node **list, char *content)
     if (i > start)
     {
         int len = i - start;
-        token = malloc(sizeof(char) * (len + 1));
+        token = c_malloc((sizeof(char) * (len + 1)), 1);
         if (!token) return; 
         strncpy(token, content + start, len);
         token[len] = '\0';

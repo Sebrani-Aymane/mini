@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:20:17 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/06 18:07:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:31:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_node	*ft_lstnew(char *content)
 {
 	t_node	*head;
 
-	head = malloc(sizeof(t_node));
+	head = c_malloc(sizeof(t_node), 1);
 	if (!head)
 		return (NULL);
 	head->content = content;
