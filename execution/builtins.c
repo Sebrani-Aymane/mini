@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 19:06:57 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:33:48 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 void echoo(t_line *final)
 {
-    int newline = 1; 
+    int newline = 1;
+	int i =0;
 	t_node *current;
 	t_node* tmp;
 	if (final->tokens->next)
@@ -37,11 +38,14 @@ void echoo(t_line *final)
 	current = tmp;
     while (current)
 	{
-        printf("%s", current->content);
-        if (current->next)
-		{ 
-            printf(" ");
-        }
+		if (current->content[i])
+		{
+       		printf("%s", current->content);
+        	if (current->next)
+			{ 
+        	    printf(" ");
+        	}
+		}
         current = current->next;
 	}
     if (newline)

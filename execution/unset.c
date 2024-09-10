@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/09 16:35:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/10 03:57:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,36 @@
 void unset(env_vars *env, t_line *final)
 {
         t_node *current;
-        env_vars *curr = env;
+        env_vars *curr;
         env_vars *prev = NULL;
 
         if (final->tokens->next)
             current = final->tokens->next;
         else
-         return;
-        while (curr)
+            return;
+        while (current)
         {
-            if (ft_strcmp(curr->vars, current->content) == 0)
+            if (!env)
+                return;
+            curr = env;
+            while (curr)
             {
-                if (prev == NULL)
-                    env = curr->next; 
-                else
-                    prev->next = curr->next;
-                free(curr->vars);
-                free(curr->var_value);
-                free(curr);
-                break;
+                if (ft_strcmp(curr->vars, current->content) == 0)
+                {
+                    if (prev == NULL)
+                        env = curr->next; 
+                    else
+                        prev->next = curr->next;
+                    free(curr->vars);
+                    free(curr->var_value);
+                    free(curr);
+                }
+                prev = curr;
+                curr = curr->next;
             }
-            prev = curr;
-            curr = curr->next;
+            current = current->next;
         }
 }
-
 int check_exit_stat(t_line *final)
 {
     t_node *curr = final->tokens->next;
@@ -60,6 +65,9 @@ void exitt(env_vars *env, t_line *final)
     int num = 0;
     env_vars *temp;
     t_node *current = final->tokens->next;
+    exit(22);
+    if (env)
+    {
     while(env)
     {
         temp = env->next;  
@@ -68,27 +76,23 @@ void exitt(env_vars *env, t_line *final)
         free(env);                   
         env = temp;
     }
+    }
     if (current)
     {
         if (!check_exit_stat(final))
         {
             printf("minishell$: exit: %s: numeric argument required",current->content);
-            c_malloc(0, 0);
             exit (255);
         }
         num = ft_atoi(current->content);
     }
     else if (!current)
-    {
-        c_malloc(0, 0);
-        exit (0);
-    }
+        exit(0);
     if (current->next)
     {
         printf("minishell$: exit: too many arguments\n");
         return ;
     }
-    c_malloc(0, 0);
     exit(num);
 }
 int exit_status(int type, int value)

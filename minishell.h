@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 21:29:25 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/10 07:12:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_line
     t_node *tokens;
     int fd_in;
 	int fd_out;
+    int default_in;
+    int default_out;
     struct s_line *next;
 } t_line;
 
@@ -127,6 +129,7 @@ int handle_pipe(t_line *final,char **env,env_vars *list);
 int check_eccho(t_node *final);
 char *get_path_from_list(env_vars *list);
 int exit_status(int type, int value);
+void handle_redirections(t_line *final);
 //////////////////*PARSING*//////////////////////////
 
 

@@ -22,12 +22,11 @@ int d = exit_status(GET, 0)
 \\\\\\\\\\\\
 minishell$  ls $dsds
 ls: : No such file or directory
-minishell$  echo "'$HOME''$HOME'" ///////////////-------> done
-'/Users/asebrani'
-minishell$  echo $HOME > f2
-/Users/asebrani > f2
-    ``
-minishell$  echo -n
-0
-1
-[1]    24161 segmentation fault  ./minishell
+
+ exit
+=================================================================
+==10504==ERROR: AddressSanitizer: attempting double-free on 0x602000000930 in thread T0:
+    #0 0x1016c12c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x10165e1f8 in ft_collclear allocate_free.c:53
+    #2 0x10165e2e6 in c_malloc allocate_free.c:79
+    #3 0x10165fd31 in execute_builtins readline.c:47
