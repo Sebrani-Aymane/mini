@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/10 09:05:45 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/10 22:29:16 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 
 	char **av = create_av(final->tokens);
 	int lenght = ft_strlen(final->tokens->content);
-	
 	path = get_path_from_list(list);
 	command_path = malloc(lenght);
 	if (!command_path)
 		return 0;
 	paths = split(path, ':');
+
 	if (final->tokens->content[i] != '/')
 	{
 

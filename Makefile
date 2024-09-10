@@ -1,5 +1,5 @@
 CC = cc
-FLAGS =  -g -Wall -Wextra -Werror  -fsanitize=address
+FLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
 RFLAGS = -lreadline -lncurses
 NAME = minishell
 SRC = ./parsing/check_errors.c ./parsing/init_shell.c ./parsing/minishell.c ./parsing/tokenize.c ./parsing/helpers.c ./parsing/expand.c ./parsing/expand_home.c ./parsing/deep_tokenize.c ./parsing/libft_functions.c ./parsing/parse.c ./parsing/open_files.c ./parsing/allocate_free.c\

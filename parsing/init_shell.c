@@ -43,11 +43,13 @@ void display_prompt(t_list shell, char **env)
             c_malloc(0, 0);
             exit(0);
         }
-        else if (ft_strlen(input) == 0)
+        if (ft_strlen(input) == 0)
         {
             free(input);
             continue;
         }
+        
+        printf("here\n");
         add_history(input);
         if (check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
             continue;
