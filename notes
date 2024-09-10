@@ -23,6 +23,8 @@ int d = exit_status(GET, 0)
 minishell$  ls $dsds
 ls: : No such file or directory
 
+
+\\\\\\\\\\\\\
  exit
 =================================================================
 ==10504==ERROR: AddressSanitizer: attempting double-free on 0x602000000930 in thread T0:
@@ -30,3 +32,6 @@ ls: : No such file or directory
     #1 0x10165e1f8 in ft_collclear allocate_free.c:53
     #2 0x10165e2e6 in c_malloc allocate_free.c:79
     #3 0x10165fd31 in execute_builtins readline.c:47
+
+    work on the double free u exit for no reason .. stop changing on my part of the code "
+    \\\\\\\\\\\\\\\\\\\\\\\\
