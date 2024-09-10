@@ -1,3 +1,0 @@
-hello
-minishell$  
-minishell$  exit
