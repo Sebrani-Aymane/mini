@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/09 23:33:48 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/11 00:53:15 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void echoo(t_line *final)
 	current = tmp;
     while (current)
 	{
-		if (current->content[i])
+		if (current->content[i] && (current->type == 1 || current->type == 2))
 		{
        		printf("%s", current->content);
         	if (current->next)

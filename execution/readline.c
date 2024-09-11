@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/10 22:29:16 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/11 01:01:27 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,18 @@ char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
 	int count = 0;
-	while (current && strlen(current->content) != 0)
+	char **av ;
+	int i = 0;
+	while (current && strlen(current->content) != 0 && (current->type == 1 || current->type == 2))
 	{
 		count ++;
 		current = current->next;
 	}
-	char **av = malloc (sizeof(char *) * (count + 1));
-	int i = 0;
+	av = malloc (sizeof(char *) * (count + 1));
 	current = tokens;
 	while (current)
 	{
-		if (strlen(current->content) != 0)
+		if (strlen(current->content) != 0  && (current->type == 1 || current->type == 2))
 		{
 			av[i] = strdup(current->content);
 			i++;
@@ -125,7 +126,6 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			printf("minishell: %s: No such file or directory\n",final->tokens->content);
 			return 0;
 		}
-		
 	}
 	if (paths || command_path || av)
 	{

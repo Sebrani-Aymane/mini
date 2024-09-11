@@ -48,8 +48,6 @@ void display_prompt(t_list shell, char **env)
             free(input);
             continue;
         }
-        
-        printf("here\n");
         add_history(input);
         if (check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
             continue;

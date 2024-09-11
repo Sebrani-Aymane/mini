@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/05 20:39:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/11 00:26:10 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int out_file(t_line *line)
         if (current->type == 5 && current->next->type == 5)
         {
             if (!strcmp(current->content, ">"))
-                line->fd_out = open(current->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+                line->fd_out = open(current->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0644);
             else
-                line->fd_out = open(current->next->content, O_WRONLY | O_APPEND | O_CREAT, 0666);
+                line->fd_out = open(current->next->content, O_WRONLY | O_APPEND | O_CREAT, 0644);
             if (line->fd_out == -1)
                 return (0);
         }
@@ -46,7 +46,7 @@ int out_file(t_line *line)
     }
     return (1);
 }
-
+//TODO: close prev files
 void open_files(t_line *lines)
 {
     t_line *current = lines;
