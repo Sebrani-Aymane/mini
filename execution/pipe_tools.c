@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/07 20:08:51 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/11 01:12:42 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,4 @@ char *get_path_from_list(env_vars *list)
 	}
 	return(NULL);
 }
+

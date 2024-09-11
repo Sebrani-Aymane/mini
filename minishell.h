@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/10 07:12:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/11 01:46:15 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int check_eccho(t_node *final);
 char *get_path_from_list(env_vars *list);
 int exit_status(int type, int value);
 void handle_redirections(t_line *final);
+int check_file_path(t_line *final);
 //////////////////*PARSING*//////////////////////////
 
 

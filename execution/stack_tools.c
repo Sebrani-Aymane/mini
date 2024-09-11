@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/10 04:10:55 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/11 01:48:09 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ int check_builtin(t_line *final, env_vars *list,char **env)
 		}
 		free_double(builtins);
 		return(0);
+}
+int check_file_path(t_line *final)
+{
+	t_node *current = final->tokens;
+	int i = 0;
+	if (!current->content)
+		return(0);
+	while (current ->content[i])
+	{
+		if (current->content[i] == '/')
+			return(1);
+		i++;
+	}
+	return(0);
 }

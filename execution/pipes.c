@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 01:00:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/11 01:38:17 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void handle_redirections(t_line *final)
 
 int execute_the_thing(t_line *final,char **env,env_vars *list)
 {
+	int fd_in;
+
+	fd_in = dup(0);
 	int i =0;
-	if (check_builtin(final, list, env)){
+	if (check_builtin(final, list, env))
+	{
 		execute_builtins(final->tokens->content ,final, list,env);
 		exit(0); // exit with exit status
 	}
@@ -44,10 +48,12 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 			if (i == 2)
 			{
 				fprintf(stderr,"minishell; %s: command not found\n",final->tokens->content);
-				return(127);
+				dup2(fd_in,0);
+				close(fd_in);
+				exit(127);
 			}
 		}
-		return 0;
+	return 0;
 }
 
 int handle_pipe(t_line *final,char **env,env_vars *list)
@@ -57,7 +63,7 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	int pipes_count;
 	int fd[2];
 	int ret = 0;
-
+	int fd_in = dup(0);
 	pipes_count = ft_listsize(final);
 	if (pipes_count == 1 && check_builtin(final,list,env))
 	{
@@ -121,5 +127,7 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	}
 	while (pipes_count-- > 0)
 		wait(NULL);
+	dup2(fd_in,0);
+	close(fd_in);
 	return(ret);
 }

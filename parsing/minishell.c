@@ -19,8 +19,4 @@ int main(int ac, char **av, char **env)
     shell.env_var = copy_env(env);
     handle_signals();
     display_prompt(shell, env);
-    
-    
-
-    
 }
