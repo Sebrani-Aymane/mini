@@ -35,3 +35,6 @@ ls: : No such file or directory
 
     work on the double free u exit for no reason .. stop changing on my part of the code "
     \\\\\\\\\\\\\\\\\\\\\\\\
+
+segfault : ls $asfga ls ----> fixed
+

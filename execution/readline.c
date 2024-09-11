@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 01:52:25 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:43:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,12 @@ char **create_av(t_node *tokens)
 	char **av ;
 	int i = 0;
 
-	while (current && strlen(current->content) != 0 && (current->type == 1 || current->type == 2))
+	while (current)
 	{
-		count ++;
+		if (strlen(current->content) != 0  && (current->type == 1 || current->type == 2))
+		{
+			count++;
+		}
 		current = current->next;
 	}
 	av = malloc (sizeof(char *) * (count + 1));
