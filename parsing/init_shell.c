@@ -26,6 +26,38 @@ char **copy_env(char **env)
     return (to_copy);
 }
 
+int get_shlvl(char **env)
+{
+    int i;
+    int shlvl;
+    char *temp = NULL;
+    
+    i = 0;
+    while (env && env[i])
+    {
+        if (!strncmp(env[i], "SHLVL", 5))
+        {
+            temp = env[i];
+            break;
+        }
+        i++;
+    }
+    while (*temp != '=')
+        temp++;
+    temp++;
+    shlvl = ft_atoi(temp);
+}
+void set_shlvl(t_list shell)
+{
+    char *final;
+    char *nbr;
+
+    nbr = ft_itoa(shell.shlvl);
+    final = ft_strjoin("SHLVL=", nbr);
+    //need help from ayman to export it;
+
+}
+
 void display_prompt(t_list shell, char **env)
 {
     char *input;
@@ -57,7 +89,6 @@ void display_prompt(t_list shell, char **env)
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
         lines = tokens_to_lines(list);
-        // open_files(lines);
         handle_pipe(lines,env,liiiist);
     }
 }

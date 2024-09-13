@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 01:46:15 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:49:26 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_list
 {
     char **env_var;
     t_token **tokens;
+    int shlvl;
 } t_list;
 
 typedef struct s_node
@@ -161,4 +162,8 @@ void open_files(t_line *lines);
 void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
 int dollar_inside_quotes_alone(char *content);
+int get_shlvl(char **env);
+void set_shlvl(t_list shell);
+char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
 #endif

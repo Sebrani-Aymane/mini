@@ -17,6 +17,8 @@ int main(int ac, char **av, char **env)
     (void)av;
     (void)ac;
     shell.env_var = copy_env(env);
+    shell.shlvl = get_shlvl(shell.env_var);
+    set_shlvl(shell);
     handle_signals();
     display_prompt(shell, env);
 }
