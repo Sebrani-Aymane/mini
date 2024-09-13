@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 01:48:09 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:42:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int check_builtin(t_line *final, env_vars *list,char **env)
 		while (builtins[++j])
 		{
 			if (strcmp(final->tokens->content,builtins[j]) == 0)
+			{
+				free_double(builtins);
 				return(1);
+			}
 		}
 		free_double(builtins);
 		return(0);

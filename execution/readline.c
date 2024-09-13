@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 19:43:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/12 23:59:34 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,9 @@ char **create_av(t_node *tokens)
 	char **av ;
 	int i = 0;
 
-	while (current)
+	while (current && strlen(current->content) != 0 && (current->type == 1 || current->type == 2))
 	{
-		if (strlen(current->content) != 0  && (current->type == 1 || current->type == 2))
-		{
-			count++;
-		}
+		count ++;
 		current = current->next;
 	}
 	av = malloc (sizeof(char *) * (count + 1));
@@ -102,10 +99,8 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		int lenght1= ft_strlen(command_path);
 		if (!paths)
 			return 2 ;
-
 		while(paths[i])
 		{
-
 			lenght = ft_strlen(paths[i]);
 			to_excute = malloc(lenght + lenght1);
 			if (!to_excute)
@@ -113,20 +108,38 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			to_excute = str_joiner(paths[i],command_path);
 
 			if (access(to_excute, X_OK) == 0)
-				execve(to_excute, av, env); 
+			{
+				if (paths && command_path)
+				{
+					free(command_path);
+					free (path);
+					free_double(paths);
+				}
+				execve(to_excute, av, env);
+			}
 			else
-				{free(to_excute);to_excute =NULL;}
+				{
+					free(to_excute);
+					to_excute =NULL;
+				}
 			i++;
 
 		}
 		if (to_excute)
-			free (to_excute);
+			free(to_excute);
 	}
 	else
 	{
 		ret = execve(final->tokens->content, av, env);
 		if(ret == -1)
 		{
+			if (access(to_excute, W_OK) != 0)
+			{
+				fprintf(stderr,"minishell: %s: is adirectory\n",final->tokens->content);
+				dup2(fd_in,0);
+				close(fd_in);
+				exit(0);
+			}
 			fprintf(stderr,"minishell: %s: No such file or directory\n",final->tokens->content);
 			dup2(fd_in,0);
 			close(fd_in);

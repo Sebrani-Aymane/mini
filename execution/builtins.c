@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 01:32:13 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/13 00:03:05 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <errno.h>
 #include <stdio.h>
 
-void echoo(t_line *final)
+void	echoo(t_line *final)
 {
-    int newline = 1;
+	int newline = 1;
 	int i =0;
 	t_node *current;
 	t_node* tmp;

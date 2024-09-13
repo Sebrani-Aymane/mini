@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/11 19:32:35 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/13 00:45:23 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 			{
 				if (pipes_count - 1 > 0)
 				{
-					if (dup2(fd[0], 0))
+					if (dup2(fd[0],0))
 						return(fprintf(stderr,"error in dup2"),-1);
 					close(fd[1]); 
 					close(fd[0]);
