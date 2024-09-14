@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/13 12:49:26 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/14 05:57:10 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void echoo(t_line *final);
 void pwdd(int a);
 env_vars *envpp(env_vars *list);
 void export_all(env_vars *env, t_line *final);
-int	ft_strlen(char *str);
+int ft_strlenn(char *str);
 void export_it(env_vars *env, char *str);
 char	*get_path(char **envp,char *str);
 int	count_words(char *str, char c);
@@ -132,6 +132,8 @@ char *get_path_from_list(env_vars *list);
 int exit_status(int type, int value);
 void handle_redirections(t_line *final);
 int check_file_path(t_line *final);
+void handle_herdoc(t_line *final);
+
 //////////////////*PARSING*//////////////////////////
 
 

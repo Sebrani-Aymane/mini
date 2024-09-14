@@ -47,6 +47,7 @@ int get_shlvl(char **env)
     temp++;
     shlvl = ft_atoi(temp);
 }
+
 void set_shlvl(t_list shell)
 {
     char *final;
@@ -54,8 +55,7 @@ void set_shlvl(t_list shell)
 
     nbr = ft_itoa(shell.shlvl);
     final = ft_strjoin("SHLVL=", nbr);
-    //need help from ayman to export it;
-
+    //need help from ayman to export it;// no thanks ask ali ;)
 }
 
 void display_prompt(t_list shell, char **env)
@@ -89,6 +89,7 @@ void display_prompt(t_list shell, char **env)
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
         lines = tokens_to_lines(list);
+        //handle_herdoc(lines);
         handle_pipe(lines,env,liiiist);
     }
 }

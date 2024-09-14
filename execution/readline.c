@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/12 23:59:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/14 00:54:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 	}
 	else if (strcmp(builtin, "exit") == 0)
 		exitt(list, final);
-
 	return(list);
 }
 
@@ -81,12 +80,11 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	char **paths;
 	char *command_path;
 	char *path;
-	int fd_in = dup (0);
+	int fd_in = dup(0);
 	int ret = 2 ;
 
-
 	char **av = create_av(final->tokens);
-	int lenght = ft_strlen(final->tokens->content);
+	int lenght = ft_strlenn(final->tokens->content);
 	path = get_path_from_list(list);
 	command_path = malloc(lenght);
 	if (!command_path)
@@ -106,14 +104,12 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			if (!to_excute)
 				return 2;
 			to_excute = str_joiner(paths[i],command_path);
-
 			if (access(to_excute, X_OK) == 0)
 			{
 				if (paths && command_path)
 				{
 					free(command_path);
 					free (path);
-					free_double(paths);
 				}
 				execve(to_excute, av, env);
 			}

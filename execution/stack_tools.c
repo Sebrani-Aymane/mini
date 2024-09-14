@@ -6,12 +6,12 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/12 23:42:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/14 01:15:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+#include "stdbool.h"
 
 int	ft_isalpha(int c)
 {
@@ -21,17 +21,31 @@ int	ft_isalpha(int c)
 		return (0);
 }
 
+bool is_space(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] == '\0' ||str[i] == '\t' ||str[i] == '\n'  || str[i] == '\v'
+		|| str[i] == '\f' ||str[i] == '\r')
+		return true;
+	return false;
+}
+
 int check_key(char *str)
 {
 	int i = 0;
+	
 	if (!str)
-		return (printf("'%s' not a valid identifier1\n", str),0);
+		return (printf("'%s' not a valid identifier\n", str),0);
+	if (is_space(str))
+		printf("'%s' not a valid identifier\n", str);
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
 		return (0);
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return(printf("'%s' not a valid identifier2\n",str),0);
+			return(printf("'%s' not a valid identifier\n",str),0);
 		i++;
 	}
 	return(1);

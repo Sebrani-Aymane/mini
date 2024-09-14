@@ -23,19 +23,19 @@ int d = exit_status(GET, 0)
 minishell$  ls $dsds
 ls: : No such file or directory
 
-
-\\\\\\\\\\\\\
- exit
+/////  ""
 =================================================================
-==10504==ERROR: AddressSanitizer: attempting double-free on 0x602000000930 in thread T0:
-    #0 0x1016c12c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
-    #1 0x10165e1f8 in ft_collclear allocate_free.c:53
-    #2 0x10165e2e6 in c_malloc allocate_free.c:79
-    #3 0x10165fd31 in execute_builtins readline.c:47
+==81535==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000001930 at pc 0x000102b19c55 bp 0x7ffeed0ea020 sp 0x7ffeed0ea018
+READ of size 1 at 0x602000001930 thread T0
+    #0 0x102b19c54 in ft_strlen helpers.c:66
+    #1 0x102b2385c in str_joiner split.c:60
+    #2 0x102b24342 in excutefilepath readline.c:106
+    #3 0x102b20bff in execute_the_thing pipes.c:47
+    #4 0x102b2153d in handle_pipe pipes.c:106
+    #5 0x102b18321 in display_prompt init_shell.c:94
+    #6 0x102b1852a in main minishell.c:23
+    #7 0x7fff6b9c6cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
 
-    work on the double free u exit for no reason .. stop changing on my part of the code "
-    \\\\\\\\\\\\\\\\\\\\\\\\
-
-segfault : ls $asfga ls ----> fixed
-
+0x602000001930 is located 0 bytes inside of 2-byte region [0x602000001930,0x602000001932)
+freed by thread T0 here:
 ////gonna code the shell level , it wont change anything in your part

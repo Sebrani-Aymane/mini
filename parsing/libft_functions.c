@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:20:17 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/13 12:49:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/14 00:02:40 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		j;
 
 	i = 0;
-	sizetotal = ft_strlen(s1) + ft_strlen(s2);
+	sizetotal = ft_strlen((char *)s1) + ft_strlen((char*)s2);
 	res = malloc(sizeof(char) * (sizetotal + 1));
 	if (!res || !s1 || !s2)
 		return (NULL);

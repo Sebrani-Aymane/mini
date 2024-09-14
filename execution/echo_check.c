@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/09 23:00:17 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/14 00:11:00 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,15 @@ int check_eccho(t_node *node)
 			return (1);
 	}
 	return(0);
+}
+int ft_strlenn(char *str)
+{
+	int i;
+	
+	i = 0;
+	if (!str)
+		return(0);
+	while (str[i])
+		i++;
+	return(i);
 }
