@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/14 00:54:38 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:29:42 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	int ret = 2 ;
 
 	char **av = create_av(final->tokens);
-	int lenght = ft_strlenn(final->tokens->content);
+	int lenght;
+	lenght = ft_strlenn(final->tokens->content);
 	path = get_path_from_list(list);
 	command_path = malloc(lenght);
 	if (!command_path)

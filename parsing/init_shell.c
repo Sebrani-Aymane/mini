@@ -26,7 +26,7 @@ char **copy_env(char **env)
     return (to_copy);
 }
 
-int get_shlvl(char **env)
+/*int get_shlvl(char **env)
 {
     int i;
     int shlvl;
@@ -47,7 +47,7 @@ int get_shlvl(char **env)
     temp++;
     shlvl = ft_atoi(temp);
 }
-
+*/
 void set_shlvl(t_list shell)
 {
     char *final;
@@ -89,7 +89,7 @@ void display_prompt(t_list shell, char **env)
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
         lines = tokens_to_lines(list);
-        //handle_herdoc(lines);
+        handle_herdoc(lines);
         handle_pipe(lines,env,liiiist);
     }
 }

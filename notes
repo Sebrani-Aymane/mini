@@ -39,3 +39,5 @@ READ of size 1 at 0x602000001930 thread T0
 0x602000001930 is located 0 bytes inside of 2-byte region [0x602000001930,0x602000001932)
 freed by thread T0 here:
 ////gonna code the shell level , it wont change anything in your part
+
+test : id delimiter is expandable it shouldn t

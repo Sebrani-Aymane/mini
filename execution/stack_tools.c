@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/14 01:15:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:26:17 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int check_builtin(t_line *final, env_vars *list,char **env)
 		builtins = split("cd echo pwd export unset env exit", ' ');
 		while (builtins[++j])
 		{
-			if (strcmp(final->tokens->content,builtins[j]) == 0)
+			if (final -> tokens && strcmp(final->tokens->content,builtins[j]) == 0)
 			{
 				free_double(builtins);
 				return(1);
