@@ -55,7 +55,7 @@ void set_shlvl(t_list shell)
 
     nbr = ft_itoa(shell.shlvl);
     final = ft_strjoin("SHLVL=", nbr);
-    //need help from ayman to export it;// no thanks ask ali ;)
+    //need help from ayman to export it;// no thanks ask ali ; it's your idiot code not him ;)
 }
 
 void display_prompt(t_list shell, char **env)
@@ -80,9 +80,16 @@ void display_prompt(t_list shell, char **env)
             free(input);
             continue;
         }
+
         add_history(input);
-        if (check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
+        if (!strcmp(input, "\"\"") || check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
+        {
+            if (!strcmp(input, "\"\""))
+                printf("minishell: : command not found\n");
             continue;
+        }
+        //add it here
+
         shell.tokens = into_tokens(input);
         check_token_dollar(shell.tokens);
         expand(shell.tokens, shell);

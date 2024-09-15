@@ -51,7 +51,7 @@ void check_token_dollar(t_token **token)
     int i = 0;
     while (token[i])
     {
-        if (token[i]->content && ft_strchr(token[i]->content, '$'))
+        if (token[i]->content && ft_strchr(token[i]->content, '$') && strcmp(token[i - 1]->content, "<<"))
             token[i]->need_expand = 1;
         else 
             token[i]->need_expand = 0;

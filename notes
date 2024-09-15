@@ -24,5 +24,5 @@ minishell$  ls $dsds
 ls: : No such file or directory
 ////gonna code the shell level , it wont change anything in your part
 
-test : id delimiter is expandable it shouldn t
-hanty ach had test ki SEGV "" ... heredoc working only edges cases left to handle
+test : id delimiter is expandable it shouldn't ----> done sorry;
+hanty ach had test ki SEGV "" ... heredoc working only edges cases left to handle ---> sorry about "" it's done now; 
