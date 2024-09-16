@@ -26,3 +26,10 @@ ls: : No such file or directory
 
 test : id delimiter is expandable it shouldn't ----> done sorry;
 hanty ach had test ki SEGV "" ... heredoc working only edges cases left to handle ---> sorry about "" it's done now; 
+
+/////////////////////// hada makhdamch khas dik user texpanda o t3tina hello asebrani in your case , khasna ndkhlou l expand fhadchi
+minishell$  cat << end
+>hello $USER
+>end
+hello $USER 
+
