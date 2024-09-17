@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/17 16:01:51 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/17 20:55:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,19 @@ env_vars *envpp(env_vars *list)
 
 int	chdirr(char **env,t_line *final)
 {
-	int res = -1;
+	int res = 0;
 	char *path;
 
-	path = get_path(env,"HOME=");
 	if(!final->tokens->next)
 	{
+		path = get_path(env,"HOME=");
 		res = chdir(path);
 		free (path);
 	}
 	else
-		res = chdir(final->tokens->content);
+	{
+		res = chdir(final->tokens->next->content);
+		
+	}
 	return(res);
 }

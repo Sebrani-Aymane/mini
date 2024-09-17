@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/16 18:38:14 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/17 20:29:10 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
     else if (strcmp(builtin, "export") == 0)
 	{
 		if (!(final->tokens->next))
-			envpp(list);
+			envpp_export(list);
 		else
 			export_all(list,final);
 	}

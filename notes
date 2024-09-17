@@ -1,38 +1,7 @@
-absolute path like /bin/ls ------->>>>> done
--n in echo -->>>>done
-exit check alpha ---------->done
-$? ///// $? + $?---------------------> execution 
-Signals \\\\\\\\--------------->done
+
 cd --->half done
-unset PATH the commands should not work ---->>>done;
-redirections
-doc
-
-
-
-
-
-ls $hghggh////////////////// if strlen(final->token->content) == 0;
-echo "$"HOME======\\\\\\\\\-------->DONE;
-bash-3.2$ echo \$HOME $USER
-$HOME asebrani
+exit status
 
 exit_status(SET, 127);
 int d = exit_status(GET, 0)
-\\\\\\\\\\\\
-minishell$  ls $dsds
-ls: : No such file or directory
 ////gonna code the shell level , it wont change anything in your part
-
-test : id delimiter is expandable it shouldn't ----> done sorry;
-hanty ach had test ki SEGV "" ... heredoc working only edges cases left to handle ---> sorry about "" it's done now; 
-
-/////////////////////// hada makhdamch khas dik user texpanda o t3tina hello asebrani in your case , khasna ndkhlou l expand fhadchi
-minishell$  cat << end
->hello $USER
->end
-hello $USER 
-
-
-i changed in the function get_delimeter to handle the case where the delimiter inside quotes , i think everything is working just fine but test it 
-

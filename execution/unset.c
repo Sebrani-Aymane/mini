@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/10 03:57:51 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:32:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void unset(env_vars *env, t_line *final)
                         prev->next = curr->next;
                     free(curr->vars);
                     free(curr->var_value);
-                    free(curr);
                 }
                 prev = curr;
                 curr = curr->next;
