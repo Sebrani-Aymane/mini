@@ -33,3 +33,6 @@ minishell$  cat << end
 >end
 hello $USER 
 
+
+i changed in the function get_delimeter to handle the case where the delimiter inside quotes , i think everything is working just fine but test it 
+

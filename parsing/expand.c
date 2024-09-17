@@ -135,8 +135,6 @@ void expand(t_token **tokens, t_list shell)
     char *temp_token;
     int counter;
 
-    check_token_dollar(shell.tokens);
-
     while (tokens[i])
     {
         counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);

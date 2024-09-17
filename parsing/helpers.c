@@ -49,9 +49,11 @@ int ft_strchr(char *s, int c)
 void check_token_dollar(t_token **token)
 {
     int i = 0;
-    while (token[i])
+    while (token && token[i])
     {
-        if (token[i]->content && ft_strchr(token[i]->content, '$') && strcmp(token[i - 1]->content, "<<"))
+        if (token[i]->content && ft_strchr(token[i]->content, '$'))
+            token[i]->need_expand = 1;
+        else if(i != 0 && strcmp(token[i - 1]->content, "<<"))
             token[i]->need_expand = 1;
         else 
             token[i]->need_expand = 0;
@@ -78,4 +80,19 @@ int dollar_inside_quotes_alone(char *content)
         i++;
     }
     return 0;
+}
+
+void check_for_delimeter(t_node *tokens)
+{
+    t_node *current;
+
+    current = tokens;
+    while (current && current->next)
+    {
+        if (!strcmp(current->content, "<<") && (current->next->content[0] == '\'' || current->next->content[0] == '"') && ((current->next->content[ft_strlen(current->next->content) - 1] == '\'') || (current->next->content[ft_strlen(current->next->content) - 1] == '"')))
+            current->next->delimeter_inside_quotes = 1;
+        else    
+            current->next->delimeter_inside_quotes = 0;
+        current = current->next;
+    }
 }

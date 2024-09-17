@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/10 09:11:42 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:35:10 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,21 +117,20 @@ t_line *create_line(t_node *node)
     t_node *current = node;
     t_node *first = NULL;
     t_node *last = NULL;
-
     line = c_malloc(sizeof(t_line), 1);
     if (!line)
         return NULL;
     line->tokens = NULL;
-    
     while (current && strcmp(current->content, "|") != 0)
     {
         t_node *new_node = c_malloc(sizeof(t_node), 1);
         if (!new_node)
             return NULL;
         new_node->content = current->content; 
-        new_node->type = current->type;   
+        new_node->type = current->type;
+        new_node->delimeter_inside_quotes = current->delimeter_inside_quotes; 
         new_node->next = NULL;              
-        
+    
         if (!first)
         {
             first = new_node;
@@ -180,5 +179,6 @@ t_line *tokens_to_lines(t_node *tokens)
             tokens = tokens->next;
         }
     }
+    
     return first_line;
 }

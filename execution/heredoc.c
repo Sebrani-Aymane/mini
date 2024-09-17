@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/15 02:10:05 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:38:06 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../minishell.h"
 #include <stdio.h>
 #include <string.h>
+
 int check_of_herdoc(t_line *final)
 {
 	t_node *temp;
@@ -30,29 +31,30 @@ int check_of_herdoc(t_line *final)
 	}
 	return(0);
 }
-char *get_delimiter(t_line *final)
+
+
+t_node *get_delimiter(t_line *final)
 {
-		char *ret = NULL;
 		t_node *temp;
 		temp = final->tokens;
 		while (temp)
 		{
 			if (temp->type == 3)
-			{
-				ret = strdup(temp->next->content);	
-				return(ret);
+			{	
+				return(temp->next);
 			}
 			temp = temp->next;
 		}
 	return(NULL);
 }
-void handle_herdoc(t_line *final)
+void handle_herdoc(t_line *final, t_list shell)
 {
 	int fd[2];
 	char *input;
 	int pid;
-	char *delimiter;
-	
+	t_node *delimiter;
+	t_token **hered_tokens;
+	int i;
 	if (!check_of_herdoc(final))
 		return;
 	delimiter = get_delimiter(final);
@@ -67,12 +69,25 @@ void handle_herdoc(t_line *final)
 		close(fd[0]);
 		while (1)
 		{
+			i = 0;
 			input = readline(">");
 			if (!input)
 				return(free(input));
-			if (strcmp(input, delimiter) == 0)
+			hered_tokens = into_tokens(input);
+			if (delimiter->delimeter_inside_quotes != 1)
+			{
+				check_token_dollar(hered_tokens);
+				expand(hered_tokens, shell);
+			}
+			if (strcmp(input, delimiter->content) == 0)
 				break;
-			write(fd[1],input,ft_strlenn(input));
+			while (hered_tokens && hered_tokens[i])
+			{
+				write(fd[1], hered_tokens[i]->content, ft_strlenn(hered_tokens[i]->content));
+				if (hered_tokens[i + 1])
+					write(fd[1], " ", 1);
+				i++;
+			}
 			write(fd[1],"\n",1);
 			free(input);
 		}

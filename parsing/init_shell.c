@@ -96,8 +96,9 @@ void display_prompt(t_list shell, char **env)
         expand(shell.tokens, shell);
         expand_home(shell.tokens, shell);
         list = search_token(shell.tokens);
+        check_for_delimeter(list);
         lines = tokens_to_lines(list);
-        handle_herdoc(lines);
+        handle_herdoc(lines, shell);
         handle_pipe(lines,env,liiiist);
     }
 }

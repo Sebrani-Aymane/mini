@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/14 05:57:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:37:45 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_node
 {
     char *content;
     int type;
+    int delimeter_inside_quotes;
     struct s_node *next;
 } t_node;
 
@@ -132,7 +133,7 @@ char *get_path_from_list(env_vars *list);
 int exit_status(int type, int value);
 void handle_redirections(t_line *final);
 int check_file_path(t_line *final);
-void handle_herdoc(t_line *final);
+void handle_herdoc(t_line *final, t_list shell);
 
 //////////////////*PARSING*//////////////////////////
 
@@ -168,4 +169,5 @@ int get_shlvl(char **env);
 void set_shlvl(t_list shell);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
+void check_for_delimeter(t_node *tokens);
 #endif
