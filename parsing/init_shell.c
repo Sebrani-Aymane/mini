@@ -26,38 +26,77 @@ char **copy_env(char **env)
     return (to_copy);
 }
 
-// int get_shlvl(char **env)
-// {
-//     int i;
-//     int shlvl;
-//     char *temp = NULL;
+int get_shlvl(char **env)
+{
+    int i;
+    int shlvl;
+    char *temp = NULL;
     
-//     i = 0;
-//     while (env && env[i])
-//     {
-//         if (!strncmp(env[i], "SHLVL", 5))
-//         {
-//             temp = env[i];
-//             break;
-//         }
-//         i++;
-//     }
-//     while (*temp != '=')
-//         temp++;
-//     temp++;
-//     shlvl = ft_atoi(temp);
-//     return (shlvl);
-// }
+    i = 0;
+    while (env && env[i])
+    {
+        if (!strncmp(env[i], "SHLVL", 5))
+        {
+            temp = env[i];
+            break;
+        }
+        i++;
+    }
+    while (*temp != '=')
+        temp++;
+    temp++;
+    shlvl = ft_atoi(temp);
+    return (shlvl);
+}
+char **add_to_env(char **env, char *new_var)
+{
+    int i = 0;
+    char **new_env;
 
-// void set_shlvl(t_list shell)
-// {
-//     char *final;
-//     char *nbr;
+    while (env[i])
+        i++;
 
-//     nbr = ft_itoa(shell.shlvl);
-//     final = ft_strjoin("SHLVL=", nbr);
-//     //need help from ayman to export it;// no thanks ask ali ; it's your idiot code not him ;)
-// }
+    new_env = c_malloc(sizeof(char *) * (i + 2), 1);
+    
+    for (i = 0; env[i]; i++)
+        new_env[i] = env[i];
+    new_env[i] = strdup(new_var);
+    new_env[i + 1] = NULL;
+    free(env);
+    return new_env;
+}
+
+
+char **set_env(char **env, char *final)
+{
+     int i = 0;
+    char **new_env;
+
+    while (env[i] && strncmp(env[i], "SHLVL=", 6) != 0)
+        i++;
+
+    if (env[i])
+    {
+        free(env[i]);
+        env[i] = strdup(final);
+    }
+    else
+    {
+        new_env = add_to_env(env, final);
+        return (new_env);
+    }
+    return (env);
+}
+
+void set_shlvl(t_list shell)
+{
+    char *final;
+    char *nbr;
+
+    nbr = ft_itoa(shell.shlvl);
+    final = ft_strjoin("SHLVL=", nbr);
+    shell.env_var = set_env(shell.env_var, final);
+}
 
 void display_prompt(t_list shell, char **env)
 {

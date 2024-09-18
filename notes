@@ -5,3 +5,4 @@ exit status
 exit_status(SET, 127);
 int d = exit_status(GET, 0)
 ////gonna code the shell level , it wont change anything in your part
+i finish the shell level but there is a problem in it khasna nhdrou 3lih
