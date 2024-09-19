@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/17 20:32:59 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/19 05:29:49 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void exitt(env_vars *env, t_line *final)
     int num = 0;
     env_vars *temp;
     t_node *current = final->tokens->next;
-    exit(22);
+    
     if (env)
     {
     while(env)
@@ -80,7 +80,7 @@ void exitt(env_vars *env, t_line *final)
     {
         if (!check_exit_stat(final))
         {
-            printf("minishell$: exit: %s: numeric argument required",current->content);
+            printf("exit\nminishell: exit: %s: numeric argument required",current->content);
             exit (255);
         }
         num = ft_atoi(current->content);
@@ -94,6 +94,7 @@ void exitt(env_vars *env, t_line *final)
     }
     exit(num);
 }
+
 int exit_status(int type, int value)
 {
 	static int var = 0;

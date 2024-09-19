@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/17 20:29:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/19 05:34:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
     	envpp(list);
 	else if (strcmp(builtin, "cd") == 0)
 	{
-		l = chdirr(env,final);
+		l = chdirr(env,final,list);
 		if (l == -1)
 			printf("%s: No such file or directory\n",final->tokens->next->content);
 	}
@@ -112,6 +112,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 					free(command_path);
 					free (path);
 				}
+				exit_status(1, 0);
 				execve(to_excute, av, env);
 			}
 			else

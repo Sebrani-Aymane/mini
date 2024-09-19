@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/17 20:55:02 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/19 06:10:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <errno.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void	echoo(t_line *final)
 {
@@ -58,11 +59,14 @@ void pwdd(int a)
 {
 	char *pwd = NULL;
 	(void) a;
+	if (a == 0)
+	{
 	pwd = getcwd(NULL,0);
 	if(pwd)
 		printf("%s\n",pwd);
 	else
 		write(2,"getcwd faild\n",14);
+	} 
 }
 
 env_vars *envpp(env_vars *list)
@@ -84,12 +88,16 @@ env_vars *envpp(env_vars *list)
 	return(tmp);
 }
 
-int	chdirr(char **env,t_line *final)
+int	chdirr(char **env,t_line *final,env_vars *list)
 {
 	int res = 0;
 	char *path;
+	env_vars *temp;
+	temp = list;
+	char *curr_dir;
+	curr_dir = getcwd(NULL,0);
 
-	if(!final->tokens->next)
+	if (!final->tokens->next)
 	{
 		path = get_path(env,"HOME=");
 		res = chdir(path);
@@ -98,7 +106,23 @@ int	chdirr(char **env,t_line *final)
 	else
 	{
 		res = chdir(final->tokens->next->content);
-		
+		if (res == -1)
+		{
+			chdiir_help(final,list);
+			return(res);
+		}
 	}
+	while (temp)
+	{
+		if (!ft_strcmp(temp->vars,"OLDPWD") || !ft_strcmp(temp->vars,"PWD"))
+		{
+			if (strcmp(temp->vars,"PWD"))
+				temp->var_value = strdup(curr_dir);
+			else if (strcmp(temp->vars,"OLDPWD"))
+				temp->var_value = getcwd(NULL,0);
+		}
+		temp = temp ->next;
+	}
+	free (curr_dir);
 	return(res);
 }

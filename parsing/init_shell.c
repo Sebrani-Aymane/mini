@@ -128,8 +128,6 @@ void display_prompt(t_list shell, char **env)
                 printf("minishell: : command not found\n");
             continue;
         }
-        //add it here
-
         shell.tokens = into_tokens(input);
         check_token_dollar(shell.tokens);
         expand(shell.tokens, shell);
