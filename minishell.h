@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/19 05:54:52 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:32:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#define GET 1
-#define SET 2
+#define SET 1
+#define GET 2
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -35,9 +35,8 @@ typedef struct s_token
 
 typedef struct s_list
 {
-    char **env_var;
     t_token **tokens;
-    int shlvl;
+    char **env;
 } t_list;
 
 typedef struct s_node
@@ -63,6 +62,7 @@ typedef struct env_vars_t{
 	char *vars;
 	char *var_value;
 	char **env;
+    int shlvl;
 	struct env_vars_t *next;
 }  env_vars;
 
@@ -133,13 +133,13 @@ char *get_path_from_list(env_vars *list);
 int exit_status(int type, int value);
 void handle_redirections(t_line *final);
 int check_file_path(t_line *final);
-void handle_herdoc(t_line *final, t_list shell);
+void handle_herdoc(t_line *final, env_vars *list_env);
 env_vars *envpp_export(env_vars *list);
 void chdiir_help(t_line *final,env_vars *list);
 //////////////////*PARSING*//////////////////////////
 
 
-void display_prompt(t_list shell, char **env);
+void display_prompt(t_list shell, char **env, env_vars *list);
 char **copy_env(char **env);
 int check_unclosed_quotes(char *input);
 t_token **into_tokens(char *input);
@@ -152,10 +152,10 @@ int tokens_number(char *input);
 int more_than_op(char *input);
 void check_token_dollar(t_token **token);
 int ft_strlen(char *str);
-void expand(t_token **tokens, t_list shell);
-char *get_value(char **env_vars, int len, char *name);
+void expand(t_token **tokens, env_vars *list_env);
+char *get_value(env_vars *list_env, int len, char *name);
 char *replace_value(char *token, char *value, char *name);
-void expand_home(t_token **tokens, t_list shell);
+void expand_home(t_token **tokens, env_vars *list_env);
 int ft_strchr(char *s, int c);
 t_node *search_token(t_token **tokens);
 t_line *tokens_to_lines(t_node *tokens);
@@ -166,9 +166,10 @@ void open_files(t_line *lines);
 void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
 int dollar_inside_quotes_alone(char *content);
-int get_shlvl(char **env);
-void set_shlvl(t_list shell);
+int get_shlvl(env_vars *list_env);
+void set_shlvl(env_vars *list);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 void check_for_delimeter(t_node *tokens);
+int ft_is_space(char *input);
 #endif

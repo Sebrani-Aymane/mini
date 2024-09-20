@@ -73,25 +73,27 @@ char *variable_name(char *input)
 }
 
 
-char *get_value(char **env_vars, int len, char *name)
+char *get_value(env_vars *list_env, int len, char *name)
 {
-    int i = 0;
+    
     int j;
-    while (env_vars[i])
+    char *value;
+    env_vars *current;
+
+    current = list_env;
+    while (current)
     {
-        if (strncmp(name, env_vars[i], len) == 0 && env_vars[i][len] == '=')
+        if (strncmp(name, list_env->vars, len) == 0)
         {
-            j = len + 1;
-            while (env_vars[i][j])
-                j++;
-            char *value =c_malloc((sizeof(char) * (j - len)), 1);
+            j = ft_strlen(list_env->var_value);
+            value = c_malloc((sizeof(char) * (j + 1)), 1);
             if (!value)
                 return (NULL);
-            strncpy(value, env_vars[i] + len + 1, j - len - 1);
-            value[j - len - 1] = '\0';
+            strcpy(value, list_env->var_value);
+            value[j] = '\0';
             return value;
         }
-        i++;
+        current = current->next;
     }
     return (NULL);
 }
@@ -125,7 +127,7 @@ char *replace_value(char *token, char *value, char *name)
 }
 
 
-void expand(t_token **tokens, t_list shell)
+void expand(t_token **tokens, env_vars *list_env)
 {
     int i = 0;
     char *name;
@@ -148,7 +150,7 @@ void expand(t_token **tokens, t_list shell)
         {
             name = variable_name(temp_token);
             name_len = strlen(name);
-            value = get_value(shell.env_var, name_len, name);
+            value = get_value(list_env, name_len, name);
             if (value == NULL)
                 value = "";
             new_token = replace_value(temp_token, value, name);

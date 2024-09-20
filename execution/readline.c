@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/19 05:34:51 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:53:47 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
     if (strcmp(builtin, "echo") == 0)
         echoo(final);
     else if (strcmp(builtin, "pwd") == 0) 
-        pwdd(1);
+        pwdd(0);
     else if (strcmp(builtin, "export") == 0)
 	{
 		if (!(final->tokens->next))

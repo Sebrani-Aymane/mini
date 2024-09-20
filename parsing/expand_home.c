@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:40:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/02 16:46:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/20 18:19:48 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int can_expand_home(char *input)
 }
 
 
-void expand_home(t_token **tokens, t_list shell)
+void expand_home(t_token **tokens, env_vars *list_env)
 {
     int i = 0;
     char *value;
@@ -42,7 +42,7 @@ void expand_home(t_token **tokens, t_list shell)
         {
             if(can_expand_home(tokens[i]->content))
             {
-                value = get_value(shell.env_var, 4, "HOME");
+                value = get_value(list_env, 4, "HOME");
                 new_token = replace_value(tokens[i]->content, value, "~");
                 free(tokens[i]->content);
                 tokens[i]->content = new_token;

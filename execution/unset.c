@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/19 05:29:49 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:12:10 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void exitt(env_vars *env, t_line *final)
     exit(num);
 }
 
-int exit_status(int type, int value)
+int exit_status(int type, int value)/////////// here give type 2
 {
-	static int var = 0;
+	static int var;
 
 	if (type == GET)
 		return (var);

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/17 18:38:06 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/20 18:31:01 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_node *get_delimiter(t_line *final)
 		}
 	return(NULL);
 }
-void handle_herdoc(t_line *final, t_list shell)
+void handle_herdoc(t_line *final, env_vars *list_env)
 {
 	int fd[2];
 	char *input;
@@ -77,7 +77,7 @@ void handle_herdoc(t_line *final, t_list shell)
 			if (delimiter->delimeter_inside_quotes != 1)
 			{
 				check_token_dollar(hered_tokens);
-				expand(hered_tokens, shell);
+				expand(hered_tokens, list_env);
 			}
 			if (strcmp(input, delimiter->content) == 0)
 				break;

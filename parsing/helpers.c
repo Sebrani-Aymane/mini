@@ -96,3 +96,17 @@ void check_for_delimeter(t_node *tokens)
         current = current->next;
     }
 }
+int ft_is_space(char *input)
+{
+    int i;
+
+    i = 0;
+    while(input[i])
+    {
+        while ((input[i] >= 9 && input[i] <= 13) || input[i] == ' ' )
+            i++;
+        if(input[i])
+            return(0);
+    }
+    return(1);
+}

@@ -15,12 +15,13 @@ void handle_signals(void)
 int main(int ac, char **av, char **env)
 {
     t_list shell;
-
+    env_vars *list_env;
     (void)av;
     (void)ac;
-    shell.env_var = copy_env(env);
-    shell.shlvl = get_shlvl(shell.env_var);
-    set_shlvl(shell);
+    shell.env = copy_env(env);
+    list_env = list_init(env);
+    list_env->shlvl = get_shlvl(list_env);
+    set_shlvl(list_env);
     handle_signals();
-    display_prompt(shell, env);
+    display_prompt(shell, env,list_env);
 }
