@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/20 17:12:10 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/20 21:01:22 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void exitt(env_vars *env, t_line *final)
     exit(num);
 }
 
-int exit_status(int type, int value)/////////// here give type 2
+int exit_status(int type, int value)
 {
 	static int var;
 

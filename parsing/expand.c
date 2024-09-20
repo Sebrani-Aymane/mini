@@ -81,6 +81,12 @@ char *get_value(env_vars *list_env, int len, char *name)
     env_vars *current;
 
     current = list_env;
+    if (!strcmp(name, "?"))
+    {
+        value = c_malloc(2, 1);
+        copy_it(value, ft_itoa(exit_status(2, 0)));
+        return (value);
+    }
     while (current)
     {
         if (strncmp(name, list_env->vars, len) == 0)
@@ -97,7 +103,6 @@ char *get_value(env_vars *list_env, int len, char *name)
     }
     return (NULL);
 }
-
 
 char *replace_value(char *token, char *value, char *name)
 {
