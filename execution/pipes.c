@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 11:30:46 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:26:26 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 	if (check_builtin(final, list, env))
 	{
 		execute_builtins(final->tokens->content ,final, list,env);
-		exit(0); // exit with exit status
+		exit_status(1, 0);
+		exit(0);
 	}
 	else
 		{
@@ -49,6 +50,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 			{
 				if (final->tokens->type == 1 || final->tokens->type == 2)
 				{
+				exit_status(1,127);
 				fprintf(stderr,"minishell; %s: command not found\n",final->tokens->content);
 				dup2(fd_in,0);
 				close(fd_in);
@@ -56,6 +58,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 				}
 				dup2(fd_in,0);
 				close(fd_in);
+				exit_status(1,127);
 				exit(127);
 			}
 		}

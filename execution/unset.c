@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/20 21:01:22 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/21 12:21:34 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void exitt(env_vars *env, t_line *final)
         if (!check_exit_stat(final))
         {
             printf("exit\nminishell: exit: %s: numeric argument required",current->content);
+            exit_status(1,255);
             exit (255);
         }
         num = ft_atoi(current->content);
@@ -92,6 +93,7 @@ void exitt(env_vars *env, t_line *final)
         printf("minishell$: exit: too many arguments\n");
         return ;
     }
+    exit_status(1,num);
     exit(num);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 11:40:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:25:42 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 	{
 		l = chdirr(env,final,list);
 		if (l == -1)
+		{
+			exit_status(1,1);
 			printf("%s: No such file or directory\n",final->tokens->next->content);
+		}
 	}
 	else if (strcmp(builtin, "unset") == 0)
 	{
@@ -137,11 +140,13 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 				fprintf(stderr,"minishell: %s: is adirectory\n",final->tokens->content);
 				dup2(fd_in,0);
 				close(fd_in);
+				exit_status(1,0);
 				exit(0);
 			}
 			fprintf(stderr,"minishell: %s: No such file or directory\n",final->tokens->content);
 			dup2(fd_in,0);
 			close(fd_in);
+			exit_status(1,0);
 			exit(0);
 		}
 	}
