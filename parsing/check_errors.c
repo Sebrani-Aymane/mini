@@ -21,7 +21,7 @@ int check_unclosed_quotes(char *input)
 
     if (inside_d || inside_s)
     {
-        printf("unclosed quotes\n");
+        printf("minishell: unclosed quotes\n");
         return 1;
     }
     return 0;
@@ -75,7 +75,17 @@ int validate_redirection_syntax(char *input)
                 i++;
             if (input[i] == '\0' || (is_redirection_op(input[i]) && input[i - 1] == ' ') || input[i] == '|')
             {
-                printf("Syntax error: Invalid redirection\n");
+                if (input[i] == '|')
+                    printf("minishell: syntax error near unexpected token `|'\n");
+                if (input[i] == '\0')
+                    printf("minishell: syntax error near unexpected token `newline'\n");
+                if ((is_redirection_op(input[i]) && input[i - 1] == ' '))
+                {
+                    if (input[i + 1] && is_redirection_op(input[i + 1]))
+                        printf("minishell: syntax error near unexpected token `%c%c'\n", input[i], input[i + 1]);
+                    else
+                        printf("minishell: syntax error near unexpected token `%c'\n", input[i]);
+                }
                 return 0;
             }
             while (input[i] && input[i] == ' ' && !is_redirection_op(input[i]))
@@ -86,7 +96,7 @@ int validate_redirection_syntax(char *input)
     }
     if (is_redirection_op(input[i - 1]) || more_than_op(input))
     {
-        printf("Redirection error\n");
+        printf("minishell: syntax error near unexpected token `%c'\n", input[i - 1]);
         return 0;
     }
     return 1;
@@ -101,7 +111,7 @@ int pipe_syntax(char *input)
         i++;
     if (input[i] == '|')
     {
-        printf("syntax error near unexpected token `|'\n");
+        printf("minishell: syntax error near unexpected token `|'\n");
         return 0;
     }
 
@@ -116,7 +126,7 @@ int pipe_syntax(char *input)
                 i++;
             if (input[i] == '\0' || input[i] == '|')
             {
-                printf("syntax error near unexpected token `|'\n");
+                printf("minishell: syntax error near unexpected token `|'\n");
                 return 0; 
             }
         }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/11 00:26:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:41:44 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int in_file(t_line *line)
         {
             line->fd_in = open(current->next->content, O_RDONLY);
             if (line->fd_in == -1)
+            {
+                printf("minishell: %s: No such file or directory\n", current->next->content);
                 return (0);
+            }
         }
         current = current->next;
     }
@@ -40,7 +43,10 @@ int out_file(t_line *line)
             else
                 line->fd_out = open(current->next->content, O_WRONLY | O_APPEND | O_CREAT, 0644);
             if (line->fd_out == -1)
+            {
+                printf("minishell: %s: No such file or directory\n", current->next->content);
                 return (0);
+            }  
         }
         current = current->next;
     }
@@ -58,10 +64,7 @@ void open_files(t_line *lines)
         out = out_file(current);
         
         if (!in || !out)
-        {
-            printf("Error in opening the file\n");
             return ;
-        }
         current = current->next;
     }
 }
