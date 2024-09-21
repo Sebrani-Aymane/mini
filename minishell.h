@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/20 18:32:15 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/21 11:59:28 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ char *ret(char *in);
 int	chdirr(char **env, t_line *final,env_vars *list);
 int handle_pipe(t_line *final,char **env,env_vars *list);
 int check_eccho(t_node *final);
-char *get_path_from_list(env_vars *list);
+char *get_path_from_list(env_vars *list,char *str);
 int exit_status(int type, int value);
 void handle_redirections(t_line *final);
 int check_file_path(t_line *final);
 void handle_herdoc(t_line *final, env_vars *list_env);
 env_vars *envpp_export(env_vars *list);
-void chdiir_help(t_line *final,env_vars *list);
+void chdiir_help(t_line *final,env_vars *list,char *pwd);
 //////////////////*PARSING*//////////////////////////
 
 

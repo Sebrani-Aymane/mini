@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/20 15:53:47 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/21 11:40:07 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 {
 	(void)env;
 	int l = 0;
+
 	handle_redirections(final);
     if (strcmp(builtin, "echo") == 0)
         echoo(final);
@@ -28,8 +29,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 			envpp_export(list);
 		else
 			export_all(list,final);
-	}
-	else if (strcmp(builtin, "env") == 0)
+	}else if (strcmp(builtin, "env") == 0)
     	envpp(list);
 	else if (strcmp(builtin, "cd") == 0)
 	{
@@ -82,11 +82,12 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	char *path;
 	int fd_in = dup(0);
 	int ret = 2 ;
+	(void)list;
 
 	char **av = create_av(final->tokens);
 	int lenght;
 	lenght = ft_strlenn(final->tokens->content);
-	path = get_path_from_list(list);
+	path = get_path(env,"PATH=");
 	command_path = malloc(lenght);
 	if (!command_path)
 		return 0;

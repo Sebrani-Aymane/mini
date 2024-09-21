@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/19 06:10:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:59:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ env_vars *envpp(env_vars *list)
 	}
 	return(tmp);
 }
-
+/*
 int	chdirr(char **env,t_line *final,env_vars *list)
 {
 	int res = 0;
@@ -124,5 +124,49 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 		temp = temp ->next;
 	}
 	free (curr_dir);
+	return(res);
+}
+*/
+int	chdirr(char **env,t_line *final,env_vars *list)
+{
+	char *home;
+	int res;
+	char *pwd_aftr_cd;
+	char *pwd_bfr_cd;
+	env_vars *temp;
+	
+	res = 0;
+	pwd_bfr_cd =get_path_from_list(list, "PWD");
+	if (!final->tokens->next)
+	{
+		home = get_path(env,"HOME=");
+		if (!home)
+			return(fprintf(stderr,"minishell: cd: HOME not set"),0);
+		res = chdir(home);
+		free(home);
+	}
+	else
+	{
+		res = chdir(final->tokens->next->content);
+		pwd_aftr_cd = getcwd(NULL, 0);
+		if (!pwd_aftr_cd)
+		{
+			chdiir_help(final,list,pwd_bfr_cd);
+			return(res);
+		}
+	}
+	temp = list;
+	while (list)
+	{
+		if (!ft_strcmp(list->vars,"OLDPWD") || !ft_strcmp(list->vars,"PWD"))
+		{
+			if (strcmp(list->vars,"PWD"))
+				list->var_value = pwd_bfr_cd;
+			if (strcmp(list->vars,"OLDPWD"))
+				list->var_value = getcwd(NULL, 0);
+		}
+		list = list ->next;
+	}
+	list = temp;
 	return(res);
 }
