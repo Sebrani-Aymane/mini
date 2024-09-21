@@ -89,13 +89,13 @@ char *get_value(env_vars *list_env, int len, char *name)
     }
     while (current)
     {
-        if (strncmp(name, list_env->vars, len) == 0)
+        if (strncmp(name, current->vars, len) == 0)
         {
-            j = ft_strlen(list_env->var_value);
+            j = ft_strlen(current->var_value);
             value = c_malloc((sizeof(char) * (j + 1)), 1);
             if (!value)
                 return (NULL);
-            strcpy(value, list_env->var_value);
+            strcpy(value, current->var_value);
             value[j] = '\0';
             return value;
         }
