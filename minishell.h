@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/22 16:04:47 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/22 20:14:44 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int check_file_path(t_line *final);
 void handle_herdoc(t_line *final, env_vars *list_env);
 env_vars *envpp_export(env_vars *list);
 void chdiir_help(t_line *final,env_vars *list,char *pwd);
+void printrrr(t_line *final);
 //////////////////*PARSING*//////////////////////////
 
 

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 12:25:42 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/22 20:41:21 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char **create_av(t_node *tokens)
 	char **av ;
 	int i = 0;
 
-	while (current && strlen(current->content) != 0 && (current->type == 1 || current->type == 2))
+	while (current  && (current->type == 1 || current->type == 2))
 	{
 		count ++;
 		current = current->next;
@@ -65,7 +65,7 @@ char **create_av(t_node *tokens)
 	current = tokens;
 	while (current)
 	{
-		if (strlen(current->content) != 0  && (current->type == 1 || current->type == 2))
+		if ((current->type == 1 || current->type == 2))
 		{
 			av[i] = strdup(current->content);
 			i++;
@@ -90,12 +90,13 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	char **av = create_av(final->tokens);
 	int lenght;
 	lenght = ft_strlenn(final->tokens->content);
+	if (lenght == 0)
+		return(0);
 	path = get_path(env,"PATH=");
 	command_path = malloc(lenght);
 	if (!command_path)
 		return 0;
 	paths = split(path, ':');
-
 	if (!check_file_path(final))
 	{
 		command_path  = str_joiner("/",final->tokens->content);
@@ -117,6 +118,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 					free (path);
 				}
 				exit_status(1, 0);
+				
 				execve(to_excute, av, env);
 			}
 			else

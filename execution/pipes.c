@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 12:26:26 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/22 20:35:46 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 				exit_status(1,127);
 				exit(127);
 			}
+			exit_status(1,0);
+			dup2(fd_in,0);
+			close(fd_in);
+			exit(127);
 		}
 	return 0;
 }
