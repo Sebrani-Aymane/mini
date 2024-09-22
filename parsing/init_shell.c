@@ -60,7 +60,6 @@ void set_shlvl(env_vars *list)
     list = temp;
 }
 
-
 void display_prompt(t_list shell, char **env, env_vars *list_env)
 {
     char *input;
@@ -70,18 +69,18 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
     while(1)
     {
         input = readline("minishell$  ");
+        add_history(input);
         if (input == NULL)
         {
             printf("exit\n");
             c_malloc(0, 0);
             exit(0);
         }
-        if (ft_strlen(input) == 0 || ft_is_space(input))
+        if (ft_strlen(input) == 0 || ft_is_space(input) || (input[0] == ':' && !input[1]) || check_for_and(input))
         {
             free(input);
             continue;
         }
-        add_history(input);
         if (!strcmp(input, "\"\"") || check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
         {
             if (!strcmp(input, "\"\""))

@@ -12,25 +12,26 @@ int more_than_op(char *input)
     int i;
     int count;
 
-    count = 1;
+    count = 0;
     i = 0;
     while (input[i])
     {
         if (input[i] == '<' || input[i] == '>')
         {
-            i++;
             while(input[i] == '<' || input[i] == '>')
             {
                 count++;
                 i++;
                 if(count > 2)
-                    return (1);
+                    return (i);
             }
         }
+        count = 0;
         i++;
     }
     return (0);
 }
+
 
 int ft_strchr(char *s, int c)
 {
@@ -109,4 +110,36 @@ int ft_is_space(char *input)
             return(0);
     }
     return(1);
+}
+int check_edge_case(char *content)
+{
+    int i = 0;
+    int d_quote = 0;
+    int s_quote = 0; 
+    while (content[i])
+    {
+        if (content[i] == '"' && s_quote == 0)
+            d_quote = !d_quote;
+        if (content[i] == '\'' && d_quote == 0)
+            s_quote = !s_quote; 
+        if (content[i] == '$' && !s_quote && !d_quote)
+        {
+            return (1);
+        }
+        i++;
+    }
+    return (0);
+}
+char *pass_dollar(char *content)
+{
+    int i = 1;
+    char *new;
+    new = c_malloc(ft_strlen(content), 1);
+    while (content[i])
+    {
+        new[i - 1] = content[i];
+        i++;
+    }
+    new[i - 1] = '\0';
+    return (new);
 }

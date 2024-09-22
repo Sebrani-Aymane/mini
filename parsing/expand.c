@@ -28,11 +28,11 @@ int dollars_number(char *content, int need_exp)
 {
     int i = 0;
     int counter = 0;
-    if (can_expand(content) && need_exp && !dollar_inside_quotes_alone(content))
+    if (can_expand(content) && need_exp && !dollar_inside_quotes_alone(content) && strcmp(content, "$"))
     {
         while(content[i])
         {
-            if (content[i] == '$')
+            if (content[i] == '$' && content[i + 1] && content[i + 1] != ' ')
                 counter++;
             i++;
         }
@@ -52,10 +52,7 @@ char *variable_name(char *input)
         i++;
     start = i + 1;
     i++;
-    while (input[i] && input[i] != ' ' && input[i] != '$' && 
-       input[i] != ';' && input[i] != '|' && input[i] != '<' &&
-       input[i] != '>' && input[i] != '&' && input[i] != '=' &&
-       input[i] != '"' && input[i] != '\'')
+   while (input[i] && ((input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= '0' && input[i] <= '9') || input[i] == '_' || (input[i] == '?' && input[i - 1] && input[i - 1] == '$')))
         i++;
     end = i - 1;
     if ((input[0] == '"' || input[0] == '\'') && input[i] == '\0')
@@ -73,7 +70,7 @@ char *variable_name(char *input)
 }
 
 
-char *get_value(env_vars *list_env, int len, char *name)
+char *get_value(env_vars *list_env, char *name)
 {
     
     int j;
@@ -89,7 +86,7 @@ char *get_value(env_vars *list_env, int len, char *name)
     }
     while (current)
     {
-        if (strncmp(name, current->vars, len) == 0)
+        if (strcmp(name, current->vars) == 0)
         {
             j = ft_strlen(current->var_value);
             value = c_malloc((sizeof(char) * (j + 1)), 1);
@@ -136,14 +133,15 @@ void expand(t_token **tokens, env_vars *list_env)
 {
     int i = 0;
     char *name;
-    int name_len;
     char *value;
     char *new_token;
     char *temp_token;
+    int notif;
     int counter;
 
     while (tokens[i])
     {
+        notif = 0;
         counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
         if (counter == 0)
         {
@@ -154,15 +152,33 @@ void expand(t_token **tokens, env_vars *list_env)
         while (counter)
         {
             name = variable_name(temp_token);
-            name_len = strlen(name);
-            value = get_value(list_env, name_len, name);
+            // printf("name: %s\n", name);
+            if (!strcmp(name, "\0"))
+            {
+                notif = 1;
+                counter--;
+                continue ;
+            }
+            value = get_value(list_env, name);
+            // printf("value: %s\n", value);
+
             if (value == NULL)
                 value = "";
             new_token = replace_value(temp_token, value, name);
+            // printf("new token: %s\n", new_token);
+
             temp_token = new_token;
             counter--;
         }
-        tokens[i]->content = new_token;
+        if (!notif)
+            tokens[i]->content = new_token;
+        else
+        {
+            if (check_edge_case(temp_token))
+                {
+                    tokens[i]->content = pass_dollar(temp_token);
+                }
+        }
         i++;
     }
 }

@@ -56,6 +56,11 @@ int validate_redirection_syntax(char *input)
     i = 0;
     if (!input[0])
         return 0;
+    if (more_than_op(input))
+    {
+        printf("minishell: syntax error near unexpected token `%c%c'\n", input[more_than_op(input) - 1], input[more_than_op(input)]);
+        return 0;
+    }
     while (input[i])
     {
         if (input[i] == '"' || input[i] == '\'')
@@ -77,7 +82,7 @@ int validate_redirection_syntax(char *input)
             {
                 if (input[i] == '|')
                     printf("minishell: syntax error near unexpected token `|'\n");
-                if (input[i] == '\0')
+                if (input[i] == '\0' || (input[0] == '!' && !input[1]))
                     printf("minishell: syntax error near unexpected token `newline'\n");
                 if ((is_redirection_op(input[i]) && input[i - 1] == ' '))
                 {
@@ -94,10 +99,15 @@ int validate_redirection_syntax(char *input)
         }
         i++;
     }
-    if (is_redirection_op(input[i - 1]) || more_than_op(input))
+    if (input[0] == '!' && !input[1])
     {
-        printf("minishell: syntax error near unexpected token `%c'\n", input[i - 1]);
-        return 0;
+        printf("minishell: syntax error near unexpected token `newline'\n");
+        return (0);
+    }
+    if (input[0] == '&' && input[1] && input[1] == '&')
+    {
+        printf("minishell: syntax error near unexpected token `&&'\n");
+        return (0);
     }
     return 1;
 }
@@ -111,7 +121,10 @@ int pipe_syntax(char *input)
         i++;
     if (input[i] == '|')
     {
-        printf("minishell: syntax error near unexpected token `|'\n");
+        if (input[i + 1] && input[i + 1] == '|')
+            printf("minishell: syntax error near unexpected token `||'\n");
+        else
+            printf("minishell: syntax error near unexpected token `|'\n");
         return 0;
     }
 
@@ -126,11 +139,35 @@ int pipe_syntax(char *input)
                 i++;
             if (input[i] == '\0' || input[i] == '|')
             {
-                printf("minishell: syntax error near unexpected token `|'\n");
+                 if (input[i + 1] && input[i + 1] == '|')
+                    printf("minishell: syntax error near unexpected token `||'\n");
+                else
+                    printf("minishell: syntax error near unexpected token `|'\n");
                 return 0; 
             }
         }
         i++;
     }
     return 1;
+}
+
+int check_for_and(char *input)
+{
+    int i;
+    i = 0;
+        if (input[0] == '&' && input[1] && input[1] == '&')
+    {
+        printf("minishell: syntax error near unexpected token `&&'\n");
+        return (1);
+    }
+    while (input[i] && input[i + 1] && input[i + 2])
+    {
+        if (input[i] == '&' && input[i + 1] == '&' && input[i + 2] == '&')
+        {
+            printf("minishell: syntax error near unexpected token `&&'\n");
+            return (1);
+        }
+        i++;
+    }
+    return (0);
 }

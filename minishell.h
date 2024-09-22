@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 11:59:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:04:47 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int more_than_op(char *input);
 void check_token_dollar(t_token **token);
 int ft_strlen(char *str);
 void expand(t_token **tokens, env_vars *list_env);
-char *get_value(env_vars *list_env, int len, char *name);
+char *get_value(env_vars *list_env, char *name);
 char *replace_value(char *token, char *value, char *name);
 void expand_home(t_token **tokens, env_vars *list_env);
 int ft_strchr(char *s, int c);
@@ -172,4 +172,7 @@ char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 void check_for_delimeter(t_node *tokens);
 int ft_is_space(char *input);
+int check_for_and(char *input);
+int check_edge_case(char *content);
+char *pass_dollar(char *content);
 #endif

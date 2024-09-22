@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/01 16:38:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:27:26 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*str_joiner(char *s1, char *s2)
 		return (strdup(s2));
 	if (!s2)
 		return(strdup(s1));
-	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	ret = malloc(sizeof(char) * (ft_strlenn(s1) + ft_strlenn(s2) + 1));
 	if (!ret)
 		return (NULL);
 	copy_it(ret, s1);
