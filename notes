@@ -6,5 +6,4 @@ exit_status(SET, 127);
 int d = exit_status(GET, 0)
 ////gonna code the shell level , it wont change anything in your part
 \ ask about it
-case 124 //// check for expand not to write $
-''h'o'la''
+segf ------> $home (you have to check on empty string in excution)
