@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:25 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/23 00:33:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int check_file_path(t_line *final)
 {
 	t_node *current = final->tokens;
 	int i = 0;
-	if (!current->content || !current->content[i] ||(!current->next || !current->next->content))
+
+	if ((!current->content || !current->content[i]) && (!current->next || !current->next->content))
 		return(0);
 	while (current ->content[i])
 	{

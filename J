@@ -1,7 +1,0 @@
-J
-Makefile
-execution
-minishell
-minishell.h
-notes
-parsing

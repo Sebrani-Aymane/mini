@@ -4,6 +4,5 @@ exit status
 
 exit_status(SET, 127);
 int d = exit_status(GET, 0)
-////gonna code the shell level , it wont change anything in your part
+////gonna code the shell level , it wont change anything in your part -------- ?? finahowa
 \ ask about it
-segf ------> $home (you have to check on empty string in excution)
