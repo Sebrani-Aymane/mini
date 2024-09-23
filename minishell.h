@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/22 20:14:44 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:33:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void handle_redirections(t_line *final);
 int check_file_path(t_line *final);
 void handle_herdoc(t_line *final, env_vars *list_env);
 env_vars *envpp_export(env_vars *list);
+int	ft_atoii(char *value);
 void chdiir_help(t_line *final,env_vars *list,char *pwd);
 void printrrr(t_line *final);
 //////////////////*PARSING*//////////////////////////
@@ -176,4 +177,6 @@ int ft_is_space(char *input);
 int check_for_and(char *input);
 int check_edge_case(char *content);
 char *pass_dollar(char *content);
+int	ft_isdigit(int c);
+
 #endif

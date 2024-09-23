@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 12:21:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:50:23 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ int check_exit_stat(t_line *final)
 {
     t_node *curr = final->tokens->next;
     int i =0;
-    
+
     if (!curr)
         return (0);
     while (curr ->content[i])
     {
-        if (!ft_isalpha(curr->content[i]))
-            return(255);
+        if(ft_isalpha(curr->content[i]))
+            return(0);
         i++;
     }
-    return(0);
+    return(1);
 }
+
 void exitt(env_vars *env, t_line *final)
 {
     int num = 0;
@@ -82,16 +83,16 @@ void exitt(env_vars *env, t_line *final)
         {
             printf("exit\nminishell: exit: %s: numeric argument required",current->content);
             exit_status(1,255);
-            exit (255);
+            exit(255);
         }
-        num = ft_atoi(current->content);
+        num = ft_atoii(current->content);
     }
-    else if (!current)
+    else
         exit(0);
     if (current->next)
     {
         printf("minishell$: exit: too many arguments\n");
-        return ;
+        return;
     }
     exit_status(1,num);
     exit(num);

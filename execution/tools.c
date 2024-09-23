@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 11:33:42 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:43:15 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,33 @@ void	clear_strss(char **strs, int n)
 	while (i < n)
 		free(strs[i++]);
 	free(strs);
+}
+int	ft_atoii(char *value)
+{
+	int		sign;
+	long	result;
+
+	sign = 1;
+	result = 0;
+	while (*value)
+	{
+		while((*value <=13 && *value >= 9) || *value ==32)
+			value++;
+		break;
+	}
+	
+	if (*value == '-')
+	{
+		sign = -1;
+		value++;
+	}
+	else if (*value == '+')
+		value++;
+	while (*value)
+	{
+		result *= 10;
+		result += (*value - '0');
+		value++;
+	}
+	return (result * sign);
 }
