@@ -6,12 +6,14 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/23 00:28:18 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:05:28 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env)
 {
@@ -29,7 +31,8 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 			envpp_export(list);
 		else
 			export_all(list,final);
-	}else if (strcmp(builtin, "env") == 0)
+	}
+	else if (strcmp(builtin, "env") == 0)
     	envpp(list);
 	else if (strcmp(builtin, "cd") == 0)
 	{
@@ -37,7 +40,7 @@ env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **e
 		if (l == -1)
 		{
 			exit_status(1,1);
-			printf("%s: No such file or directory\n",final->tokens->next->content);
+			perror(final->tokens->content);
 		}
 	}
 	else if (strcmp(builtin, "unset") == 0)
@@ -56,12 +59,13 @@ char **create_av(t_node *tokens)
 	char **av ;
 	int i = 0;
 
-	while (current  && (current->type == 1 || current->type == 2))
+	while (current)
 	{
-		count ++;
+		if ((current->type == 1 || current->type == 2))
+			count++;
 		current = current->next;
 	}
-	av = malloc (sizeof(char *) * (count + 1));
+	av = malloc (sizeof(char *) * (count+1));
 	current = tokens;
 	while (current)
 	{
@@ -118,7 +122,6 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 					free (path);
 				}
 				exit_status(1, 0);
-				
 				execve(to_excute, av, env);
 			}
 			else
@@ -139,13 +142,13 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		{
 			if (access(to_excute, W_OK) != 0)
 			{
-				fprintf(stderr,"minishell: %s: is adirectory\n",final->tokens->content);
+				perror(final->tokens->content);
 				dup2(fd_in,0);
 				close(fd_in);
 				exit_status(1,0);
 				exit(0);
 			}
-			fprintf(stderr,"minishell: %s: No such file or directory\n",final->tokens->content);
+			perror(final->tokens->content);
 			dup2(fd_in,0);
 			close(fd_in);
 			exit_status(1,0);

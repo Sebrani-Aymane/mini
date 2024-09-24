@@ -1,8 +1,16 @@
 
-cd --->half done
 exit status
 
 exit_status(SET, 127);
 int d = exit_status(GET, 0)
 ////gonna code the shell level , it wont change anything in your part -------- ?? finahowa
 \ ask about it
+
+
+
+
+
+
+
+
+

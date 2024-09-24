@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/23 17:43:15 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/24 01:55:49 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,8 @@ int	ft_atoii(char *value)
 		result += (*value - '0');
 		value++;
 	}
+	if (result > 9223372036854775807)
+		return(255);
+			
 	return (result * sign);
 }

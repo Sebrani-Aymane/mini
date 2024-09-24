@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/22 20:35:46 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/24 01:51:39 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 			{
 				if (final->tokens->type == 1 || final->tokens->type == 2)
 				{
-				exit_status(1,127);
-				fprintf(stderr,"minishell; %s: command not found\n",final->tokens->content);
-				dup2(fd_in,0);
-				close(fd_in);
-				exit(127);
+					exit_status(1,127);
+					fprintf(stderr,"minishell; %s: command not found\n",final->tokens->content);
+					dup2(fd_in,0);
+					close(fd_in);
+					exit(127);
 				}
+					dup2(fd_in,0);
+					close(fd_in);
+					exit_status(1,127);
+					exit(127);
+			}
+				exit_status(1,0);
 				dup2(fd_in,0);
 				close(fd_in);
-				exit_status(1,127);
 				exit(127);
-			}
-			exit_status(1,0);
-			dup2(fd_in,0);
-			close(fd_in);
-			exit(127);
 		}
 	return 0;
 }
