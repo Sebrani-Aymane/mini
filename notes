@@ -5,12 +5,37 @@ exit_status(SET, 127);
 int d = exit_status(GET, 0)
 ////gonna code the shell level , it wont change anything in your part -------- ?? finahowa
 \ ask about it
+____________________________________
 
+minishell$  export a="ls -la"
+minishell$  $a
+ls -la: command not found
+(ls -la should be splitted)
 
+____________________________________
 
+minishell$  export a="b c"
+minishell$  export $a="chihaja"
+'b c' not a valid identifier
+____________________________________
 
+< in > in > out << out >> out
+____________________________________
 
+(need to check if the file name already exists)
 
+minishell$  touch out
+minishell$  > out
+minishell$  < out
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==60783==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000106f8c102 bp 0x7ffee8c7f1b0 sp 0x7ffee8c7f110 T0
 
+minishell$  rm out
+minishell$  > out
+minishell$  < out
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==61034==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000106f8c102 bp 0x7ffee8c7f1b0 sp 0x7ffee8c7f110 T0)
 
-
+)

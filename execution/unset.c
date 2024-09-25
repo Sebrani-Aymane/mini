@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/24 15:51:43 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:15:45 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void exitt(env_vars *env, t_line *final)
 		num = ft_atoii(current->content);
 		if (!check_exit_stat(final) || (ft_strlenn(current->content) > 19 && num > (int)9223372036854775807))
 		{
-			printf("exit\nminishell: exit: %s: numeric argument required",current->content);
+			printf("exit\nminishell: exit: %s: numeric argument required\n",current->content);
 			exit_status(1,255);
 			exit(255);
 		}

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 18:43:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:40:11 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		if (to_do)
 		{
 			exit_status(1, 0);
-			ret = execve(to_do, av, env);
+			ret = execve(to_do, av, );
 		}
 		else
 		{
