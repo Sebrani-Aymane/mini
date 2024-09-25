@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   stack_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:23:32 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/08 21:35:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/25 23:36:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <string.h>
 
 char *get_till(char *str, char c)
 {
@@ -72,4 +73,14 @@ env_vars *list_init(char **env)
 		env++;
 	}
 	return(new);
+}
+int get_nodee(env_vars *list)
+{
+	while(list)
+	{
+		if (ft_strcmp(list->vars,"PATH") == 0)
+			return(1);
+		list = list->next;
+	}
+	return(0);
 }

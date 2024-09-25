@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 21:15:45 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:43:20 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void exitt(env_vars *env, t_line *final)
 	t_node *current = final->tokens->next;
 	if (current)
 	{
-		if (current->next)
+		if (current->next && (check_exit_stat(final) || (ft_strlenn(current->content) < 19 && num < (int)9223372036854775807)))
 		{
 			printf("minishell$: exit: too many arguments\n");
 			 exit_status(1,1);

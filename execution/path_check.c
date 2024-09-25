@@ -6,11 +6,12 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 18:41:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:30:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <unistd.h>
 
 char *find_executable(t_line	*final,char **env,char **av)
 {
@@ -70,4 +71,19 @@ int help_execute_files(t_line *final,char **env,char **av)
 		exit(0);
 	}
 	return (ret);
+}
+
+char **fake_env(void)
+{
+	char **env;
+	char *pwd;
+	
+	pwd = getcwd(NULL,0);
+	env = malloc(sizeof(char *) *5);
+	env[0] = strdup(str_joiner("PWD=",pwd));
+	env[1] = strdup("SHLVL=1");
+	env[2] = strdup("_=/usr/bin/env");
+	env[3] = strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+	//env[4]= NULL; 
+	return(env);
 }

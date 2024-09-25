@@ -39,3 +39,11 @@ AddressSanitizer:DEADLYSIGNAL
 ==61034==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000106f8c102 bp 0x7ffee8c7f1b0 sp 0x7ffee8c7f110 T0)
 
 )
+
+
+exit 999999999999 99
+create char **env if (!*env)
+
+
+
+

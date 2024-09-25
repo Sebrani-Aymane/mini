@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 21:40:11 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:39:16 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,18 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	char **av = create_av(final->tokens);
 	if (!check_file_path(final))
 	{
+		if (!get_nodee(list))
+			{
+				exit_status(1,127);
+				write(2,av[0],ft_strlen(av[0]));
+				write(2,": command not found\n",20);
+				exit(127);
+			}
 		to_do = find_executable(final,env,av);
 		if (to_do)
 		{
 			exit_status(1, 0);
-			ret = execve(to_do, av, );
+			ret = execve(to_do, av, env);
 		}
 		else
 		{
