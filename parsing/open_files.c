@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/21 15:41:44 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:45:07 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ void open_files(t_line *lines)
     while (current)
     {
         in = in_file(current);
-        out = out_file(current);
-        
+        out = out_file(current);    
         if (!in || !out)
             return ;
         current = current->next;

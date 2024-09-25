@@ -36,6 +36,7 @@ int get_shlvl(env_vars *list_env)
         if (!strncmp(temp->vars, "SHLVL", 5))
         {
             shlvl = ft_atoi(temp->var_value);
+            shlvl++;
             break;
         }
         temp = temp->next;
@@ -95,6 +96,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         check_for_delimeter(list);
         lines = tokens_to_lines(list);
         handle_herdoc(lines, list_env);
+        //handle_redirections(lines);
         handle_pipe(lines,env,list_env);
     }
 }

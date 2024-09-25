@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/24 01:51:39 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:45:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 void handle_redirections(t_line *final)
 {
+       
 	open_files(final);
     if(final->fd_in != 0)
 	{
@@ -28,6 +29,7 @@ void handle_redirections(t_line *final)
 		final->default_out = dup(1);
 		dup2(final->fd_out,1);
 	}
+
 	return;
 }
 
@@ -37,11 +39,12 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 
 	fd_in = dup(0);
 	int i =0;
+	
 	if (check_builtin(final, list, env))
 	{
 		execute_builtins(final->tokens->content ,final, list,env);
-		exit_status(1, 0);
-		exit(0);
+		exit_status(1,list -> exit );
+		exit(list->exit);
 	}
 	else
 		{
@@ -50,8 +53,8 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 			{
 				if (final->tokens->type == 1 || final->tokens->type == 2)
 				{
-					exit_status(1,127);
-					fprintf(stderr,"minishell; %s: command not found\n",final->tokens->content);
+					exit_status(1,i);
+				//perror(final->tokens->content);
 					dup2(fd_in,0);
 					close(fd_in);
 					exit(127);
@@ -61,7 +64,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 					exit_status(1,127);
 					exit(127);
 			}
-				exit_status(1,0);
+				exit_status(1,i);
 				dup2(fd_in,0);
 				close(fd_in);
 				exit(127);
@@ -84,12 +87,12 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 			if(final->fd_in != 0)
 			{
 				dup2(final->default_in,0);
-				//close(final->fd_in);
+				close(final->fd_in);
 			}
 			if (final ->fd_out != 1)
 			{
 				dup2(final->default_out,1);
-				//close(final->fd_out);
+				close(final->fd_out);
 			}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/23 23:05:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:43:40 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
 	int count = 0;
-	char **av ;
+	char **av;
 	int i = 0;
 
 	while (current)
@@ -82,85 +82,28 @@ char **create_av(t_node *tokens)
 
 int excutefilepath(t_line *final,env_vars *list,char **env)
 {
-	char *to_excute;
-	int i=0;
-	char **paths;
-	char *command_path;
-	char *path;
-	int fd_in = dup(0);
-	int ret = 2 ;
+	char *to_do;
+	int ret = 2;
 	(void)list;
-
+	
 	char **av = create_av(final->tokens);
-	int lenght;
-	lenght = ft_strlenn(final->tokens->content);
-	if (lenght == 0)
-		return(0);
-	path = get_path(env,"PATH=");
-	command_path = malloc(lenght);
-	if (!command_path)
-		return 0;
-	paths = split(path, ':');
 	if (!check_file_path(final))
 	{
-		command_path  = str_joiner("/",final->tokens->content);
-		int lenght1= ft_strlen(command_path);
-		if (!paths)
-			return 2 ;
-		while(paths[i])
+		to_do = find_executable(final,env,av);
+		if (to_do)
 		{
-			lenght = ft_strlen(paths[i]);
-			to_excute = malloc(lenght + lenght1);
-			if (!to_excute)
-				return 2;
-			to_excute = str_joiner(paths[i],command_path);
-			if (access(to_excute, X_OK) == 0)
-			{
-				if (paths && command_path)
-				{
-					free(command_path);
-					free (path);
-				}
-				exit_status(1, 0);
-				execve(to_excute, av, env);
-			}
-			else
-				{
-					free(to_excute);
-					to_excute =NULL;
-				}
-			i++;
-
+			exit_status(1, 0);
+			ret = execve(to_do, av, env);
 		}
-		if (to_excute)
-			free(to_excute);
+		else
+		{
+			exit_status(1,127);
+			write(2,av[0],ft_strlen(av[0]));
+			write(2,": command not found\n",20);
+		}
 	}
 	else
-	{
-		ret = execve(final->tokens->content, av, env);
-		if(ret == -1)
-		{
-			if (access(to_excute, W_OK) != 0)
-			{
-				perror(final->tokens->content);
-				dup2(fd_in,0);
-				close(fd_in);
-				exit_status(1,0);
-				exit(0);
-			}
-			perror(final->tokens->content);
-			dup2(fd_in,0);
-			close(fd_in);
-			exit_status(1,0);
-			exit(0);
-		}
-	}
-	if (paths || command_path || av)
-	{
-		free_double(av);
-		free_double(paths);
-		free(command_path);
-	}
+		help_execute_files(final,env,av);
 	return ret;
 }
 
