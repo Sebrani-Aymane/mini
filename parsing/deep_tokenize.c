@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/23 18:54:52 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 18:36:13 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,37 @@ void	divide_and_add(t_node **list, char *content)
 		add_token(list, content, start, i);
 }
 
+void divide_space(char *content, t_node **list)
+{
+    int i = 0;
+    int start, end;
+    char *token;
+
+    while (content[i] == ' ' || content[i] == '\t')
+        i++;
+    start = i;
+    while (content[i] != '\0')
+    {
+        if (content[i] == ' ' || content[i] == '\t')
+        {
+            end = i;
+            token = cat_token(content, start, end);
+            add_node(list, token);
+            while (content[i] == ' ' || content[i] == '\t')
+                i++;
+            start = i;
+        }
+        else
+            i++;
+    }
+
+    if (start < i)
+    {
+        token = cat_token(content, start, i);
+        add_node(list, token);
+    }
+}
+
 t_node	*search_token(t_token **tokens)
 {
 	int		i;
@@ -124,6 +155,8 @@ t_node	*search_token(t_token **tokens)
 			&& contains_symbol(tokens[i]->content)
 			&& !inside_quotes(tokens[i]->content))
 			divide_and_add(&list, tokens[i]->content);
+		else if (!inside_quotes(tokens[i]->content) && tokens[i]->divide_space == 1)
+			divide_space(tokens[i]->content, &list);
 		else
 			add_node(&list, tokens[i]->content);
 		i++;

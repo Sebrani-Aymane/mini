@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/25 18:57:43 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 18:36:58 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,18 +118,18 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         // }
         check_for_delimeter(list);
         lines = tokens_to_lines(list);
-        t_line *current = lines;
-        while (current)
-        {
-            t_node *curr = current->tokens;
-            printf("this is line: \n");
-            while (curr)
-            {
-                printf("token: %s\n", curr->content);
-                curr = curr->next;
-            }
-            current = current->next;
-        }
+        // t_line *current = lines;
+        // while (current)
+        // {
+        //     t_node *curr = current->tokens;
+        //     printf("this is line: \n");
+        //     while (curr)
+        //     {
+        //         printf("token: %s\n", curr->content);
+        //         curr = curr->next;
+        //     }
+        //     current = current->next;
+        // }
         handle_herdoc(lines, list_env);
         handle_pipe(lines,env,list_env);
     }

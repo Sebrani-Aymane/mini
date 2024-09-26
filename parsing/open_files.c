@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/25 17:23:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 16:59:32 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	in_file(t_line *line)
 	t_node	*current;
 
 	current = line->tokens;
-	while (current)
+	while (current && current->next)
 	{
 		if (current->type == 4 && current->next->type == 4)
 		{

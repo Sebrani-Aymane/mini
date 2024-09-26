@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/26 15:25:46 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 18:19:45 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_token
 {
     char *content;
     int need_expand;
+    int divide_space;
 } t_token;
 
 typedef struct s_list
@@ -160,6 +161,7 @@ int tokens_number(char *input, int i, int count, int inside_d);
 int more_than_op(char *input);
 void check_token_dollar(t_token **token);
 int ft_strlen(char *str);
+char	*cat_token(char *input, int start, int end);
 void expand(t_token **tokens, env_vars *list_env);
 char *get_value(env_vars *list_env, char *name, char *value, int j);
 char *replace_value(char *token, char *value, char *name);

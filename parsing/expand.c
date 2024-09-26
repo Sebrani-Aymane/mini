@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/25 16:51:26 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 18:29:30 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,57 +164,106 @@ char	*replace_value(char *token, char *value, char *name)
 	strcat(new_token, pos + strlen(name));
 	return (new_token);
 }
-
-char	*counter_loop(int counter, char *temp, env_vars *l_env, int *notif)
+void expand(t_token **tokens, env_vars *list_env)
 {
-	char	*name;
-	char	*value;
-	char	*new_token;
+    int i = 0;
+    char *name;
+    char *value;
+    char *new_token;
+    char *temp_token;
+    int notif;
+    int counter;
 
-	while (counter)
-	{
-		name = variable_name(temp);
-		if (!strcmp(name, "\0"))
-		{
-			*notif = 1;
-			counter--;
-			continue ;
-		}
-		value = get_value(l_env, name, NULL, 0);
-		if (value == NULL)
-			value = "";
-		new_token = replace_value(temp, value, name);
-		temp = new_token;
-		counter--;
-	}
-	return (new_token);
+    while (tokens[i])
+    {
+        notif = 0;
+        counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
+        if (counter == 0)
+        {
+            i++;
+            continue;
+        }
+        temp_token = tokens[i]->content;
+        while (counter)
+        {
+            name = variable_name(temp_token);
+            if (!strcmp(name, "\0"))
+            {
+                notif = 1;
+                counter--;
+                continue ;
+            }
+            value = get_value(list_env, name, NULL, 0);
+			if (value && strchr(value, ' '))
+				tokens[i]->divide_space = 1;
+			else 
+				tokens[i]->divide_space = 0;
+            if (value == NULL)
+                value = "";
+            new_token = replace_value(temp_token, value, name);
+            temp_token = new_token;
+            counter--;
+        }
+        if (!notif)
+            tokens[i]->content = new_token;
+        else
+        {
+            if (check_edge_case(temp_token))
+                    tokens[i]->content = pass_dollar(temp_token);
+        }
+        i++;
+    }
 }
+// char	*counter_loop(int counter, char *temp, env_vars *l_env, int *notif)
+// {
+// 	char	*name;
+// 	char	*value;
+// 	char	*new_token;
 
-void	expand(t_token **tokens, env_vars *list_env)
-{
-	int		i;
-	char	*new_token;
-	int		notif;
-	int		counter;
+// 	while (counter)
+// 	{
+// 		name = variable_name(temp);
+// 		if (!strcmp(name, "\0"))
+// 		{
+// 			*notif = 1;
+// 			counter--;
+// 			continue ;
+// 		}
+// 		value = get_value(l_env, name, NULL, 0);
+// 		if (value == NULL)
+// 			value = "";
+// 		new_token = replace_value(temp, value, name);
+// 		temp = new_token;
+// 		counter--;
+// 	}
+// 	return (new_token);
+// }
 
-	i = 0;
-	while (tokens[i])
-	{
-		notif = 0;
-		counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
-		if (counter == 0)
-		{
-			i++;
-			continue ;
-		}
-		new_token = counter_loop(counter, tokens[i]->content, list_env, &notif);
-		if (!notif)
-			tokens[i]->content = new_token;
-		else
-		{
-			if (check_edge_case(new_token))
-				tokens[i]->content = pass_dollar(new_token);
-		}
-		i++;
-	}
-}
+// void	expand(t_token **tokens, env_vars *list_env)
+// {
+// 	int		i;
+// 	char	*new_token;
+// 	int		notif;
+// 	int		counter;
+
+// 	i = 0;
+// 	while (tokens[i])
+// 	{
+// 		notif = 0;
+// 		counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
+// 		if (counter == 0)
+// 		{
+// 			i++;
+// 			continue ;
+// 		}
+// 		new_token = counter_loop(counter, tokens[i]->content, list_env, &notif);
+// 		if (!notif)
+// 			tokens[i]->content = new_token;
+// 		else
+// 		{
+// 			if (check_edge_case(new_token))
+// 				tokens[i]->content = pass_dollar(new_token);
+// 		}
+// 		i++;
+// 	}
+// }
