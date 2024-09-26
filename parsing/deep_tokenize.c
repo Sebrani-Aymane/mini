@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/26 18:36:13 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 19:25:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ t_node	*search_token(t_token **tokens)
 	{
 		if (!contains_only_symbol(tokens[i]->content)
 			&& contains_symbol(tokens[i]->content)
-			&& !inside_quotes(tokens[i]->content))
+			&& !inside_quotes(tokens[i]->content) 
+			&& (i != 0 && strcmp(tokens[i - 1]->content, "export")))
 			divide_and_add(&list, tokens[i]->content);
 		else if (!inside_quotes(tokens[i]->content) && tokens[i]->divide_space == 1)
 			divide_space(tokens[i]->content, &list);

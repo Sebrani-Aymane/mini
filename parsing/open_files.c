@@ -6,75 +6,76 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/26 16:59:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/26 19:48:35 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	in_file(t_line *line)
+int	in_file(t_node *token)
 {
-	t_node	*current;
-
-	current = line->tokens;
-	while (current && current->next)
+	int fd;
+	
+	fd = open(token->next->content, O_RDONLY);
+	if (fd == -1)
 	{
-		if (current->type == 4 && current->next->type == 4)
-		{
-			line->fd_in = open(current->next->content, O_RDONLY);
-			if (line->fd_in == -1)
-			{
-				printf("minishell: %s: No such file or directory\n",
-					current->next->content);
-				return (0);
-			}
-		}
-		current = current->next;
+		printf("minishell: %s: No such file or directory\n",
+			token->content);
+		return (0);
 	}
-	return (1);
+	return (fd);
 }
 
-int	out_file(t_line *line)
+int	out_file(t_node *token)
 {
-	t_node	*current;
-
-	current = line->tokens;
-	while (current && current->next)
+	int fd;
+	
+	if (!strcmp(token->content, ">"))
+		fd = open(token->content,
+				O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	else
+		fd = open(token->content,
+				O_WRONLY | O_APPEND | O_CREAT, 0644);
+	if (fd == -1)
 	{
-		if (current->type == 5 && current->next->type == 5)
-		{
-			if (!strcmp(current->content, ">"))
-				line->fd_out = open(current->next->content,
-						O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			else
-				line->fd_out = open(current->next->content,
-						O_WRONLY | O_APPEND | O_CREAT, 0644);
-			if (line->fd_out == -1)
-			{
-				printf("minishell: %s: No such file or directory\n",
-					current->next->content);
-				return (0);
-			}
-		}
-		current = current->next;
+		printf("minishell: %s: No such file or directory\n",
+			token->content);
+		return (0);
 	}
-	return (1);
+	return (fd);
 }
 
 //TODO: close prev files
 void	open_files(t_line *lines)
 {
-	t_line	*current;
+	t_line	*curr_line;
+	t_node	*curr_node;
 	int		in;
 	int		out;
 
-	current = lines;
-	while (current)
+	curr_line = lines;
+	while (curr_line)
 	{
-		in = in_file(current);
-		out = out_file(current);
-		if (!in || !out)
-			return ;
-		current = current->next;
+		curr_node = curr_line->tokens;
+		while (curr_node && curr_node->next)
+		{
+			if (curr_node->type == 5 && curr_node->next->type == 5)
+			{
+				out = out_file(curr_node->next);
+				lines->fd_out = out;
+				if (!out)
+					return ;
+			}
+			else if (curr_node->type == 4 && curr_node->next->type == 4)
+			{
+				in = in_file(curr_node->next);
+				lines->fd_in = in;
+				if (!in)
+					return ;
+			}
+			curr_node = curr_node->next;
+		}
+		curr_line = curr_line->next;
 	}
+			
 }
