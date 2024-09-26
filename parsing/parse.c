@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/17 18:35:10 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/25 18:23:47 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,13 @@ infile 4
 outfile 5
 */
 
-char *remove_quotes(char *content)
+char	*remove_quotes(char *content, int i, int j, char c)
 {
-	char	c;
 	char	*final;
-    int     i = 0;
-    int     j = 0;
 
-	final = calloc(sizeof(char), ft_strlen(content) + 1);
+	final = c_malloc(sizeof(char) * ft_strlen(content) + 1, 1);
 	if (!final)
 		return (NULL);
-
 	while (content[i])
 	{
 		if (content[i] == '\'' || content[i] == '\"')
@@ -41,7 +37,7 @@ char *remove_quotes(char *content)
 				if (content[i] != c)
 					final[j++] = content[i];
 				else if (content[i] == c)
-					break;
+					break ;
 				i++;
 			}
 		}
@@ -53,21 +49,22 @@ char *remove_quotes(char *content)
 	return (final);
 }
 
-void final_tokens(t_node *token)
+void	final_tokens(t_node *token)
 {
-    t_node *current = token;
-    char *final;
+	t_node	*current;
+	char	*final;
 
-    while (current)
-    {
-        final = remove_quotes(current->content);
-        if (final)
-        {
-            free(current->content);
-            current->content = final;
-        }
-        current = current->next;
-    }
+	current = token;
+	while (current)
+	{
+		final = remove_quotes(current->content, 0, 0, 0);
+		if (final)
+		{
+			free(current->content);
+			current->content = final;
+		}
+		current = current->next;
+	}
 }
 
 void	redirections_classifier(t_node **lst_token)
@@ -90,95 +87,103 @@ void	redirections_classifier(t_node **lst_token)
 	}
 }
 
-void giving_type(t_node *token)
+void	giving_type(t_node *token)
 {
-    t_node *current;
-    current = token;
-    while (current)
-    {
-        if (!strcmp(current->content, "<"))
-            current->type = 4;
-        else if (!strcmp(current->content, ">") || !strcmp(current->content, ">>"))
-            current->type = 5;
-        else if (!strcmp(current->content, "<<"))
-            current->type = 3;
-        else if (!strcmp(current->content, "echo") || !strcmp(current->content, "cd") || !strcmp(current->content, "pwd") || !strcmp(current->content, "export")
-                || !strcmp(current->content, "unset") || !strcmp(current->content, "env") || !strcmp(current->content, "exit"))
-            current->type = 2;
-        else 
-            current->type = 1;
-        current = current->next;
-    }
+	t_node	*current;
+
+	current = token;
+	while (current)
+	{
+		if (!strcmp(current->content, "<"))
+			current->type = 4;
+		else if (!strcmp(current->content, ">")
+			|| !strcmp(current->content, ">>"))
+			current->type = 5;
+		else if (!strcmp(current->content, "<<"))
+			current->type = 3;
+		else if (!strcmp(current->content, "echo")
+			|| !strcmp(current->content, "cd")
+			|| !strcmp(current->content, "pwd")
+			|| !strcmp(current->content, "export")
+			|| !strcmp(current->content, "unset")
+			|| !strcmp(current->content, "env")
+			|| !strcmp(current->content, "exit"))
+			current->type = 2;
+		else
+			current->type = 1;
+		current = current->next;
+	}
 }
 
-t_line *create_line(t_node *node)
+void	add_n_l(t_node *curr, t_node **frst, t_node **last, t_line *line)
 {
-    t_line *line;
-    t_node *current = node;
-    t_node *first = NULL;
-    t_node *last = NULL;
-    line = c_malloc(sizeof(t_line), 1);
-    if (!line)
-        return NULL;
-    line->tokens = NULL;
-    while (current && strcmp(current->content, "|") != 0)
-    {
-        t_node *new_node = c_malloc(sizeof(t_node), 1);
-        if (!new_node)
-            return NULL;
-        new_node->content = current->content; 
-        new_node->type = current->type;
-        new_node->delimeter_inside_quotes = current->delimeter_inside_quotes; 
-        new_node->next = NULL;              
-    
-        if (!first)
-        {
-            first = new_node;
-            line->tokens = first;
-        }
-        else
-        {
-            last->next = new_node;
-        }
-        
-        last = new_node;
-        current = current->next;
-    }
-    
-    line->next = NULL;
-    redirections_classifier(&line->tokens);
-    line->fd_in = 0;
-    line->fd_out = 1;
-    return line;
+	t_node	*new_node;
+
+	new_node = c_malloc(sizeof(t_node), 1);
+	if (!new_node)
+		return ;
+	new_node->content = curr->content;
+	new_node->type = curr->type;
+	new_node->delimeter_inside_quotes = curr->delimeter_inside_quotes;
+	new_node->next = NULL;
+	if (!(*frst))
+	{
+		*frst = new_node;
+		line->tokens = *frst;
+	}
+	else
+		(*last)->next = new_node;
+	*last = new_node;
 }
 
-
-t_line *tokens_to_lines(t_node *tokens)
+t_line	*create_line(t_node *node)
 {
-    t_line *first_line = NULL;
-    t_line *last_line = NULL;
-    t_line *line;
-    giving_type(tokens);
-    final_tokens(tokens);
-    while (tokens)
-    {
-        line = create_line(tokens);
-        if (!first_line)
-            first_line = line;
-        else
-            last_line->next = line;
-        last_line = line;
-        while (tokens && strcmp(tokens->content, "|") != 0)
-        {
-            tokens = tokens->next;
-            
-        }
-        
-        if (tokens && strcmp(tokens->content, "|") == 0)
-        {
-            tokens = tokens->next;
-        }
-    }
-    
-    return first_line;
+	t_node	*current;
+	t_node	*first;
+	t_node	*last ;
+	t_line	*line;
+
+	current = node;
+	first = NULL;
+	last = NULL;
+	line = c_malloc(sizeof(t_line), 1);
+	if (!line)
+		return (NULL);
+	line->tokens = NULL;
+	while (current && strcmp(current->content, "|") != 0)
+	{
+		add_n_l(current, &first, &last, line);
+		current = current->next;
+	}
+	line->next = NULL;
+	redirections_classifier(&line->tokens);
+	line->fd_in = 0;
+	line->fd_out = 1;
+	return (line);
+}
+
+t_line	*tokens_to_lines(t_node *tokens)
+{
+	t_line	*first_line;
+	t_line	*last_line;
+	t_line	*line;
+
+	first_line = NULL;
+	last_line = NULL;
+	giving_type(tokens);
+	final_tokens(tokens);
+	while (tokens)
+	{
+		line = create_line(tokens);
+		if (!first_line)
+			first_line = line;
+		else
+			last_line->next = line;
+		last_line = line;
+		while (tokens && strcmp(tokens->content, "|") != 0)
+			tokens = tokens->next;
+		if (tokens && strcmp(tokens->content, "|") == 0)
+			tokens = tokens->next;
+	}
+	return (first_line);
 }

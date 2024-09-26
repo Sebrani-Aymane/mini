@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 23:36:55 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:25:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,19 +149,19 @@ char **fake_env(void);
 
 void display_prompt(t_list shell, char **env, env_vars *list);
 char **copy_env(char **env);
-int check_unclosed_quotes(char *input);
-t_token **into_tokens(char *input);
+int		check_unclosed_quotes(char *input, int i , int inside_d, int inside_s);
+t_token **into_tokens(char *input, int i, int start);
 int check_prohibited_char(char *input);
 int is_redirection_op(char c);
 int skip_spaces(char *input, int i);
 void	ft_lstadd_back(t_node **lst, t_node *neew);
 int validate_redirection_syntax(char *input);
-int tokens_number(char *input);
+int tokens_number(char *input, int i, int count, int inside_d);
 int more_than_op(char *input);
 void check_token_dollar(t_token **token);
 int ft_strlen(char *str);
 void expand(t_token **tokens, env_vars *list_env);
-char *get_value(env_vars *list_env, char *name);
+char *get_value(env_vars *list_env, char *name, char *value, int j);
 char *replace_value(char *token, char *value, char *name);
 void expand_home(t_token **tokens, env_vars *list_env);
 int ft_strchr(char *s, int c);
@@ -169,7 +169,7 @@ t_node *search_token(t_token **tokens);
 t_line *tokens_to_lines(t_node *tokens);
 t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
-int pipe_syntax(char *input);
+int pipe_syntax(char *input, int i, int in_quotes);
 void open_files(t_line *lines);
 void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
@@ -183,6 +183,5 @@ int ft_is_space(char *input);
 int check_for_and(char *input);
 int check_edge_case(char *content);
 char *pass_dollar(char *content);
-int	ft_isdigit(int c);
 
 #endif

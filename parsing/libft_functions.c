@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:20:17 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/14 00:02:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:14:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 	else
 		*lst = new;
 }
+
 int	ft_lstsize(t_node *lst)
 {
-	int	i;
+	int		i;
+	t_node	*tmp;
 
 	i = 0;
-	t_node *tmp;
 	tmp = lst;
 	if (!tmp)
 		return (0);
@@ -69,11 +70,11 @@ int	ft_lstsize(t_node *lst)
 	return (i);
 }
 
-
 static int	is_space(int c)
 {
 	return (c == 32 || (c >= 9 && c <= 13));
 }
+
 int	ft_isdigit(int c)
 {
 	if (c <= '9' && c >= '0')
@@ -81,6 +82,7 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
+
 int	ft_atoi(const char *str)
 {
 	int		sign;
@@ -171,7 +173,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		j;
 
 	i = 0;
-	sizetotal = ft_strlen((char *)s1) + ft_strlen((char*)s2);
+	sizetotal = ft_strlen((char *)s1) + ft_strlen((char *)s2);
 	res = malloc(sizeof(char) * (sizetotal + 1));
 	if (!res || !s1 || !s2)
 		return (NULL);
@@ -190,4 +192,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	res[sizetotal] = 0;
 	return (res);
 }
-

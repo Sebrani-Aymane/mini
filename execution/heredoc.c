@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 12:18:21 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:26:06 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void handle_herdoc(t_line *final, env_vars *list_env)
 			input = readline(">");
 			if (!input)
 				return(free(input));
-			hered_tokens = into_tokens(input);
+			hered_tokens = into_tokens(input, 0, 0);
 			if (delimiter->delimeter_inside_quotes != 1)
 			{
 				check_token_dollar(hered_tokens);

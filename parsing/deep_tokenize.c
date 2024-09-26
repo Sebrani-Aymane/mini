@@ -6,116 +6,127 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/17 17:07:08 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/23 18:54:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-int inside_quotes(char *str)
+int	inside_quotes(char *str)
 {
-    int len = ft_strlen(str);
-    if ((str[0] == '"' || str[0] == '\'') && (str[len - 1] == '"' || str[len - 1] == '\''))
-        return (1);
-    return (0);
+	int	len;
+
+	len = ft_strlen(str);
+	if ((str[0] == '"' || str[0] == '\'') && (str[len - 1] == '"'
+			|| str[len - 1] == '\''))
+		return (1);
+	return (0);
 }
 
-int contains_only_symbol(char *str)
+int	contains_only_symbol(char *str)
 {
-    return (!strcmp(str, ">") || !strcmp(str, "<") || !strcmp(str, "<<") || !strcmp(str, ">>") || !strcmp(str, "|"));
+	return (!strcmp(str, ">") || !strcmp(str, "<") || !strcmp(str, "<<")
+		|| !strcmp(str, ">>") || !strcmp(str, "|"));
 }
 
-int contains_symbol(char *str)
+int	contains_symbol(char *str)
 {
-    return (ft_strchr(str, '>') || ft_strchr(str, '<') || ft_strchr(str, '|'));
+	return (ft_strchr(str, '>') || ft_strchr(str, '<') || ft_strchr(str, '|'));
 }
 
-void add_node(t_node **list, char *content)
+void	add_node(t_node **list, char *content)
 {
-    t_node *new_node = ft_lstnew(content);
-    if (!new_node)
-        return;
-    ft_lstadd_back(list, new_node);
+	t_node	*new_node;
+
+	new_node = ft_lstnew(content);
+	if (!new_node)
+		return ;
+	ft_lstadd_back(list, new_node);
 }
 
-void divide_and_add(t_node **list, char *content)
+void	add_token(t_node **list, char *content, int start, int end)
 {
-    int i = 0;
-    int start = 0;
-    char *token;
+	int		len;
+	char	*token;
 
-    while (content[i])
-    {
-        if (content[i] == '<' || content[i] == '>' || content[i] == '|')
-        {
-            if (i > start)
-            {
-                int len = i - start;
-                token = c_malloc((sizeof(char) * (len + 1)), 1);
-                if (!token) return; 
-                strncpy(token, content + start, len);
-                token[len] = '\0';
-                add_node(list, token);
-            }
-
-            if (content[i + 1] == content[i])
-            {
-                token = c_malloc((sizeof(char) * 3), 1);
-                if (!token) return; 
-                token[0] = content[i];
-                token[1] = content[i];
-                token[2] = '\0';
-                add_node(list, token);
-                i += 2;
-            }
-            else 
-            {
-                token = c_malloc((sizeof(char) * 2), 1);
-                if (!token) return; 
-                token[0] = content[i];
-                token[1] = '\0';
-                add_node(list, token);
-                i++;
-            }
-
-            start = i;
-        }
-        else
-        {
-            i++;
-        }
-    }
-
-    if (i > start)
-    {
-        int len = i - start;
-        token = c_malloc((sizeof(char) * (len + 1)), 1);
-        if (!token) return; 
-        strncpy(token, content + start, len);
-        token[len] = '\0';
-        add_node(list, token);
-    }
+	len = end - start;
+	token = c_malloc((sizeof(char) * (len + 1)), 1);
+	if (!token)
+		return ;
+	strncpy(token, content + start, len);
+	token[len] = '\0';
+	add_node(list, token);
 }
 
-t_node *search_token(t_token **tokens)
+void	add_double_char_token(t_node **list, char *content, int *i)
 {
-    int i = 0;
-    t_node *list = NULL;
-    while (tokens[i])
-    {
-        if (!contains_only_symbol(tokens[i]->content) && contains_symbol(tokens[i]->content) && !inside_quotes(tokens[i]->content))
-        {
-            divide_and_add(&list, tokens[i]->content);
-        }
-        else
-        {
-            add_node(&list, tokens[i]->content);
-        }
-        i++;
-    }
-    return list;
+	char	*token;
+
+	token = c_malloc((sizeof(char) * 3), 1);
+	if (!token)
+		return ;
+	token[0] = content[*i];
+	token[1] = content[*i];
+	token[2] = '\0';
+	add_node(list, token);
+	*i += 2;
 }
 
+void	add_single_char_token(t_node **list, char *content, int *i)
+{
+	char	*token;
 
+	token = c_malloc((sizeof(char) * 2), 1);
+	if (!token)
+		return ;
+	token[0] = content[*i];
+	token[1] = '\0';
+	add_node(list, token);
+	(*i)++;
+}
 
+void	divide_and_add(t_node **list, char *content)
+{
+	int	i;
+	int	start;
+
+	i = 0;
+	start = 0;
+	while (content[i])
+	{
+		if (content[i] == '<' || content[i] == '>' || content[i] == '|')
+		{
+			if (i > start)
+				add_token(list, content, start, i);
+			if (content[i + 1] == content[i])
+				add_double_char_token(list, content, &i);
+			else
+				add_single_char_token(list, content, &i);
+			start = i;
+		}
+		else
+			i++;
+	}
+	if (i > start)
+		add_token(list, content, start, i);
+}
+
+t_node	*search_token(t_token **tokens)
+{
+	int		i;
+	t_node	*list;
+
+	i = 0;
+	list = NULL;
+	while (tokens[i])
+	{
+		if (!contains_only_symbol(tokens[i]->content)
+			&& contains_symbol(tokens[i]->content)
+			&& !inside_quotes(tokens[i]->content))
+			divide_and_add(&list, tokens[i]->content);
+		else
+			add_node(&list, tokens[i]->content);
+		i++;
+	}
+	return (list);
+}

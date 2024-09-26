@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
+/*   Updated: 2024/09/25 18:57:43 by cbajji           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char **copy_env(char **env)
@@ -36,7 +48,6 @@ int get_shlvl(env_vars *list_env)
         if (!strncmp(temp->vars, "SHLVL", 5))
         {
             shlvl = ft_atoi(temp->var_value);
-            shlvl++;
             break;
         }
         temp = temp->next;
@@ -82,21 +93,44 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
             free(input);
             continue;
         }
-        if (!strcmp(input, "\"\"") || check_unclosed_quotes(input) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input))
+        if (!strcmp(input, "\"\"") || check_unclosed_quotes(input, 0, 0, 0) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input, 0, 0))
         {
             if (!strcmp(input, "\"\""))
                 printf("minishell: : command not found\n");
             continue;
         }
-        shell.tokens = into_tokens(input);
+        shell.tokens = into_tokens(input, 0, 0);
+        // int i = 0;
+        // while(shell.tokens[i])
+        // {
+        //     printf("token[%d]: %s\n", i, shell.tokens[i]->content);
+        //     i++;
+        // }
         check_token_dollar(shell.tokens);
         expand(shell.tokens, list_env);
         expand_home(shell.tokens, list_env);
         list = search_token(shell.tokens);
+        // t_node *current = list;
+        // while(current)
+        // {
+        //     printf("token: %s\n", current->content);
+        //     current = current->next;
+        // }
         check_for_delimeter(list);
         lines = tokens_to_lines(list);
+        t_line *current = lines;
+        while (current)
+        {
+            t_node *curr = current->tokens;
+            printf("this is line: \n");
+            while (curr)
+            {
+                printf("token: %s\n", curr->content);
+                curr = curr->next;
+            }
+            current = current->next;
+        }
         handle_herdoc(lines, list_env);
-        //handle_redirections(lines);
         handle_pipe(lines,env,list_env);
     }
 }

@@ -1,110 +1,129 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
+/*   Updated: 2024/09/25 19:05:03 by cbajji           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int tokens_number(char *input)
+void	check_quotes(char *input, int *inside_d, int *inside_s, int i)
 {
-    int i = 0;
-    int notif = 1;
-    int count = 0;
-    int end = 0;
-
-    while (input[i] == ' ' || input[i] == '\t')
-        i++;
-    end = i;
-    while (input[end])
-        end++;
-    while (end > 0 && (input[end - 1] == ' ' || input[end - 1] == '\t'))
-        end--;
-    if (i == end)
-        return 0;
-
-    while (i < end)
-    {
-        if (input[i] == '\'' || input[i] == '"')
-            notif = -notif;
-        else if ((input[i] == ' ' || input[i] == '\t') && notif > 0)
-        {
-            count++;
-            while ((input[i] == ' ' || input[i] == '\t') && notif > 0)
-                i++;
-            i--;
-        }
-        i++;
-    }
-    return count + 1;
+	if (input[i] == '"' && (*inside_s) == 0)
+		(*inside_d) = !(*inside_d);
+	else if (input[i] == '\'' && *inside_d == 0)
+		(*inside_s) = !(*inside_s);
 }
 
-int divide(char *input, int start)
+int	tokens_number(char *input, int i, int count, int i_d)
 {
-    int i;
-    int end;
-    int notif;
-    int last;
+	int	end;
+	int	i_s;
 
-    i = 0;
-    notif = 1;
-    while (start == 0 && (input[i] == ' ' || input[i] == '\t'))
-        i++;
-    last = start;
-    while (input[last])
-        last++;
-    while (last > 0 && (input[last - 1] == ' ' || input[last - 1] == '\t'))
-        last--;
-    while (start < last)
-    {
-        if(input[start] == '\'' || input[start] == '"')
-            notif = -notif;
-        else if ((input[start] == ' ' || input[start] == '\t') && notif > 0)
-        {
-            end = start;
-            return (end);
-        }
-        start++;
-    }
-    end = start;
-    return (end);
+	i_s = 0;
+	while (input[i] == ' ' || input[i] == '\t')
+		i++;
+	end = ft_strlen(input) - 1;
+	while (end > 0 && (input[end] == ' ' || input[end] == '\t'))
+		end--;
+	if (i == end)
+		return (0);
+	while (i < end)
+	{
+		if (input[i] == '"' || input[i] == '\'')
+			check_quotes(input, &i_d, &i_s, i);
+		else if ((input[i] == ' ' || input[i] == '\t') && !i_d && !i_s)
+		{
+			count++;
+			while ((input[i] == ' ' || input[i] == '\t') && !i_d && !i_s)
+				i++;
+			i--;
+		}
+		i++;
+	}
+	return (count + 1);
 }
 
-char *cat_token(char *input, int start, int end)
+int	divide(char *input, int start, int inside_d, int inside_s)
 {
-    char *token;
-    int i = 0;
-    int len = end - start + 1;
-    token = c_malloc ((sizeof(char) * len), 1);
-    while (start < end)
-    {
-        token[i] = input[start];
-        start++;
-        i++;
-    }
-    token[i] = '\0';
-    return (token);
+	int	end;
+	int	last;
+
+	if (start == 0)
+	{
+		while (input[start] == ' ' || input[start] == '\t')
+			start++;
+	}
+	last = strlen(input) - 1;
+	while (last > 0 && (input[last] == ' ' || input[last] == '\t'))
+		last--;
+	while (start <= last)
+	{
+		if (input[start] == '"' || input[start] == '\'')
+			check_quotes(input, &inside_d, &inside_s, start);
+		else if ((input[start] == ' ' || input[start] == '\t')
+			&& !inside_d && !inside_s)
+		{
+			end = start;
+			return (end);
+		}
+		start++;
+	}
+	end = start;
+	return (end);
 }
 
-t_token **into_tokens(char *input)
+char	*cat_token(char *input, int start, int end)
 {
-    int i;
-    t_token **tokens;
-    int count;
-    int start;
-    int last_start;
+	char	*token;
+	int		i;
+	int		len;
 
-    i = 0;
-    start = 0;
-    count = tokens_number(input);
-    tokens = c_malloc((sizeof(t_token *) * (count + 1)), 1);
-    while (i < count)
-    {
-        tokens[i] = c_malloc(sizeof(t_token), 1);
-        if (start == 0)
-            last_start = 0;
-        else
-            last_start = start + 1;
-        while (input[last_start] == ' ' || input[last_start] == '\t')
-            last_start++;
-        start = divide(input, last_start);
-        tokens[i]->content = cat_token(input, last_start, start);
-        i++;
-    }
-    tokens[i] = NULL;
-    return (tokens);
+	i = 0;
+	len = end - start + 1;
+	token = c_malloc ((sizeof(char) * len), 1);
+	if (!token)
+		return (NULL);
+	while (start < end)
+	{
+		token[i] = input[start];
+		start++;
+		i++;
+	}
+	token[i] = '\0';
+	return (token);
+}
+
+t_token	**into_tokens(char *input, int i, int start)
+{
+	t_token	**tokens;
+	int		count;
+	int		last_start;
+
+	count = tokens_number(input, 0, 0, 0);
+	tokens = c_malloc((sizeof(t_token *) * (count + 1)), 1);
+	if (!tokens)
+		return (NULL);
+	while (i < count)
+	{
+		tokens[i] = c_malloc(sizeof(t_token), 1);
+		if (!tokens[i])
+			return (NULL);
+		if (start == 0)
+			last_start = 0;
+		else
+			last_start = start + 1;
+		while (input[last_start] == ' ' || input[last_start] == '\t')
+			last_start++;
+		start = divide(input, last_start, 0, 0);
+		tokens[i]->content = cat_token(input, last_start, start);
+		i++;
+	}
+	tokens[i] = NULL;
+	return (tokens);
 }
