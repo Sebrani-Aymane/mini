@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/22 20:43:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:27:16 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ env_vars *envpp(env_vars *list)
 	while (list)
 	{
 		printf("%s",list->vars);
-		if(*(list->var_value) != '\0')
+		if(list->var_value && *(list->var_value) != '\0')
 			printf("=%s\n",list->var_value);
 		else
 			printf("\n");

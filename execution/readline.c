@@ -6,50 +6,48 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 23:39:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:03:48 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
 
-env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env)
+env_vars	*execute_blts(char *blt, t_line *final,
+						env_vars *list, char **env)
 {
-	(void)env;
-	int l = 0;
+	int	l;
 
+	l = 0;
 	handle_redirections(final);
-    if (strcmp(builtin, "echo") == 0)
-        echoo(final);
-    else if (strcmp(builtin, "pwd") == 0) 
-        pwdd(0);
-    else if (strcmp(builtin, "export") == 0)
+	if (strcmp(blt, "echo") == 0)
+		echoo(final);
+	else if (strcmp(blt, "pwd") == 0)
+		pwdd(0);
+	else if (strcmp(blt, "export") == 0)
 	{
 		if (!(final->tokens->next))
 			envpp_export(list);
 		else
-			export_all(list,final);
+			export_all(list, final);
 	}
-	else if (strcmp(builtin, "env") == 0)
-    	envpp(list);
-	else if (strcmp(builtin, "cd") == 0)
+	else if (strcmp(blt, "env") == 0)
+		envpp(list);
+	else if (strcmp(blt, "cd") == 0)
 	{
-		l = chdirr(env,final,list);
+		l = chdirr(env, final, list);
 		if (l == -1)
 		{
-			exit_status(1,1);
+			exit_status(1, 1);
 			perror(final->tokens->content);
 		}
 	}
-	else if (strcmp(builtin, "unset") == 0)
+	else if (strcmp(blt, "unset") == 0)
 	{
 		unset(list, final);
 	}
-	else if (strcmp(builtin, "exit") == 0)
+	else if (strcmp(blt, "exit") == 0)
 		exitt(list, final);
-	return(list);
+	return (list);
 }
 
 char **create_av(t_node *tokens)

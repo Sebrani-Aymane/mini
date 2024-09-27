@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/24 18:45:50 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:57:40 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 	
 	if (check_builtin(final, list, env))
 	{
-		execute_builtins(final->tokens->content ,final, list,env);
+		execute_blts(final->tokens->content ,final, list,env);
 		exit_status(1,list -> exit );
 		exit(list->exit);
 	}
@@ -83,7 +83,7 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	pipes_count = ft_listsize(final);
 	if (pipes_count == 1 && check_builtin(final,list,env))
 	{
-			execute_builtins(final->tokens->content,final,list,env);
+			execute_blts(final->tokens->content,final,list,env);
 			if(final->fd_in != 0)
 			{
 				dup2(final->default_in,0);

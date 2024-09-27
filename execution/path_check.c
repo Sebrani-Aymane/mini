@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 23:30:38 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:35:40 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ int help_execute_files(t_line *final,char **env,char **av)
 	{
 		if (access(av[0], W_OK) != 0)
 		{
+			exit_status(1,127);
 			perror(final->tokens->content);
 			dup2(fd_in,0);
 			close(fd_in);
 			free_double(av);
-			exit_status(1,127);
 			exit(127);
 		}
+		exit_status(1,127);
 		perror(final->tokens->content);
 		dup2(fd_in,0);
 		free_double(av);
 		close(fd_in);
 		free_double(av);
-		exit_status(1,127);
 		exit(127);
 	}
 	return (ret);

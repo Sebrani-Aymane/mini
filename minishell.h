@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/26 18:19:45 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/27 13:09:32 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,9 @@ void	clear_strss(char **strs, int n);
 int execute_the_thing(t_line *final,char **env,env_vars *list);
 void 	export_with_plus(char *av,env_vars *env);
 int ft_strcmp(char *str,char *str1);
-env_vars *execute_builtins(char* builtin, t_line *final, env_vars *list,char **env);
+env_vars *execute_blts(char* builtin, t_line *final, env_vars *list, char **env);
 void valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);
-void piipe(env_vars *list,char **av,char **env);
 void exitt(env_vars *env, t_line *final);
 void first_in(char *str,env_vars *env);
 int	ft_isalpha(int c);
@@ -110,27 +109,17 @@ void export_it(env_vars *env, char *str);
 char	*get_path(char **envp,char *str);
 int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
-char **joker(env_vars *list);
-void	ft_lstadd_front(env_vars **lst, env_vars *next);
-char *ret(char *in);
 int  excutefilepath(t_line *final,env_vars *list,char **env);
 int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
 env_vars *exportt_plus(char **av,env_vars *list);
-void	clear_strss(char **strs, int n);
 env_vars *list_init(char **variables);
-env_vars *exportt_plus(char **av,env_vars *list);
 void free_double(char **str);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
-int already_var(env_vars *list, char *str);
 int check_builtin(t_line *final, env_vars *list,char **env);
-char** split_by_first_occurrence(char *str, char delimiter);
-int already_vars(env_vars *list, char *str);
 int get_nodee(env_vars *list);
-env_vars *update_value(env_vars **list,char **str);
-char *ret(char *in);
 int	chdirr(char **env, t_line *final,env_vars *list);
 int handle_pipe(t_line *final,char **env,env_vars *list);
 int check_eccho(t_node *final);

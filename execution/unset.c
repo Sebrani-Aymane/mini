@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/25 23:43:20 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:00:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,22 @@ void unset(env_vars *env, t_line *final)
 		t_node *current;
 		env_vars *curr;
 		env_vars *prev = NULL;
+		env_vars *env_bkp;
 
+		if (!env)
+			return;
 		if (final->tokens->next)
 			current = final->tokens->next;
 		else
 			return;
+		env_bkp = env;
+		// printf("this is currect %s\n", current->content);
+		// printf("this is currect %s\n", current->next->content);
+		// printf("this is currect %s\n", current->next->next->content);
+		// printf("this is currect %p\n", current->next->next->next);
 		while (current)
 		{
-			if (!env)
-				return;
-			curr = env;
+			curr = env_bkp;
 			while (curr)
 			{
 				if (ft_strcmp(curr->vars, current->content) == 0)
@@ -36,7 +42,9 @@ void unset(env_vars *env, t_line *final)
 					else
 						prev->next = curr->next;
 					free(curr->vars);
+					curr->vars = NULL;
 					free(curr->var_value);
+					curr->var_value = NULL;
 					break;
 				}
 				prev = curr;
