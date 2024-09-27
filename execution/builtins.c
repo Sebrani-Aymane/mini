@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 11:27:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:47:11 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,46 +87,7 @@ env_vars *envpp(env_vars *list)
 	}
 	return(tmp);
 }
-/*
-int	chdirr(char **env,t_line *final,env_vars *list)
-{
-	int res = 0;
-	char *path;
-	env_vars *temp;
-	temp = list;
-	char *curr_dir;
-	curr_dir = getcwd(NULL,0);
 
-	if (!final->tokens->next)
-	{
-		path = get_path(env,"HOME=");
-		res = chdir(path);
-		free (path);
-	}
-	else
-	{
-		res = chdir(final->tokens->next->content);
-		if (res == -1)
-		{
-			chdiir_help(final,list);
-			return(res);
-		}
-	}
-	while (temp)
-	{
-		if (!ft_strcmp(temp->vars,"OLDPWD") || !ft_strcmp(temp->vars,"PWD"))
-		{
-			if (strcmp(temp->vars,"PWD"))
-				temp->var_value = strdup(curr_dir);
-			else if (strcmp(temp->vars,"OLDPWD"))
-				temp->var_value = getcwd(NULL,0);
-		}
-		temp = temp ->next;
-	}
-	free (curr_dir);
-	return(res);
-}
-*/
 int	chdirr(char **env,t_line *final,env_vars *list)
 {
 	char *home;
@@ -136,12 +97,12 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 	env_vars *temp;
 	
 	res = 0;
-	pwd_bfr_cd =get_path_from_list(list, "PWD");
+	pwd_bfr_cd = get_path_from_list(list, "PWD");
 	if (!final->tokens->next)
 	{
 		home = get_path(env,"HOME=");
 		if (!home)
-			return(fprintf(stderr,"minishell: cd: HOME not set"),0);
+			return(free(home),fprintf(stderr,"minishell: cd: HOME not set"),0);
 		res = chdir(home);
 		free(home);
 	}
@@ -152,8 +113,9 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 		if (!pwd_aftr_cd)
 		{
 			chdiir_help(final,list,pwd_bfr_cd);
-			return(res);
+			return(free(pwd_bfr_cd),res);
 		}
+		free(pwd_aftr_cd);
 	}
 	temp = list;
 	while (list)

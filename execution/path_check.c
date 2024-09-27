@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 10:35:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:25:31 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,22 @@ char **fake_env(void)
 	env[3] = strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	env[4]= NULL; 
 	return(env);
+}
+
+char *get_path_from_list(env_vars *list,char *str)
+{
+	char *path;
+	env_vars	*temp;
+
+	temp = list;
+	while (temp)
+	{
+		if(strcmp(temp->vars,str) == 0)
+		{
+			path = strdup(temp->var_value);
+			return(path);
+		}
+		temp = temp-> next;
+	}
+	return(NULL);
 }

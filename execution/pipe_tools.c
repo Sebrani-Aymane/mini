@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/21 11:59:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:25:23 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,7 @@ int	ft_listsize(t_line *lst)
 }
 
 
-char *get_path_from_list(env_vars *list,char *str)
-{
-	char *path;
-	env_vars	*temp;
 
-	temp = list;
-	while (temp)
-	{
-		if(strcmp(temp->vars,str) == 0)
-		{
-			path = strdup(temp->var_value);
-			return(path);
-		}
-		temp = temp-> next;
-	}
-	return(NULL);
-}
 void chdiir_help(t_line *final,env_vars *list,char *pwd)
 {
 	t_node *token;
