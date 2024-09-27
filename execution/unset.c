@@ -37,6 +37,7 @@ void unset(env_vars *env, t_line *final)
 						prev->next = curr->next;
 					free(curr->vars);
 					free(curr->var_value);
+					break;
 				}
 				prev = curr;
 				curr = curr->next;

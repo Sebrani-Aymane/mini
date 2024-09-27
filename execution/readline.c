@@ -87,9 +87,10 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	(void)list;
 	
 	char **av = create_av(final->tokens);
+		
 	if (!check_file_path(final))
 	{
-		if (!get_nodee(list))
+		if (!get_nodee(list) || !get_path(env,"PATH="))
 			{
 				exit_status(1,127);
 				write(2,av[0],ft_strlen(av[0]));

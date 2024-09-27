@@ -31,10 +31,12 @@ int	main(int ac, char **av, char **env)
 
 	(void)av;
 	(void)ac;
+	if (!*env)
+		env = fake_env();
 	shell.env = copy_env(env);
-	list_env = list_init(env);
+	list_env = list_init(shell.env);
 	list_env->shlvl = get_shlvl(list_env);
 	set_shlvl(list_env);
 	handle_signals();
-	display_prompt(shell, env, list_env);
+	display_prompt(shell, shell.env, list_env);
 }

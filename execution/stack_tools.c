@@ -55,9 +55,8 @@ int check_builtin(t_line *final, env_vars *list,char **env)
 {
 	char **builtins;
 	int j = -1;
+	(void)env;
 	(void) list;
-		if (!get_path(env,"PATH="))
-			return 0;
 		builtins = split("cd echo pwd export unset env exit", ' ');
 		while (builtins[++j])
 		{
