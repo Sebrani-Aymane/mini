@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/26 19:27:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/27 17:06:44 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         {
             free(input);
             continue;
+        }
+        if (ft_strlenn(input) == 1)
+        {
+            printf("minishell: %c:command not found\n", input[0]);
+            free(input);
+            continue ;
         }
         if (!strcmp(input, "\"\"") || check_unclosed_quotes(input, 0, 0, 0) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input, 0, 0))
         {

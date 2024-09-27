@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/24 01:55:49 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:17:23 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*return_word(char *str, char c)
 		return (NULL);
 	while (str[count] != c && str[count] != '\0')
 		count++;
-	ret = malloc((count + 2));
+	ret = c_malloc((count + 2), 1);
 	if (!ret)
 		return (NULL);
 	while (i < count)

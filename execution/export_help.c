@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_help.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/17 20:54:39 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:13:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	first_in(char *str, env_vars *env)
 	flag = 0;
 	if (!check_key(str))
 		return ;
-	new = malloc(sizeof(env_vars));
+	new = c_malloc(sizeof(env_vars), 1);
 	if (!new)
 		return ;
 	while (env && env ->next)
@@ -68,7 +68,7 @@ void	valid_to_add_plus(env_vars *env, char *str)
 
 	key = get_till(str, '+');
 	tmp = env;
-	new = malloc(sizeof(env_vars));
+	new = c_malloc(sizeof(env_vars), 1);
 	temp = strchr(str, '=');
 	if (check_key(key))
 	{

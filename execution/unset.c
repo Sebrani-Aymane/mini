@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 12:00:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:48:28 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ void unset(env_vars *env, t_line *final)
 		else
 			return;
 		env_bkp = env;
-		// printf("this is currect %s\n", current->content);
-		// printf("this is currect %s\n", current->next->content);
-		// printf("this is currect %s\n", current->next->next->content);
-		// printf("this is currect %p\n", current->next->next->next);
 		while (current)
 		{
 			curr = env_bkp;
@@ -45,6 +41,7 @@ void unset(env_vars *env, t_line *final)
 					curr->vars = NULL;
 					free(curr->var_value);
 					curr->var_value = NULL;
+					//free(curr);
 					break;
 				}
 				prev = curr;

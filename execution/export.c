@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/02 17:56:10 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/27 16:13:54 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void valid_to_add(env_vars *env,char *str)
 
 	key = get_till(str,'=');
 	tmp = env;
-	new = malloc(sizeof(env_vars));
+	new = c_malloc(sizeof(env_vars), 1);
 	temp = strchr(str, '=');
 	if (check_key(key) && (temp + 1))
 	{

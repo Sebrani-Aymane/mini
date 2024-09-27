@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 14:25:31 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:24:13 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char *find_executable(t_line	*final,char **env,char **av)
 	paths = split(path, ':');
 	if (!paths)
 		return(NULL);
-	command_path = malloc(ft_strlenn(av[0]));
+	command_path = c_malloc(ft_strlenn(av[0]), 1);
 	if (!command_path)
 		return (NULL);
 	command_path = str_joiner("/",av[0]);
 	while(paths[i])
 	{
-		to_execute = malloc(ft_strlenn(command_path) + ft_strlen(paths[i]));
+		to_execute = c_malloc(ft_strlenn(command_path) + ft_strlen(paths[i]), 1);
 		to_execute = str_joiner(paths[i],command_path);
 		if (access(to_execute,F_OK | X_OK) == 0)
 			return(free(path),free(command_path),to_execute);
@@ -81,7 +81,7 @@ char **fake_env(void)
 	char *pwd;
 	
 	pwd = getcwd(NULL,0);
-	env = malloc(sizeof(char *) *5);
+	env = c_malloc(sizeof(char *) *5, 1);
 	env[0] = str_joiner("PWD=",pwd);
 	env[1] = strdup("SHLVL=1");
 	env[2] = strdup("_=/usr/bin/env");

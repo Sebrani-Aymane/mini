@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/22 16:27:26 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/27 16:16:42 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**split(char *str, char sep)
 		return (NULL);
 	n = 0;
 	count_word = count_words(str, sep);
-	strs = malloc(sizeof(char *) * (count_word + 1));
+	strs = c_malloc(sizeof(char *) * (count_word + 1), 1);
 	if (!strs)
 		return (NULL);
 	while (n < count_word && *str)
@@ -57,7 +57,7 @@ char	*str_joiner(char *s1, char *s2)
 		return (strdup(s2));
 	if (!s2)
 		return(strdup(s1));
-	ret = malloc(sizeof(char) * (ft_strlenn(s1) + ft_strlenn(s2) + 1));
+	ret = c_malloc(sizeof(char) * (ft_strlenn(s1) + ft_strlenn(s2) + 1), 1);
 	if (!ret)
 		return (NULL);
 	copy_it(ret, s1);
