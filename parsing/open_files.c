@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/26 19:48:35 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/27 13:25:01 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 int	in_file(t_node *token)
 {
 	int fd;
-	
-	fd = open(token->next->content, O_RDONLY);
+	fd = open(token->content, O_RDONLY);
 	if (fd == -1)
 	{
 		printf("minishell: %s: No such file or directory\n",
