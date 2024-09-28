@@ -23,3 +23,10 @@ delimeter of the heredoc shouldn't get expanded
 if the delimeter has double or single quotes nothing should expanded, but if the delimeter has no  double or single quotes if there is something has to get expanded, should be exanded
 
 << l''
+
+
+it hangs when there is no such file :
+minishell$  cat < l''
+minishell: l: No such file or directory
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/28 08:17:23 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 22:37:00 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	check_token_dollar(t_token **token)
 	i = 0;
 	while (token && token[i])
 	{
-		if (token[i]->content && ft_strchr(token[i]->content, '$'))
-			token[i]->need_expand = 1;
-		else if (i != 0 && strcmp(token[i - 1]->content, "<<"))
+		if (i != 0 && !strcmp(token[i - 1]->content, "<<"))
+			token[i]->need_expand = 0;
+		else if (token[i]->content && ft_strchr(token[i]->content, '$'))
 			token[i]->need_expand = 1;
 		else
 			token[i]->need_expand = 0;
@@ -107,12 +107,8 @@ void	check_for_delimeter(t_node *tokens)
 	while (current && current->next)
 	{
 		if (!strcmp(current->content, "<<")
-			&& (current->next->content[0] == '\''
-				|| current->next->content[0] == '"')
-			&& ((current->next->content[
-						ft_strlen(current->next->content) - 1] == '\'')
-				|| (current->next->content[
-						ft_strlen(current->next->content) - 1] == '"')))
+			&& (strchr(current->next->content, '\'')
+				|| strchr(current->next->content, '"')))
 			current->next->delimeter_inside_quotes = 1;
 		else
 			current->next->delimeter_inside_quotes = 0;

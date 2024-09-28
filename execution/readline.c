@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 17:20:58 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:55:59 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			write(2,str_joiner(av[0]," :command not found\n"),ft_strlenn(av[0]) + 20);
 		}
 		if (!to_do && !get_path_from_list(list,"PATH"))
-			write(2,"No such file or directory\n",27);
+			// write(2,"No such file or directory\n",27);
 			exit_status(1,127);
 			free_double(av);
 			exit(127);
