@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/27 16:28:58 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/28 08:50:20 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	*get_value(env_vars *list_env, char *name, char *value, int j)
 		copy_it(value, ft_itoa(exit_status(2, 0)));
 		return (value);
 	}
+	if(!current->vars)
+		return NULL;
 	while (current)
 	{
 		if (strcmp(name, current->vars) == 0)

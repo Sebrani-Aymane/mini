@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 04:51:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 08:54:34 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,21 @@ char **create_av(t_node *tokens)
 	av[i] = NULL;
 	return av;
 }
-
+void print_it(t_line *final)
+{
+	t_node *cmd = final->tokens;
+	while(cmd)
+	{
+		printf("--|%s|\n",cmd->content);
+		cmd = cmd->next;
+	}
+}
 int excutefilepath(t_line *final,env_vars *list,char **env)
 {
 	char *to_do;
 	int ret = 2;
 	(void)list;
-	
+
 	char **av = create_av(final->tokens);
 	if (!av || !*av)
 		return(0);
