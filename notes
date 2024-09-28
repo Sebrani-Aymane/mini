@@ -8,3 +8,18 @@ int d = exit_status(GET, 0)
 
 
 USER MallocNanoZone PATH LOGNAME SSH_AUTH_SOCK HOME SHELL __CF_USER_TEXT_ENCODING TMPDIR XPC_SERVICE_NAME XPC_FLAGS ORIGINAL_XDG_CURRENT_DESKTOP SHLVL PWD OLDPWD ZSH PAGER LESS LSCOLORS LS_COLORS TERM_PROGRAM TERM_PROGRAM_VERSION LANG COLORTERM GIT_ASKPASS VSCODE_GIT_ASKPASS_NODE VSCODE_GIT_ASKPASS_EXTRA_ARGS VSCODE_GIT_ASKPASS_MAIN VSCODE_GIT_IPC_HANDLE VSCODE_INJECTION USER_ZDOTDIR USER_ZDOTDIR TERM _
+
+seg fault when trying to expand a var and the env is empty
+
+sig quit mustn't get ignored in a child process
+sig int in a child change the exit status to 130
+sig quit in a child change the exit status to 131
+'' must print command not found
+
+delimeter of the heredoc shouldn't get expanded
+
+<< $PATH
+
+if the delimeter has double or single quotes nothing should expanded, but if the delimeter has no  double or single quotes if there is something has to get expanded, should be exanded
+
+<< l''

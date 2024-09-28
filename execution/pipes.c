@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 12:57:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 04:40:11 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 				if (final->tokens->type == 1 || final->tokens->type == 2)
 				{
 					exit_status(1,i);
-				//perror(final->tokens->content);
+					write(2,final->tokens->content,ft_strlenn(final->tokens->content));
+					write(2,": No such file or directory\n",28);
 					dup2(fd_in,0);
 					close(fd_in);
 					exit(127);

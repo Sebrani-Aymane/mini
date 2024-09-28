@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 13:09:32 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 04:18:21 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void chdiir_help(t_line *final,env_vars *list,char *pwd);
 void printrrr(t_line *final);
 char **create_av(t_node *tokens);
 int help_execute_files(t_line *final,char **env,char **av);
-char *find_executable(t_line  *final,char **env,char **av);
+char *find_executable(t_line  *final,env_vars *list,char **av);
 char **fake_env(void);
 //////////////////*PARSING*//////////////////////////
 

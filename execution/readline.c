@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 16:17:58 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/28 04:51:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <unistd.h>
 
 env_vars	*execute_blts(char *blt, t_line *final,
 						env_vars *list, char **env)
@@ -63,7 +64,7 @@ char **create_av(t_node *tokens)
 			count++;
 		current = current->next;
 	}
-	av = c_malloc (sizeof(char *) * (count+1), 1);
+	av = malloc (sizeof(char *) * (count+1));
 	current = tokens;
 	while (current)
 	{
@@ -85,28 +86,24 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	(void)list;
 	
 	char **av = create_av(final->tokens);
-		
+	if (!av || !*av)
+		return(0);
+	execve(av[0], av, env);
 	if (!check_file_path(final))
 	{
-		if (!get_nodee(list) || !get_path(env,"PATH="))
-			{
-				exit_status(1,127);
-				write(2,av[0],ft_strlen(av[0]));
-				write(2,": command not found\n",20);
-				exit(127);
-			}
-		to_do = find_executable(final,env,av);
+		to_do = find_executable(final,list,av);
 		if (to_do)
 		{
 			exit_status(1, 0);
 			ret = execve(to_do, av, env);
 		}
-		else
-		{
+		if (!to_do && get_path_from_list(list,"PATH"))
+			write(2,"command not found\n",18);
+		if (!to_do && !get_path_from_list(list,"PATH"))
+			write(2,"No such file or directory\n",27);
 			exit_status(1,127);
-			write(2,av[0],ft_strlen(av[0]));
-			write(2,": command not found\n",20);
-		}
+			free_double(av);
+			exit(127);
 	}
 	else
 		help_execute_files(final,env,av);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 16:17:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/28 04:17:35 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ char	*get_path(char **envp,char *str)
 	
 	if (!envp || !(*envp))
 		return(NULL);
-	while (envp[i] && strncmp(envp[i], str,5) != 0)
-		i++;
-	if (!envp[i])
-		return (NULL);
-	path  = strdup(envp[i] + 5);
-	if (!path)
-		return (NULL);
-	return (path);
+	while (envp[i])
+	{	
+		if (strncmp(envp[i], str,5) == 0)
+			return(path  = strdup(envp[i] + 5));
+			i++;
+	}
+	return (NULL);
 }
 
 int	count_words(char *str, char c)
@@ -58,7 +57,7 @@ char	*return_word(char *str, char c)
 		return (NULL);
 	while (str[count] != c && str[count] != '\0')
 		count++;
-	ret = c_malloc((count + 2), 1);
+	ret = malloc((count + 2));
 	if (!ret)
 		return (NULL);
 	while (i < count)
