@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 08:54:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:20:58 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ env_vars	*execute_blts(char *blt, t_line *final,
 						env_vars *list, char **env)
 {
 	int	l;
+	char *pwd;
 
 	l = 0;
 	handle_redirections(final);
 	if (strcmp(blt, "echo") == 0)
 		echoo(final);
 	else if (strcmp(blt, "pwd") == 0)
-		pwdd(0);
+		{
+			pwd = pwdd(list);
+			printf("%s\n",pwd);
+		}
 	else if (strcmp(blt, "export") == 0)
 	{
 		if (!(final->tokens->next))
@@ -50,6 +54,7 @@ env_vars	*execute_blts(char *blt, t_line *final,
 		exitt(list, final);
 	return (list);
 }
+
 
 char **create_av(t_node *tokens)
 {
@@ -106,7 +111,10 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			ret = execve(to_do, av, env);
 		}
 		if (!to_do && get_path_from_list(list,"PATH"))
-			write(2,"command not found\n",18);
+		{
+			write(2,"minishell: ",11);
+			write(2,str_joiner(av[0]," :command not found\n"),ft_strlenn(av[0]) + 20);
+		}
 		if (!to_do && !get_path_from_list(list,"PATH"))
 			write(2,"No such file or directory\n",27);
 			exit_status(1,127);

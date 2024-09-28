@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 16:22:03 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/28 17:09:53 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,27 @@ void	echoo(t_line *final)
     }
 }
 
-void pwdd(int a)
+char	*pwdd(env_vars *list)
 {
-	char *pwd = NULL;
-	(void) a;
-	if (a == 0)
-	{
+	env_vars *tmp;
+	char *pwd;
+	
+	tmp = list;
+	if(!list)
+		return(NULL);
 	pwd = getcwd(NULL,0);
-	if(pwd)
-		printf("%s\n",pwd);
-	else
-		write(2,"getcwd faild\n",14);
-	} 
+	if (!pwd)
+	{
+		while (tmp)
+		{
+			if (ft_strcmp(tmp->vars,"PWD") == 0)
+			{
+				return(tmp->var_value);
+			}
+			tmp = tmp->next;
+		}
+	}
+	return(pwd);
 }
 
 env_vars *envpp(env_vars *list)

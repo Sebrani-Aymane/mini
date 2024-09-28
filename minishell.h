@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 04:18:21 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:09:42 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void add_to_list(env_vars **head,env_vars *newe);
 int	ft_isalnum(int c);
 int check_key(char *str);
 void echoo(t_line *final);
-void pwdd(int a);
+char* pwdd(env_vars *list);
 env_vars *envpp(env_vars *list);
 void export_all(env_vars *env, t_line *final);
 int ft_strlenn(char *str);
