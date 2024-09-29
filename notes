@@ -29,5 +29,8 @@ it hangs when there is no such file :
 minishell$  cat < l''
 minishell: l: No such file or directory
 
+/ error is a directory ,
+// is a directory 
+
 
 

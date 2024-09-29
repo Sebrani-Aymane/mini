@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 05:00:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:35:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int help_execute_files(t_line *final,char **env,char **av)
 			dup2(fd_in,0);
 			close(fd_in);
 			free_double(av);
+			c_malloc(0, 0);
 			exit(127);
 		}
 		exit_status(1,127);
@@ -70,6 +71,7 @@ int help_execute_files(t_line *final,char **env,char **av)
 		free_double(av);
 		close(fd_in);
 		free_double(av);
+		c_malloc(0, 0);
 		exit(127);
 	}
 	return (ret);

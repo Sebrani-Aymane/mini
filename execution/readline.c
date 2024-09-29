@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 17:55:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/29 21:37:00 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ env_vars	*execute_blts(char *blt, t_line *final,
 		echoo(final);
 	else if (strcmp(blt, "pwd") == 0)
 		{
+			fprintf(stderr, "in pwd build in blt = [%s]\n", blt);
 			pwd = pwdd(list);
 			printf("%s\n",pwd);
+			// free(pwd);
 		}
 	else if (strcmp(blt, "export") == 0)
 	{
@@ -119,6 +121,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			// write(2,"No such file or directory\n",27);
 			exit_status(1,127);
 			free_double(av);
+			c_malloc(0, 0);
 			exit(127);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 04:02:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:39:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,15 @@ void exitt(env_vars *env, t_line *final)
 		{
 			printf("exit\nminishell: exit: %s: numeric argument required\n",current->content);
 			exit_status(1,255);
+			c_malloc(0, 0);
 			exit(255);
 		}
 	}
 	else
+	{
+		c_malloc(0, 0);
 		exit(0);
+	}
 	if (env && env->next)
 	{
 		while(env && env->next)
@@ -106,7 +110,11 @@ void exitt(env_vars *env, t_line *final)
 	exit_status(1,num);
 	env ->exit = num;
 	if (num > 255)
+	{
+		c_malloc(0, 0);
 		exit(num % 255);
+	}
+	c_malloc(0, 0);
 	exit(num);
 }
 

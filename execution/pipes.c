@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 04:40:11 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/29 21:23:34 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 	{
 		execute_blts(final->tokens->content ,final, list,env);
 		exit_status(1,list -> exit );
+		c_malloc(0, 0);
 		exit(list->exit);
 	}
 	else
@@ -58,16 +59,19 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 					write(2,": No such file or directory\n",28);
 					dup2(fd_in,0);
 					close(fd_in);
+					c_malloc(0, 0);
 					exit(127);
 				}
 					dup2(fd_in,0);
 					close(fd_in);
 					exit_status(1,127);
+					c_malloc(0, 0);
 					exit(127);
 			}
 				exit_status(1,i);
 				dup2(fd_in,0);
 				close(fd_in);
+				c_malloc(0, 0);
 				exit(127);
 		}
 	return 0;
@@ -84,6 +88,8 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	pipes_count = ft_listsize(final);
 	if (pipes_count == 1 && check_builtin(final,list,env))
 	{
+				fprintf(stderr, "\n\nin handle_pipe  blt = [%s]\n\n", final->tokens->content);
+
 			execute_blts(final->tokens->content,final,list,env);
 			if(final->fd_in != 0)
 			{
