@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/30 05:02:52 by asebrani         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/29 21:23:34 by cbajji           ###   ########.fr       */
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +47,16 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 	
 	if (check_builtin(final, list, env))
 	{
+<<<<<<< HEAD
 		ret = execute_blts(final->tokens->content ,final, list,env);
 		exit_status(1,ret);
 		exit(ret);
+=======
+		execute_blts(final->tokens->content ,final, list,env);
+		exit_status(1,list -> exit );
+		c_malloc(0, 0);
+		exit(list->exit);
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 	}
 	else
 		{
@@ -60,16 +71,19 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 					write(2,": No such file or directory\n",28);
 					dup2(fd_in,0);
 					close(fd_in);
+					c_malloc(0, 0);
 					exit(127);
 				}
 					dup2(fd_in,0);
 					close(fd_in);
 					exit_status(1,127);
+					c_malloc(0, 0);
 					exit(127);
 			}
 				exit_status(1,i);
 				dup2(fd_in,0);
 				close(fd_in);
+				c_malloc(0, 0);
 				exit(127);
 		}
 	return 0;
@@ -152,6 +166,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 // }
 int handle_single_command(t_line *final, char **env, env_vars *list)
 {
+<<<<<<< HEAD
 	int ret;
 	
 	ret = 0;
@@ -174,6 +189,62 @@ int handle_multiple_commands(t_line *final, char **env, env_vars *list, int pipe
     int i = -1;
     int fd[2];
     int ret = 0;
+=======
+	int pid;
+	int i = -1;
+	int pipes_count;
+	int fd[2];
+	int ret = 0;
+	int fd_in = dup(0);
+	pipes_count = ft_listsize(final);
+	if (pipes_count == 1 && check_builtin(final,list,env))
+	{
+				fprintf(stderr, "\n\nin handle_pipe  blt = [%s]\n\n", final->tokens->content);
+
+			execute_blts(final->tokens->content,final,list,env);
+			if(final->fd_in != 0)
+			{
+				dup2(final->default_in,0);
+				close(final->fd_in);
+			}
+			if (final ->fd_out != 1)
+			{
+				dup2(final->default_out,1);
+				close(final->fd_out);
+			}
+	}
+	else
+	{
+		while (++i < pipes_count)
+		{
+			if (pipes_count > 1 && pipe(fd) == -1)
+				return (fprintf(stderr,"error in pipes\n"),20);
+			pid = fork();
+			if (pid == -1)
+				return (fprintf(stderr,"error in forking\n"),-1);
+			if (pid == 0)
+			{
+				if (i != pipes_count - 1)
+				{
+					if (dup2(fd[1], 1) == -1)
+						return(fprintf(stderr,"error in dup2"),-1);
+					close(fd[0]);
+				}
+				handle_redirections(final);
+				ret = execute_the_thing(final,env,list);
+				if(final->fd_in != 0)
+				{
+					dup2(final->default_in,0);
+					close(final->fd_in);
+				}
+				if (final ->fd_out != 1)
+				{
+					dup2(final->default_out,1);
+					close(final->fd_out);
+				}
+				close(final->fd_in);
+				close(final->fd_out);
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 
     while (++i < pipes_count)
     {

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/28 17:51:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/29 21:17:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
 
     while(1)
     {
+        system("leaks minishell");
         input = readline("minishell$  ");
         add_history(input);
         if (input == NULL)
@@ -93,19 +94,20 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
             free(input);
             continue;
         }
-        if (ft_strlenn(input) == 1)
-        {
-            printf("minishell: %c:command not found\n", input[0]);
-            free(input);
-            continue ;
-        }
         if (!strcmp(input, "''") || !strcmp(input, "\"\"") || check_unclosed_quotes(input, 0, 0, 0) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input, 0, 0))
         {
             if (!strcmp(input, "\"\"") || !strcmp(input, "''"))
                 printf("minishell: : command not found\n");
             continue;
         }
+        if (ft_strlenn(input) == 1)
+        {
+            printf("minishell: %c:command not found\n", input[0]);
+            free(input);
+            continue ;
+        }
         shell.tokens = into_tokens(input, 0, 0);
+        free(input);
         // int i = 0;
         // while(shell.tokens[i])
         // {
@@ -138,6 +140,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         // }
         handle_herdoc(lines, list_env);
         handle_pipe(lines,env,list_env);
+        c_malloc(0, 0);
     }
 }
 

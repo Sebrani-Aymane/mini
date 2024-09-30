@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/30 05:48:43 by asebrani         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/29 18:44:10 by cbajji           ###   ########.fr       */
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +99,7 @@ void handle_herdoc(t_line *final, env_vars *list_env)
 		}
 		close(fd[1]);
 		exit_status(1, 0);
+		c_malloc(0, 0);
 		exit(0);
 	}
 	else

@@ -6,7 +6,11 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/30 05:20:18 by asebrani         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/29 18:51:43 by cbajji           ###   ########.fr       */
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +111,15 @@ char	*get_value(env_vars *list_env, char *name, char *value, int j)
 	current = list_env;
 	if (!strcmp(name, "?"))
 	{
+<<<<<<< HEAD
 		
 		num = ft_itoa(exit_status(2, 0));
 		value = c_malloc(ft_strlenn(num) + 1, 1);
 		copy_it(value, num);
+=======
+		value = c_malloc(2, 1);
+		copy_it(value, ft_itoa(exit_status(2, 0)));
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 		return (value);
 	}
 	if(!current->vars)

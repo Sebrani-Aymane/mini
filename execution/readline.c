@@ -6,7 +6,11 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/30 05:24:30 by asebrani         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/29 21:37:00 by cbajji           ###   ########.fr       */
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +29,10 @@ int	execute_blts(char *blt, t_line *final,
 		echoo(final);
 	else if (strcmp(blt, "pwd") == 0)
 		{
+			fprintf(stderr, "in pwd build in blt = [%s]\n", blt);
 			pwd = pwdd(list);
 			printf("%s\n",pwd);
+			// free(pwd);
 		}
 	else if (strcmp(blt, "export") == 0)
 	{
@@ -120,6 +126,11 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		if (!to_do && !get_path_from_list(list,"PATH"))
 			exit_status(1,127);
 			free_double(av);
+<<<<<<< HEAD
+=======
+			c_malloc(0, 0);
+			exit(127);
+>>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 	}
 	else
 		help_execute_files(final,env,av);
