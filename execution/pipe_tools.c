@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 04:55:59 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:32:32 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int handle_child_process(t_line *final, char **env, env_vars *list, int i, int p
         close(fd[0]);
     }
     handle_redirections(final);
+    puts("here1");
     int ret = execute_the_thing(final, env, list);
     if (final->fd_in != 0)
     {

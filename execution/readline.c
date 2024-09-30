@@ -6,13 +6,10 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/30 05:24:30 by asebrani         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/29 21:37:00 by cbajji           ###   ########.fr       */
->>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
+/*   Updated: 2024/09/30 21:34:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 #include <unistd.h>
@@ -29,10 +26,10 @@ int	execute_blts(char *blt, t_line *final,
 		echoo(final);
 	else if (strcmp(blt, "pwd") == 0)
 		{
-			fprintf(stderr, "in pwd build in blt = [%s]\n", blt);
+			//fprintf(stderr, "in pwd build in blt = [%s]\n", blt);
 			pwd = pwdd(list);
 			printf("%s\n",pwd);
-			// free(pwd);
+			free(pwd);
 		}
 	else if (strcmp(blt, "export") == 0)
 	{
@@ -76,13 +73,13 @@ char **create_av(t_node *tokens)
 			count++;
 		current = current->next;
 	}
-	av = malloc (sizeof(char *) * (count+1));
+	av = c_malloc (sizeof(char *) * (count+1), 1);
 	current = tokens;
 	while (current)
 	{
 		if ((current->type == 1 || current->type == 2))
 		{
-			av[i] = strdup(current->content);
+			av[i] = ft_strdup(current->content);
 			i++;
 		}
 		current = current->next;
@@ -121,16 +118,14 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		{
 			write(2,"minishell: ",11);
 			write(2,str_joiner(av[0]," :command not found\n"),ft_strlenn(av[0]) + 20);
+	
+			c_malloc(0, 0);
 			exit(127);
 		}
 		if (!to_do && !get_path_from_list(list,"PATH"))
 			exit_status(1,127);
-			free_double(av);
-<<<<<<< HEAD
-=======
 			c_malloc(0, 0);
 			exit(127);
->>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
 	}
 	else
 		help_execute_files(final,env,av);

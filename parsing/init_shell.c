@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/29 21:17:46 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/30 21:35:43 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char **copy_env(char **env)
     
     while (env[i])
     {
-        to_copy[i] = strdup(env[i]);
+        to_copy[i] = ft_strdup(env[i]);
         i++;
     }
     to_copy[i] = NULL;
@@ -80,7 +80,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
 
     while(1)
     {
-        system("leaks minishell");
+       system("leaks minishell");
         input = readline("minishell$  ");
         add_history(input);
         if (input == NULL)

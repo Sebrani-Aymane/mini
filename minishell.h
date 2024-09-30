@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 05:41:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:16:37 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,6 @@ int ft_is_space(char *input);
 int check_for_and(char *input);
 int check_edge_case(char *content);
 char *pass_dollar(char *content);
+char	*ft_strdup(char *s1);
 
 #endif

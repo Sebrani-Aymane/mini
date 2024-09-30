@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/29 22:29:39 by asebrani         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/29 18:39:04 by cbajji           ###   ########.fr       */
->>>>>>> 2895ddd58827979b40343654befb524a65a3adf0
+/*   Updated: 2024/09/30 21:03:23 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +44,6 @@ int unset(env_vars *env, t_line *final)
 					curr->vars = NULL;
 					free(curr->var_value);
 					curr->var_value = NULL;
-					//free(curr);
 					break;
 				}
 				prev = curr;
@@ -58,6 +53,7 @@ int unset(env_vars *env, t_line *final)
 		}
 		return(ret);
 }
+
 int check_exit_stat(t_line *final)
 {
 	t_node *curr = final->tokens->next;

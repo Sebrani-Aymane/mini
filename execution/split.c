@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 05:15:05 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 23:51:42 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**split(char *str, char sep)
 		return (NULL);
 	n = 0;
 	count_word = count_words(str, sep);
-	strs = malloc(sizeof(char *) * (count_word + 1));
+	strs = c_malloc(sizeof(char *) * (count_word + 1),1);
 	if (!strs)
 		return (NULL);
 	while (n < count_word && *str)
