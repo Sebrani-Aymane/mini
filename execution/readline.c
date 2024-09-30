@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 17:55:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/30 05:24:30 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <unistd.h>
 
-env_vars	*execute_blts(char *blt, t_line *final,
+int	execute_blts(char *blt, t_line *final,
 						env_vars *list, char **env)
 {
-	int	l;
+	int	ret;
 	char *pwd;
 
-	l = 0;
+	ret = 0;
 	handle_redirections(final);
 	if (strcmp(blt, "echo") == 0)
 		echoo(final);
@@ -33,26 +33,27 @@ env_vars	*execute_blts(char *blt, t_line *final,
 		if (!(final->tokens->next))
 			envpp_export(list);
 		else
-			export_all(list, final);
+			ret = export_all(list, final);
 	}
 	else if (strcmp(blt, "env") == 0)
 		envpp(list);
 	else if (strcmp(blt, "cd") == 0)
 	{
-		l = chdirr(env, final, list);
-		if (l == -1)
+		ret = chdirr(env, final, list);
+		if (ret == -1)
 		{
-			exit_status(1, 1);
-			perror(final->tokens->content);
+			ret = 1;
+			exit_status(1, -1);
+			printf("minishell: cd: %s no such file or directory\n",final->tokens->next->content);
 		}
 	}
 	else if (strcmp(blt, "unset") == 0)
 	{
-		unset(list, final);
+		ret = unset(list, final);
 	}
 	else if (strcmp(blt, "exit") == 0)
 		exitt(list, final);
-	return (list);
+	return (ret);
 }
 
 
@@ -114,12 +115,11 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 		{
 			write(2,"minishell: ",11);
 			write(2,str_joiner(av[0]," :command not found\n"),ft_strlenn(av[0]) + 20);
+			exit(127);
 		}
 		if (!to_do && !get_path_from_list(list,"PATH"))
-			// write(2,"No such file or directory\n",27);
 			exit_status(1,127);
 			free_double(av);
-			exit(127);
 	}
 	else
 		help_execute_files(final,env,av);

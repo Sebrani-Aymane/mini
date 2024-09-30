@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 13:08:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 04:56:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,18 @@ int	ft_strcmp(char *str, char *str1)
 	while (str && str[i] && str1[i] && (str[i] == str1[i]))
 		i++;
 	return (str[i] - str1[i]);
+}
+
+int	ft_listsize(t_line *lst)
+{
+	int	i;
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

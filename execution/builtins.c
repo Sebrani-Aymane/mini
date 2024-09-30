@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 17:09:53 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 05:21:05 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include <errno.h>
 #include <stdio.h>
 #include <unistd.h>
+
+void	ft_putstr(char *s, int fd) {
+	write(fd, s, ft_strlenn(s));
+}
 
 void	echoo(t_line *final)
 {
@@ -32,7 +36,7 @@ void	echoo(t_line *final)
 	if (check_eccho(current))
     {
 		while(check_eccho(current))
-			current = current ->next;
+			current = current->next;
 		tmp = current;
 		newline = 0;
 	}
@@ -41,18 +45,20 @@ void	echoo(t_line *final)
 	{
 		if ((current->type == 1 || current->type == 2))
 		{
-       		printf("%s", current->content);
+			ft_putstr(current->content, 1);
+       		// printf("%s", );
         	if (current->next)
 			{ 
-        	    printf(" ");
+        	    ft_putstr(" ", 1);
         	}
 		}
         current = current->next;
 	}
     if (newline)
 	{
-        printf("\n");
+        ft_putstr("\n", 1);
     }
+	// fflush(stdout);
 }
 
 char	*pwdd(env_vars *list)
@@ -111,7 +117,7 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 	{
 		home = get_path(env,"HOME=");
 		if (!home)
-			return(free(home),fprintf(stderr,"minishell: cd: HOME not set"),0);
+			return(free(home),write(2,"minishell: cd: HOME not set\n",28),0);
 		res = chdir(home);
 		free(home);
 	}

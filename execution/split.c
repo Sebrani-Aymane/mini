@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 03:49:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 05:15:05 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,17 @@ char	**split(char *str, char sep)
 
 void	copy_it(char *dest, char *src)
 {	
+	int i;
+
+	i = 0;
 	if(!src)
 		return;
-	while (*src)
-		*(dest++) = *(src++);
-	*dest = '\0';
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
 }
 
 char	*str_joiner(char *s1, char *s2)

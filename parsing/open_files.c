@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/27 13:25:01 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/30 05:41:25 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+// #include <cstdio>
+#include <stdio.h>
+#include <unistd.h>
 
 int	in_file(t_node *token)
 {
@@ -18,9 +21,11 @@ int	in_file(t_node *token)
 	fd = open(token->content, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("minishell: %s: No such file or directory\n",
-			token->content);
-		return (0);
+		ft_putstr("minishell:",2);
+		ft_putstr(token->content,2);
+		ft_putstr(": No such file or directory\n", 2); 
+		exit(1);
+		return(0);
 	}
 	return (fd);
 }
@@ -28,11 +33,11 @@ int	in_file(t_node *token)
 int	out_file(t_node *token)
 {
 	int fd;
-	
+
 	if (!strcmp(token->content, ">"))
 		fd = open(token->content,
 				O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	else
+	else 
 		fd = open(token->content,
 				O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
@@ -45,7 +50,7 @@ int	out_file(t_node *token)
 }
 
 //TODO: close prev files
-void	open_files(t_line *lines)
+int	open_files(t_line *lines)
 {
 	t_line	*curr_line;
 	t_node	*curr_node;
@@ -63,18 +68,18 @@ void	open_files(t_line *lines)
 				out = out_file(curr_node->next);
 				lines->fd_out = out;
 				if (!out)
-					return ;
+					return 0 ;
 			}
 			else if (curr_node->type == 4 && curr_node->next->type == 4)
 			{
 				in = in_file(curr_node->next);
-				lines->fd_in = in;
 				if (!in)
-					return ;
+					return 0;
+				lines->fd_in = in;
 			}
 			curr_node = curr_node->next;
 		}
 		curr_line = curr_line->next;
 	}
-			
+	return(1);		
 }

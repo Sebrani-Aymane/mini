@@ -6,13 +6,13 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 03:48:17 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:13:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void valid_to_add(env_vars *env,char *str)
+int valid_to_add(env_vars *env,char *str)
 {
 	char *temp;
 	env_vars *tmp;
@@ -28,17 +28,17 @@ void valid_to_add(env_vars *env,char *str)
 		new-> vars = get_till(str,'=');
 		new-> var_value = strdup(temp+1);
 		add_to_list(&tmp,new);
-		return;
+		return (0);
 	}
 	else
-		return;
+		return (1);
 }
 
-void 	export_it(env_vars *env,char *str)
+int	export_it(env_vars *env,char *str)
 {
 	char *key;
 	char *value;
-
+	int ret; 
 	value = strchr(str,'=');
 	key = get_till(str,'=');
 	while(env && env->next)
@@ -49,27 +49,32 @@ void 	export_it(env_vars *env,char *str)
 				env->var_value = strdup(value + 1);
 			else if (ft_strcmp(env->next->vars,key) == 0)
 				env->next->var_value= strdup(value + 1);
-			return;
+			return (0);
 		}
 		else
 		env = env->next;
 	}
 	free(key);
-	valid_to_add(env, str);
+	ret = valid_to_add(env, str);
+	return(ret);
 }
 
-void export_all(env_vars *env, t_line *final)
+int export_all(env_vars *env, t_line *final)
 {
-	
-	t_node *current = final->tokens->next;
+	int ret;
+	t_node *current;
+
+	current = final->tokens->next;
+	ret = 0;
 	while (current)
 	{
 		if(strchr(current->content,'+'))
-			export_with_plus(current->content,env);	
+			ret = export_with_plus(current->content,env);	
 		else if (!(strchr(current->content,'=') ))
-			first_in(current->content,env);
+			ret = first_in(current->content,env);
 		else if (strchr(current->content,'='))
-			export_it(env,current->content);
+			ret = export_it(env,current->content);
 		current = current->next;
 	}
+	return(ret);
 }

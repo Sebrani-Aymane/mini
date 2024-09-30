@@ -6,16 +6,17 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 03:48:23 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:35:43 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	export_with_plus(char *str, env_vars *env)
+int	export_with_plus(char *str, env_vars *env)
 {
 	char	*key;
 	char	*value;
+	int ret;
 
 	value = strchr(str, '=');
 	key = get_till(str, '+');
@@ -29,37 +30,34 @@ void	export_with_plus(char *str, env_vars *env)
 		env = env->next;
 	}
 	free (key);
-	valid_to_add_plus(env, str);
+	ret = valid_to_add_plus(env, str);
+	return(ret);
 }
 
-void	first_in(char *str, env_vars *env)
+int	first_in(char *str, env_vars *env)
 {
-	int			flag;
 	env_vars	*new;
 
-	flag = 0;
 	if (!check_key(str))
-		return ;
+		return (1);
 	new = malloc(sizeof(env_vars));
 	if (!new)
-		return ;
+		return (1);
 	while (env && env ->next)
 	{
 		if (ft_strcmp(env->vars, str) == 0
 			|| ft_strcmp(env->next->vars, str) == 0)
-			return (free(new));
+			return (free(new),0);
 		env = env->next;
 	}
-	if (!flag)
-	{
-		new->vars = strdup(str);
-		new->var_value = strdup("");
-		new->next = NULL;
-		add_to_list(&env, new);
-	}
+	new->vars = strdup(str);
+	new->var_value = strdup("");
+	new->next = NULL;
+	add_to_list(&env, new);
+	return(0);
 }
 
-void	valid_to_add_plus(env_vars *env, char *str)
+int	valid_to_add_plus(env_vars *env, char *str)
 {
 	char		*temp;
 	env_vars	*tmp;
@@ -81,7 +79,8 @@ void	valid_to_add_plus(env_vars *env, char *str)
 			add_to_list(&tmp, new);
 		}
 		free(key);
+		return(0);
 	}
 	else
-		return;
+		return (1);
 }

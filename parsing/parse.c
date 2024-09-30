@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/28 08:50:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 01:10:23 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ built 2
 heredoc 3
 infile 4
 outfile 5
+append 6
 */
 
 char	*remove_quotes(char *content, int i, int j, char c)
@@ -83,6 +84,7 @@ void	redirections_classifier(t_node **lst_token)
 		else if (current->type == 3 && (!strcmp(current->content, "<<"))
 			&& current->next != NULL)
 			current->next->type = 3;
+			
 		current = current->next;
 	}
 }

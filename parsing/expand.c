@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/28 18:24:54 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/09/30 05:20:18 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 int	can_expand(char *input)
 {
@@ -100,13 +101,16 @@ char	*variable_name(char *input)
 char	*get_value(env_vars *list_env, char *name, char *value, int j)
 {
 	env_vars	*current;
-
+	char* num;
+	
+	num = 0;
 	current = list_env;
 	if (!strcmp(name, "?"))
 	{
-		//printf("%s",ft_itoa(exit_status(2, 0)));
-		value = c_malloc(2, 1);
-		copy_it(value, ft_itoa(exit_status(2, 0)));
+		
+		num = ft_itoa(exit_status(2, 0));
+		value = c_malloc(ft_strlenn(num) + 1, 1);
+		copy_it(value, num);
 		return (value);
 	}
 	if(!current->vars)

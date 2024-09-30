@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 17:37:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 05:48:43 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_node *get_delimiter(t_line *final)
 		}
 	return(NULL);
 }
+
 void handle_herdoc(t_line *final, env_vars *list_env)
 {
 	int fd[2];
@@ -55,6 +56,7 @@ void handle_herdoc(t_line *final, env_vars *list_env)
 	t_node *delimiter;
 	t_token **hered_tokens;
 	int i;
+
 	if (!check_of_herdoc(final))
 		return;
 	delimiter = get_delimiter(final);
@@ -97,8 +99,9 @@ void handle_herdoc(t_line *final, env_vars *list_env)
 	}
 	else
 	{
-			close(fd[1]);
 			wait(NULL);
+			close(fd[1]);
+			close (fd[0]);
 	}
 	final->fd_in = fd[0];
 	return;

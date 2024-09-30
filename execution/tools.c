@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 04:17:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 04:56:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	clear_strss(char **strs, int n)
 		free(strs[i++]);
 	free(strs);
 }
+
 int	ft_atoii(char *value)
 {
 	int		sign;
@@ -88,7 +89,6 @@ int	ft_atoii(char *value)
 			value++;
 		break;
 	}
-	
 	if (*value == '-')
 	{
 		sign = -1;
@@ -102,8 +102,5 @@ int	ft_atoii(char *value)
 		result += (*value - '0');
 		value++;
 	}
-	if (result > 9223372036854775807)
-		return(255);
-			
 	return (result * sign);
 }

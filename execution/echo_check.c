@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/27 14:19:43 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 00:25:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_eccho(t_node *node)
 		return (0);
 	if (node->content[i] == '-' && node->content[i + 1] == 'n')
 	{
-		i ++;
+		i++;
 		while (node->content[i] == 'n')
 			i++;
 		if (!(node->content[i]))

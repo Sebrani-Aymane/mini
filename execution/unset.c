@@ -6,29 +6,31 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 04:02:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:29:39 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void unset(env_vars *env, t_line *final)
+int unset(env_vars *env, t_line *final)
 {
 		t_node *current;
 		env_vars *curr;
 		env_vars *prev = NULL;
 		env_vars *env_bkp;
+		int ret;
 
+		ret = 0;
 		if (!env)
-			return;
+			return (1);
 		if (final->tokens->next)
 			current = final->tokens->next;
 		else
-			return;
+			return (1);
 		env_bkp = env;
 		while (current)
 		{
-			check_key(current->content);
+			ret = check_key(current->content);
 			curr = env_bkp;
 			while (curr)
 			{
@@ -50,6 +52,7 @@ void unset(env_vars *env, t_line *final)
 			}
 			current = current->next;
 		}
+		return(ret);
 }
 int check_exit_stat(t_line *final)
 {

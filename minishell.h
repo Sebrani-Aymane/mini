@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/28 17:09:42 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/09/30 05:41:16 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@
 #include <sys/wait.h>
 
 #include <signal.h>
+
+enum {
+    WORD,
+    BUILT,
+    HEREDOC,
+    INFILE,
+    OUTFILE,
+    APPEND,
+};
+
 
 typedef struct s_token
 {
@@ -86,26 +96,27 @@ typedef struct s_coll{
 
 void	clear_strss(char **strs, int n);
 int execute_the_thing(t_line *final,char **env,env_vars *list);
-void 	export_with_plus(char *av,env_vars *env);
+int 	export_with_plus(char *av,env_vars *env);
 int ft_strcmp(char *str,char *str1);
-env_vars *execute_blts(char* builtin, t_line *final, env_vars *list, char **env);
-void valid_to_add(env_vars *env,char *str);
+int execute_blts(char* builtin, t_line *final, env_vars *list, char **env);
+int valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);
 void exitt(env_vars *env, t_line *final);
-void first_in(char *str,env_vars *env);
+int first_in(char *str,env_vars *env);
 int	ft_isalpha(int c);
-void unset(env_vars *env, t_line *final);
-void valid_to_add_plus(env_vars *env,char *str);
-env_vars *export_if_plus(char **input,env_vars *list);
+int unset(env_vars *env, t_line *final);
+int valid_to_add_plus(env_vars *env,char *str);
 void add_to_list(env_vars **head,env_vars *newe);
 int	ft_isalnum(int c);
+int handle_child_process(t_line *final, char **env, env_vars *list, int i, int pipes_count, int fd[2]);
+void handle_parent_process(int fd[2], int pipes_count);
 int check_key(char *str);
 void echoo(t_line *final);
 char* pwdd(env_vars *list);
 env_vars *envpp(env_vars *list);
-void export_all(env_vars *env, t_line *final);
+int export_all(env_vars *env, t_line *final);
 int ft_strlenn(char *str);
-void export_it(env_vars *env, char *str);
+int export_it(env_vars *env, char *str);
 char	*get_path(char **envp,char *str);
 int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
@@ -113,7 +124,6 @@ int  excutefilepath(t_line *final,env_vars *list,char **env);
 int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
-env_vars *exportt_plus(char **av,env_vars *list);
 env_vars *list_init(char **variables);
 void free_double(char **str);
 void	copy_it(char *dest, char *src);
@@ -136,6 +146,7 @@ char **create_av(t_node *tokens);
 int help_execute_files(t_line *final,char **env,char **av);
 char *find_executable(t_line  *final,env_vars *list,char **av);
 char **fake_env(void);
+void	ft_putstr(char *s, int fd);
 //////////////////*PARSING*//////////////////////////
 
 
@@ -163,7 +174,7 @@ t_line *tokens_to_lines(t_node *tokens);
 t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
 int pipe_syntax(char *input, int i, int in_quotes);
-void open_files(t_line *lines);
+int open_files(t_line *lines);
 void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
 int dollar_inside_quotes_alone(char *content);
