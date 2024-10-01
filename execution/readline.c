@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 17:34:45 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:38:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,11 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			exit(127);
 		}
 		if (!to_do && !get_path_from_list(list,"PATH"))
+		{
 			exit_status(1,127);
 			c_malloc(0, 0);
 			exit(127);
+		}
 	}
 	else
 		help_execute_files(final,env,av);

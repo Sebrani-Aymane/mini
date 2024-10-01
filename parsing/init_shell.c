@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 17:17:52 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:57:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ char **copy_env(char **env)
 
 int get_shlvl(env_vars *list_env)
 {
-    int shlvl = 0;
+    int  shlvl = 0;
     env_vars *temp = list_env;
     
     while (temp)
     {
-        if (!strncmp(temp->vars, "SHLVL", 5))
+        if (!strcmp(temp->vars, "SHLVL"))
         {
             shlvl = ft_atoi(temp->var_value);
+          
+            shlvl++;
             break;
         }
         temp = temp->next;
     }
+
     return (shlvl);
 }
 
@@ -62,9 +65,10 @@ void set_shlvl(env_vars *list)
     temp = list;
     while (list)
     {
-        if (strncmp(list->vars, "SHLVL=", 6) == 0)
+        if (strcmp(list->vars, "SHLVL") == 0)
         {
-            list->var_value = ft_strdup(ft_itoa(list->shlvl));
+            
+            list->var_value = ft_itoa(list->shlvl);
         }
         list = list->next;
     }
@@ -79,7 +83,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
 
     while(1)
     {
-       system("leaks minishell");
+    //    system("leaks minishell");
         input = readline("minishell$  ");
         add_history(input);
         if (input == NULL)

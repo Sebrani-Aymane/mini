@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 15:10:00 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:05:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	if (!*env)
 		env = fake_env();
+
+	
 	shell.env = copy_env(env);
 	list_env = list_init(shell.env);
 	list_env->shlvl = get_shlvl(list_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/30 21:39:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:13:09 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	in_file(t_node *token)
 		ft_putstr("minishell:",2);
 		ft_putstr(token->content,2);
 		ft_putstr(": No such file or directory\n", 2); 
-		//exit(1);
+		exit(1);
 		return(0);
 	}
 	return (fd);
