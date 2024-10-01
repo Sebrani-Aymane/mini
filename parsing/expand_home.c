@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:40:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/24 16:21:58 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 15:05:05 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	expand_home(t_token **tokens, env_vars *list_env)
 			{
 				value = get_value(list_env, "HOME", NULL, 0);
 				new_token = replace_value(tokens[i]->content, value, "~");
-				free(tokens[i]->content);
 				tokens[i]->content = new_token;
 			}
 		}

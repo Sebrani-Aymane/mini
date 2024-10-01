@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 21:03:23 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:58:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int unset(env_vars *env, t_line *final)
 						env = curr->next; 
 					else
 						prev->next = curr->next;
-					free(curr->vars);
 					curr->vars = NULL;
-					free(curr->var_value);
 					curr->var_value = NULL;
 					break;
 				}
@@ -104,9 +102,6 @@ void exitt(env_vars *env, t_line *final)
 		while(env && env->next)
 		{
 			temp = env->next;
-			free(env->vars);             
-			free(env->var_value);        
-			free(env);
 			env = temp;
 		}
 	}

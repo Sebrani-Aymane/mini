@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/29 22:13:51 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:54:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int valid_to_add(env_vars *env,char *str)
 
 	key = get_till(str,'=');
 	tmp = env;
-	new = malloc(sizeof(env_vars));
+	new = c_malloc(sizeof(env_vars), 1);
 	temp = strchr(str, '=');
 	if (check_key(key) && (temp + 1))
 	{
 		new-> vars = get_till(str,'=');
-		new-> var_value = strdup(temp+1);
+		new-> var_value = ft_strdup(temp+1);
 		add_to_list(&tmp,new);
 		return (0);
 	}
@@ -46,15 +46,14 @@ int	export_it(env_vars *env,char *str)
 		if (ft_strcmp(env->vars,key) == 0 || ft_strcmp(env->next->vars,key) == 0)
 		{
 			if (ft_strcmp(env->vars,key) == 0)
-				env->var_value = strdup(value + 1);
+				env->var_value = ft_strdup(value + 1);
 			else if (ft_strcmp(env->next->vars,key) == 0)
-				env->next->var_value= strdup(value + 1);
+				env->next->var_value= ft_strdup(value + 1);
 			return (0);
 		}
 		else
 		env = env->next;
 	}
-	free(key);
 	ret = valid_to_add(env, str);
 	return(ret);
 }

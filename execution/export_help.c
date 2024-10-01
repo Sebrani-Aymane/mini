@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_help.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/29 22:35:43 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:51:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int	export_with_plus(char *str, env_vars *env)
 		if (ft_strcmp(env->vars, key) == 0)
 		{
 			break ;
-			env->var_value = strdup(value);
+			env->var_value = ft_strdup(value);
 		}
 		env = env->next;
 	}
-	free (key);
 	ret = valid_to_add_plus(env, str);
 	return(ret);
 }
@@ -40,18 +39,18 @@ int	first_in(char *str, env_vars *env)
 
 	if (!check_key(str))
 		return (1);
-	new = malloc(sizeof(env_vars));
+	new = c_malloc(sizeof(env_vars), 1);
 	if (!new)
 		return (1);
 	while (env && env ->next)
 	{
 		if (ft_strcmp(env->vars, str) == 0
 			|| ft_strcmp(env->next->vars, str) == 0)
-			return (free(new),0);
+			return (0);
 		env = env->next;
 	}
-	new->vars = strdup(str);
-	new->var_value = strdup("");
+	new->vars = ft_strdup(str);
+	new->var_value = ft_strdup("");
 	new->next = NULL;
 	add_to_list(&env, new);
 	return(0);
@@ -66,7 +65,7 @@ int	valid_to_add_plus(env_vars *env, char *str)
 
 	key = get_till(str, '+');
 	tmp = env;
-	new = malloc(sizeof(env_vars));
+	new = c_malloc(sizeof(env_vars), 1);
 	temp = strchr(str, '=');
 	if (check_key(key))
 	{
@@ -75,10 +74,9 @@ int	valid_to_add_plus(env_vars *env, char *str)
 		else
 		{
 			new-> vars = get_till(str, '+');
-			new-> var_value = strdup(temp + 1);
+			new-> var_value = ft_strdup(temp + 1);
 			add_to_list(&tmp, new);
 		}
-		free(key);
 		return(0);
 	}
 	else

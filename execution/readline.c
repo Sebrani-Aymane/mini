@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 21:34:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:34:45 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ int	execute_blts(char *blt, t_line *final,
 		echoo(final);
 	else if (strcmp(blt, "pwd") == 0)
 		{
-			//fprintf(stderr, "in pwd build in blt = [%s]\n", blt);
 			pwd = pwdd(list);
 			printf("%s\n",pwd);
-			free(pwd);
 		}
 	else if (strcmp(blt, "export") == 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/30 21:43:46 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:05:32 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	final_tokens(t_node *token)
 		final = remove_quotes(current->content, 0, 0, 0);
 		if (final)
 		{
-			free(current->content);
 			current->content = final;
 		}
 		current = current->next;

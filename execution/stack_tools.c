@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/29 21:38:27 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:57:53 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,9 @@ int check_builtin(t_line *final, env_vars *list,char **env)
 		{
 			if (final -> tokens && strcmp(final->tokens->content,builtins[j]) == 0)
 			{
-				free_double(builtins);
 				return(1);
 			}
 		}
-		free_double(builtins);
 		return(0);
 }
 

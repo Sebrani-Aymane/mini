@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 21:25:03 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/30 22:49:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:29:17 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_coll    *ft_collnew(void *value)
     t_coll    *node;
 
     node = malloc(sizeof(t_coll));
+    // printf("\n\nadd of node : %p\n\n", node);
     if (!node)
         return (NULL);
     node->ptr = value;
@@ -50,7 +51,7 @@ void    ft_collclear(t_coll **lst)
         tmp = (*lst)->next;
         if (*lst)
         {
-          //free((*lst)->ptr);
+            free((*lst)->ptr);
             free(*lst);
         }
         *lst = tmp;
@@ -67,6 +68,7 @@ void    *c_malloc(size_t size, int flag)
     if (flag == 1)
     {
         ptr = malloc(size);
+        // printf("\n\nadd of pointer : %p\n\n", ptr);
         if (!ptr)
             return (ft_collclear(&head), NULL);
         tmp = ft_collnew(ptr);

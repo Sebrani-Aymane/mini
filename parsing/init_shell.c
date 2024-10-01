@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/30 21:35:43 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:17:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void set_shlvl(env_vars *list)
     {
         if (strncmp(list->vars, "SHLVL=", 6) == 0)
         {
-            free(list->var_value);
-            list->var_value = strdup(ft_itoa(list->shlvl));
+            list->var_value = ft_strdup(ft_itoa(list->shlvl));
         }
         list = list->next;
     }
@@ -140,7 +139,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         // }
         handle_herdoc(lines, list_env);
         handle_pipe(lines,env,list_env);
-        c_malloc(0, 0);
+        // c_malloc(0, 0);
     }
 }
 

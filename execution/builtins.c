@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 05:21:05 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:26:27 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,16 @@ char	*pwdd(env_vars *list)
 {
 	env_vars *tmp;
 	char *pwd;
+	char *temp;
 	
 	tmp = list;
 	if(!list)
 		return(NULL);
 	pwd = getcwd(NULL,0);
-	if (!pwd)
+	temp = c_malloc(ft_strlenn(pwd) + 1, 1);
+	copy_it(temp, pwd);
+	free(pwd);
+	if (!temp)
 	{
 		while (tmp)
 		{
@@ -81,7 +85,7 @@ char	*pwdd(env_vars *list)
 			tmp = tmp->next;
 		}
 	}
-	return(pwd);
+	return(temp);
 }
 
 env_vars *envpp(env_vars *list)
@@ -117,9 +121,8 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 	{
 		home = get_path(env,"HOME=");
 		if (!home)
-			return(free(home),write(2,"minishell: cd: HOME not set\n",28),0);
+			return(write(2,"minishell: cd: HOME not set\n",28),0);
 		res = chdir(home);
-		free(home);
 	}
 	else
 	{
@@ -128,9 +131,8 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 		if (!pwd_aftr_cd)
 		{
 			chdiir_help(final,list,pwd_bfr_cd);
-			return(free(pwd_bfr_cd),res);
+			return(res);
 		}
-		free(pwd_aftr_cd);
 	}
 	temp = list;
 	while (list)

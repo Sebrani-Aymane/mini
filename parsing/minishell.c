@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/30 21:42:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:10:00 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void	handle_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-// void fn() {
-// 	system("leaks minishell");
-// }
 
 // void shell(int ac, char **av, char **env) {
 // 	t_list		shell;
@@ -45,8 +42,6 @@ void	handle_signals(void)
 
 int	main(int ac, char **av, char **env)
 {
-	// atexit(fn);
-	// shell(ac, av, env);
 	t_list		shell;
 	env_vars	*list_env;
 	(void)av;
