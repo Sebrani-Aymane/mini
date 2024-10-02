@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 21:16:37 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:25:26 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@
 
 #include <signal.h>
 
-enum {
-    WORD,
-    BUILT,
-    HEREDOC,
-    INFILE,
-    OUTFILE,
-    APPEND,
-};
-
 
 typedef struct s_token
 {
@@ -50,6 +41,7 @@ typedef struct s_list
 {
     t_token **tokens;
     char **env;
+    int shlvl;
 } t_list;
 
 typedef struct s_node
@@ -75,7 +67,6 @@ typedef struct env_vars_t{
 	char *vars;
 	char *var_value;
 	char **env;
-    int shlvl;
 	struct env_vars_t *next;
     int exit;
 }  env_vars;
@@ -178,8 +169,8 @@ int open_files(t_line *lines);
 void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
 int dollar_inside_quotes_alone(char *content);
-int get_shlvl(env_vars *list_env);
-void set_shlvl(env_vars *list);
+int get_shlvl(char **env);
+void set_shlvl(t_list shell);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 void check_for_delimeter(t_node *tokens);
@@ -188,5 +179,7 @@ int check_for_and(char *input);
 int check_edge_case(char *content);
 char *pass_dollar(char *content);
 char	*ft_strdup(char *s1);
+t_node	*ft_lstlast(t_node *lst);
+void last_command(env_vars *list, t_line *final);
 
 #endif

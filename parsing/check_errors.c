@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:19:02 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/22 19:52:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:36:57 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_unclosed_quotes(char *input, int i, int inside_d, int inside_s)
 {
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '"' && !inside_s)
 			inside_d = !inside_d;
@@ -35,7 +35,7 @@ int	check_prohibited_char(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '\\' || input[i] == ';'
 			|| input[i] == '(' || input[i] == ')')
@@ -114,7 +114,7 @@ void	quotes_handle(char *input, int *inside_q, int *q_type, int i)
 
 int	redirec_loop(char *input, int i, int inside_q, int q_type)
 {
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '"' || input[i] == '\'')
 			quotes_handle(input, &inside_q, &q_type, i);
@@ -144,7 +144,7 @@ int	validate_redirection_syntax(char *input)
 
 int	handle_pipe_start_case(char *input, int i)
 {
-	if (input[i] == '|')
+	if (input && input[i] == '|')
 	{
 		if (input[i + 1] && input[i + 1] == '|')
 			printf("minishell: syntax error near unexpected token `||'\n");
@@ -157,11 +157,11 @@ int	handle_pipe_start_case(char *input, int i)
 
 int	pipe_syntax(char *input, int i, int in_quotes)
 {
-	while (input[i] == ' ')
+	while (input && input[i] == ' ')
 		i++;
 	if (!handle_pipe_start_case(input, i))
 		return (0);
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '\'' || input[i] == '\"')
 			in_quotes = !in_quotes;
@@ -189,12 +189,12 @@ int	check_for_and(char *input)
 	int	i;
 
 	i = 0;
-	if (input[0] == '&' && input[1] && input[1] == '&')
+	if (input && input[0] == '&' && input[1] && input[1] == '&')
 	{
 		printf("minishell: syntax error near unexpected token `&&'\n");
 		return (1);
 	}
-	while (input[i] && input[i + 1] && input[i + 2])
+	while (input && input[i] && input[i + 1] && input[i + 2])
 	{
 		if (input[i] == '&' && input[i + 1] == '&' && input[i + 2] == '&')
 		{

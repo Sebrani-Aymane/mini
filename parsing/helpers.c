@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/28 22:37:00 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/02 14:37:01 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	more_than_op(char *input)
 
 	count = 0;
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '<' || input[i] == '>')
 		{
@@ -90,7 +90,7 @@ int	dollar_inside_quotes_alone(char *content)
 	int	i;
 
 	i = 1;
-	while (content[i] && content[i + 1])
+	while (content && content[i] && content[i + 1])
 	{
 		if (content[i] == '$' && content[i - 1] == '"' && content[i + 1] == '"')
 			return (1);
@@ -121,7 +121,7 @@ int	ft_is_space(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 	{
 		while ((input[i] >= 9 && input[i] <= 13) || input[i] == ' ' )
 			i++;
@@ -140,7 +140,7 @@ int	check_edge_case(char *content)
 	i = 0;
 	d_quote = 0;
 	s_quote = 0;
-	while (content[i])
+	while (content && content[i])
 	{
 		if (content[i] == '"' && s_quote == 0)
 			d_quote = !d_quote;
@@ -160,11 +160,36 @@ char	*pass_dollar(char *content)
 
 	new = c_malloc(ft_strlen(content), 1);
 	i = 1;
-	while (content[i])
+	while (content && content[i])
 	{
 		new[i - 1] = content[i];
 		i++;
 	}
 	new[i - 1] = '\0';
 	return (new);
+}
+
+void last_command(env_vars *list, t_line *final)
+{
+	env_vars *curr_list = list;
+	t_node *last_token;
+	t_node *curr = final->tokens;
+	int final_size = ft_listsize(final);
+		
+	while (curr_list)
+	{
+		if (!strcmp(curr_list->vars , "_"))
+			break;
+		curr_list = curr_list->next;
+	}
+	if (final_size > 1)
+		curr_list->var_value = ft_strdup("");
+	else
+	{
+		last_token = ft_lstlast(curr);
+		if (!strcmp(last_token->content, "env"))
+			curr_list->var_value = ft_strdup("/usr/bin/env");
+		else
+		curr_list->var_value = last_token->content;
+	}
 }

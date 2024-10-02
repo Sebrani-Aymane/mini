@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:20:17 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/25 17:14:04 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:08:49 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	sizetotal = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-	res = malloc(sizeof(char) * (sizetotal + 1));
+	res = c_malloc(sizeof(char) * (sizetotal + 1), 1);
 	if (!res || !s1 || !s2)
 		return (NULL);
 	while (s1[i] != 0)

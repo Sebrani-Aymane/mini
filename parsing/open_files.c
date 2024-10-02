@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 18:13:09 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:25:34 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	out_file(t_node *token)
 {
 	int fd;
 
-	if (!strcmp(token->content, ">"))
+	if (token->type == 5)
 		fd = open(token->content,
 				O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	else 
+	else
 		fd = open(token->content,
 				O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)

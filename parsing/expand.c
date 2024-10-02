@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/30 20:57:30 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:39:03 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	can_expand(char *input)
 	d_quote = 0;
 	s_quote = 0;
 	i = 0;
-	while (input[i])
+	while (input && input[i])
 	{
 		if (input[i] == '"' && s_quote == 0)
 			d_quote = !d_quote;
@@ -63,7 +63,7 @@ int	find_var_end(char *input, int *start)
 	int	i;
 
 	i = 0;
-	while (input[i] && input[i] != '$')
+	while (input && input[i] && input[i] != '$')
 		i++;
 	*start = i + 1;
 	i++;
@@ -84,7 +84,7 @@ char	*variable_name(char *input)
 
 	start = 0;
 	end = find_var_end(input, &start);
-	if ((input[0] == '"' || input[0] == '\'') && input[end + 1] == '\0')
+	if (input && (input[0] == '"' || input[0] == '\'') && input[end + 1] == '\0')
 	{
 		while (input[end] == '"' || input[end] == '\'')
 			end--;
@@ -181,7 +181,7 @@ void expand(t_token **tokens, env_vars *list_env)
     int notif;
     int counter;
 
-    while (tokens[i])
+    while (tokens && tokens[i])
     {
         notif = 0;
         counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);

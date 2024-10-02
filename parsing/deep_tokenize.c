@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/26 19:25:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 19:12:41 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	divide_and_add(t_node **list, char *content)
 
 	i = 0;
 	start = 0;
-	while (content[i])
+	while (content && content[i])
 	{
 		if (content[i] == '<' || content[i] == '>' || content[i] == '|')
 		{
@@ -117,10 +117,10 @@ void divide_space(char *content, t_node **list)
     int start, end;
     char *token;
 
-    while (content[i] == ' ' || content[i] == '\t')
+    while (content && (content[i] == ' ' || content[i] == '\t'))
         i++;
     start = i;
-    while (content[i] != '\0')
+    while (content && content[i] != '\0')
     {
         if (content[i] == ' ' || content[i] == '\t')
         {

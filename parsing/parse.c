@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 15:05:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:41:49 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*remove_quotes(char *content, int i, int j, char c)
 	final = c_malloc(sizeof(char) * ft_strlen(content) + 1, 1);
 	if (!final)
 		return (NULL);
-	while (content[i])
+	while (content && content[i])
 	{
 		if (content[i] == '\'' || content[i] == '\"')
 		{

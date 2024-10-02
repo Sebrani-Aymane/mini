@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 17:57:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:14:28 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char **copy_env(char **env)
 
     i = 0;
     size = 0;
-    while (env[size])
+    while (env && env[size])
         size++;
     to_copy = c_malloc ((sizeof(char *) * (size + 1)), 1);
     if (!to_copy)
@@ -38,41 +38,42 @@ char **copy_env(char **env)
     return (to_copy);
 }
 
-int get_shlvl(env_vars *list_env)
+int get_shlvl(char **env)
 {
-    int  shlvl = 0;
-    env_vars *temp = list_env;
+    int i;
+    int shlvl;
+    char *temp = NULL;
     
-    while (temp)
+    i = 0;
+    while (env && env[i])
     {
-        if (!strcmp(temp->vars, "SHLVL"))
+        if (!strncmp(env[i], "SHLVL", 5))
         {
-            shlvl = ft_atoi(temp->var_value);
-          
-            shlvl++;
+            temp = env[i];
             break;
         }
-        temp = temp->next;
+        i++;
     }
-
+    while (*temp != '=')
+        temp++;
+    temp++;
+    shlvl = ft_atoi(temp) + 1;
     return (shlvl);
 }
 
-void set_shlvl(env_vars *list)
+void set_shlvl(t_list shell)
 {
-    env_vars *temp;
-
-    temp = list;
-    while (list)
+    char *final;
+    char *nbr;
+    int i = 0;
+    nbr = ft_itoa(shell.shlvl);
+    final = ft_strjoin("SHLVL=", nbr);
+    while(shell.env[i])
     {
-        if (strcmp(list->vars, "SHLVL") == 0)
-        {
-            
-            list->var_value = ft_itoa(list->shlvl);
-        }
-        list = list->next;
+        if (!strncmp(shell.env[i], "SHLVL", 5))
+            shell.env[i] = final;
+        i++;
     }
-    list = temp;
 }
 
 void display_prompt(t_list shell, char **env, env_vars *list_env)
@@ -129,6 +130,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         // }
         check_for_delimeter(list);
         lines = tokens_to_lines(list);
+        last_command(list_env, lines);
         // t_line *current = lines;
         // while (current)
         // {
@@ -143,7 +145,6 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         // }
         handle_herdoc(lines, list_env);
         handle_pipe(lines,env,list_env);
-        // c_malloc(0, 0);
     }
 }
 
