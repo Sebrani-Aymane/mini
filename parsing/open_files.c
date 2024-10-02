@@ -6,14 +6,12 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/02 15:25:34 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:29:38 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-// #include <cstdio>
-#include <stdio.h>
-#include <unistd.h>
+
 
 int	in_file(t_node *token)
 {
