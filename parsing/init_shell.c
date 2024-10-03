@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/02 15:33:03 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:17:06 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
 
     while(1)
     {
-        system("leaks minishell");
+        // system("leaks minishell");
         input = readline("minishell$  ");
         add_history(input);
         if (input == NULL)
