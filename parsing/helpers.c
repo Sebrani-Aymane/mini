@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/02 14:37:01 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/04 05:25:15 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 int	is_redirection_op(char c)
 {
@@ -175,19 +176,20 @@ void last_command(env_vars *list, t_line *final)
 	t_node *last_token;
 	t_node *curr = final->tokens;
 	int final_size = ft_listsize(final);
-		
+	if (final_size == 1)
+		return;
 	while (curr_list)
 	{
-		if (!strcmp(curr_list->vars , "_"))
+		if (!ft_strcmp(curr_list->vars , "_"))
 			break;
 		curr_list = curr_list->next;
 	}
-	if (final_size > 1)
+	if (final_size > 1 && curr_list)
 		curr_list->var_value = ft_strdup("");
 	else
 	{
 		last_token = ft_lstlast(curr);
-		if (!strcmp(last_token->content, "env"))
+		if (!ft_strcmp(last_token->content, "env") && curr_list )
 			curr_list->var_value = ft_strdup("/usr/bin/env");
 		else
 		curr_list->var_value = last_token->content;

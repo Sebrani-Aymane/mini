@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 04:56:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/04 10:05:56 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ int	ft_listsize(t_line *lst)
 		i++;
 	}
 	return (i);
+}
+
+
+int is_dir(char *path)
+{
+    struct stat statbuf;
+
+    if (stat(path, &statbuf) != 0)
+        return 0;
+
+    return S_ISDIR(statbuf.st_mode);
 }

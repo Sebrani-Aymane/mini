@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 14:56:15 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/04 11:01:37 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ int help_execute_files(t_line *final,char **env,char **av)
 	ret = execve(av[0], av, env);
 	if(ret == -1)
 	{
-		if (access(av[0], W_OK) != 0)
+		if (is_dir(av[0]) != 0)
 		{
 			exit_status(1,127);
-			perror(final->tokens->content);
+			write(2, "minishell: ", 11);
+            write(2, av[0], ft_strlenn(av[0]));
+            write(2, ": is a directory\n", 17);
 			dup2(fd_in,0);
 			close(fd_in);
 			c_malloc(0, 0);
-			exit(127);
+			exit(126);
 		}
 		exit_status(1,127);
 		perror(final->tokens->content);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/02 15:25:26 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/04 10:03:53 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <string.h>
 #include <strings.h>
@@ -138,6 +139,8 @@ int help_execute_files(t_line *final,char **env,char **av);
 char *find_executable(t_line  *final,env_vars *list,char **av);
 char **fake_env(void);
 void	ft_putstr(char *s, int fd);
+int handle_one_blt(t_line *final,char **env,env_vars *list);
+int is_dir(char *parth);
 //////////////////*PARSING*//////////////////////////
 
 

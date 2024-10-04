@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 17:38:04 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/04 09:58:41 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	execute_blts(char *blt, t_line *final,
 	char *pwd;
 
 	ret = 0;
-	handle_redirections(final);
 	if (strcmp(blt, "echo") == 0)
 		echoo(final);
 	else if (strcmp(blt, "pwd") == 0)
 		{
 			pwd = pwdd(list);
-			printf("%s\n",pwd);
+			ft_putstr(pwd,final->fd_out);
+			ft_putstr("\n", final->fd_out);
 		}
 	else if (strcmp(blt, "export") == 0)
 	{
@@ -99,7 +99,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	char *to_do;
 	int ret = 2;
 	(void)list;
-
+	
 	char **av = create_av(final->tokens);
 	if (!av || !*av)
 		return(0);

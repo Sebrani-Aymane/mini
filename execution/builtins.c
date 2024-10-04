@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 17:26:27 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/03 04:59:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ env_vars *envpp(env_vars *list)
 		return(NULL);
 	while (list)
 	{
-		printf("%s",list->vars);
+		if (list->vars)
+			printf("%s",list->vars);
 		if(list->var_value && *(list->var_value) != '\0')
 			printf("=%s\n",list->var_value);
 		else
