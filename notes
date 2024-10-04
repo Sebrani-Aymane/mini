@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 no lekas so far
 pwd > out | echo hi > in            cat out 
 last command segv when
@@ -5,3 +6,33 @@ last command segv when
 					unset PATH PWD SHLVL _
 					env
 cat << l | cat
+=======
+
+cd --->half done
+exit status
+
+exit_status(SET, 127);
+int d = exit_status(GET, 0)
+////gonna code the shell level , it wont change anything in your part
+
+
+USER MallocNanoZone PATH LOGNAME SSH_AUTH_SOCK HOME SHELL __CF_USER_TEXT_ENCODING TMPDIR XPC_SERVICE_NAME XPC_FLAGS ORIGINAL_XDG_CURRENT_DESKTOP SHLVL PWD OLDPWD ZSH PAGER LESS LSCOLORS LS_COLORS TERM_PROGRAM TERM_PROGRAM_VERSION LANG COLORTERM GIT_ASKPASS VSCODE_GIT_ASKPASS_NODE VSCODE_GIT_ASKPASS_EXTRA_ARGS VSCODE_GIT_ASKPASS_MAIN VSCODE_GIT_IPC_HANDLE VSCODE_INJECTION USER_ZDOTDIR USER_ZDOTDIR TERM _
+
+seg fault when trying to expand a var and the env is empty
+
+sig quit mustn't get ignored in a child process
+sig int in a child change the exit status to 130
+sig quit in a child change the exit status to 131
+'' must print command not found
+
+
+
+
+shell level working just fine akhiiiiiran 
+test the $_ and tell me if there is any problem cause i didn't search for the edge cases i just implement the necessary 
+append working
+chouf rah hiyedt dik enum hit kan khasni nbdel fel function li kat3ti types o fiya l3gez so khlit ghir l numbers
+
+
+when we export a variable and start another minishell the variable is not in the env
+>>>>>>> 4c1a846ae99dcd020b6ebf8e27f9ba90b9807f89

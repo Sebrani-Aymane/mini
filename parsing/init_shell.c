@@ -6,7 +6,11 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/04 05:26:00 by asebrani         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/02 18:17:06 by cbajji           ###   ########.fr       */
+>>>>>>> 4c1a846ae99dcd020b6ebf8e27f9ba90b9807f89
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +88,13 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
   //  int a = 0;
     while(1)
     {
+<<<<<<< HEAD
         //system("leaks minishell");
         input = readline("minishell$  "); 
+=======
+        // system("leaks minishell");
+        input = readline("minishell$  ");
+>>>>>>> 4c1a846ae99dcd020b6ebf8e27f9ba90b9807f89
         add_history(input);
         if (input == NULL)
         {
