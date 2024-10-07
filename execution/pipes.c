@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/04 11:05:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/07 04:30:39 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 	fd_in = dup(0);
 	int i =0;
 
-	handle_redirections(final);
+	
 	if (check_builtin(final, list, env))
 	{
 		ret = execute_blts(final->tokens->content ,final, list,env);
@@ -77,12 +77,15 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	int fd_in = dup(0);
 	
 	pipes_count = ft_listsize(final);
+	// printf("%s\n",final->tokens->content);
 	if (pipes_count == 1 && check_builtin(final,list,env))
 		handle_one_blt(final,env,list);
 	else
 	{
+		// printf("pipe count = %d\n", pipes_count);
 		while (++i < pipes_count)
 		{
+			
 			if (pipes_count > 1 && pipe(fd) == -1)
 				return (fprintf(stderr,"error in pipes\n"),20);
 			pid = fork();
@@ -94,8 +97,10 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 				{
 					if (dup2(fd[1], 1) == -1)
 						return(fprintf(stderr,"error in dup2"),-1);
-					close(fd[0]);
+					if (close(fd[0] == -1))
+						write(1, "something really bad\n",21);
 				}
+				handle_redirections(final);
 				ret = execute_the_thing(final,env,list);
 				if(final->fd_in != 0)
 				{
@@ -107,8 +112,8 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 					dup2(final->default_out,1);
 					close(final->fd_out);
 				}
-				close(final->fd_in);
-				close(final->fd_out);
+				 //close(final->fd_in);
+				 //close(final->fd_out);
 			}
 			else
 			{

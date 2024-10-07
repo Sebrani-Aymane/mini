@@ -1,38 +1,50 @@
 <<<<<<< HEAD
 no lekas so far
-pwd > out | echo hi > in            cat out 
+pwd > out | echo hi > in            cat out >>>... done
 last command segv when
 					env -i..
 					unset PATH PWD SHLVL _
 					env
-cat << l | cat
-=======
-
-cd --->half done
-exit status
-
-exit_status(SET, 127);
-int d = exit_status(GET, 0)
-////gonna code the shell level , it wont change anything in your part
+cat << l | cat 
 
 
-USER MallocNanoZone PATH LOGNAME SSH_AUTH_SOCK HOME SHELL __CF_USER_TEXT_ENCODING TMPDIR XPC_SERVICE_NAME XPC_FLAGS ORIGINAL_XDG_CURRENT_DESKTOP SHLVL PWD OLDPWD ZSH PAGER LESS LSCOLORS LS_COLORS TERM_PROGRAM TERM_PROGRAM_VERSION LANG COLORTERM GIT_ASKPASS VSCODE_GIT_ASKPASS_NODE VSCODE_GIT_ASKPASS_EXTRA_ARGS VSCODE_GIT_ASKPASS_MAIN VSCODE_GIT_IPC_HANDLE VSCODE_INJECTION USER_ZDOTDIR USER_ZDOTDIR TERM _
-
-seg fault when trying to expand a var and the env is empty
-
-sig quit mustn't get ignored in a child process
-sig int in a child change the exit status to 130
-sig quit in a child change the exit status to 131
-'' must print command not found
-
-
-
-
-shell level working just fine akhiiiiiran 
-test the $_ and tell me if there is any problem cause i didn't search for the edge cases i just implement the necessary 
-append working
-chouf rah hiyedt dik enum hit kan khasni nbdel fel function li kat3ti types o fiya l3gez so khlit ghir l numbers
+* We're in second readline.
+ * When user press ctrl-c, we should stop readline and return to prompt.
+ * To do this, replace signal handler temporarily and restore it when
+ *   heredoc input is completed.
+ * New sighandler will close STDIN to break current readline.
+ * if input == NULL && STDIN is not terminal, it means we met SIGINT.
+ * in this case, restore STDIN and return 1.
+ * In general situation, write input to tmpfile and return 0.
+*/
 
 
-when we export a variable and start another minishell the variable is not in the env
->>>>>>> 4c1a846ae99dcd020b6ebf8e27f9ba90b9807f89
+//sigint_in_heredoc_handler: A signal handler for SIGINT (Ctrl+C) that closes STDIN to interrupt the heredoc input.
+
+//write_to_tmpfile: 
+This function handles the actual heredoc input. It:
+Backs up STDIN
+Sets up a custom SIGINT handler
+Reads input lines until it encounters the limit string or EOF
+Writes each line to a temporary file
+Restores the original signal handler
+Handles interruption cases
+
+
+open_available: This function creates a unique temporary file for the heredoc content.
+
+read_heredoc: The main function that orchestrates the heredoc process. It:
+Creates a temporary file
+Writes the heredoc content to the file
+Handles any errors or interruptions
+Opens the file for reading
+Updates the command node with the file descriptor
+
+
+
+Key points about this implementation:
+
+It handles SIGINT (Ctrl+C) during heredoc input, allowing the user to interrupt the process.
+It uses temporary files to store the heredoc content, which are automatically deleted after use.
+It supports up to 65535 simultaneous heredocs (though this limit is likely far more than needed).
+It integrates with a larger command parsing structure (evidenced by the t_cmd type).
