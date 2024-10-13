@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+\
 no lekas so far
 pwd > out | echo hi > in            cat out >>>... done
 last command segv when
@@ -6,45 +6,3 @@ last command segv when
 					unset PATH PWD SHLVL _
 					env
 cat << l | cat 
-
-
-* We're in second readline.
- * When user press ctrl-c, we should stop readline and return to prompt.
- * To do this, replace signal handler temporarily and restore it when
- *   heredoc input is completed.
- * New sighandler will close STDIN to break current readline.
- * if input == NULL && STDIN is not terminal, it means we met SIGINT.
- * in this case, restore STDIN and return 1.
- * In general situation, write input to tmpfile and return 0.
-*/
-
-
-//sigint_in_heredoc_handler: A signal handler for SIGINT (Ctrl+C) that closes STDIN to interrupt the heredoc input.
-
-//write_to_tmpfile: 
-This function handles the actual heredoc input. It:
-Backs up STDIN
-Sets up a custom SIGINT handler
-Reads input lines until it encounters the limit string or EOF
-Writes each line to a temporary file
-Restores the original signal handler
-Handles interruption cases
-
-
-open_available: This function creates a unique temporary file for the heredoc content.
-
-read_heredoc: The main function that orchestrates the heredoc process. It:
-Creates a temporary file
-Writes the heredoc content to the file
-Handles any errors or interruptions
-Opens the file for reading
-Updates the command node with the file descriptor
-
-
-
-Key points about this implementation:
-
-It handles SIGINT (Ctrl+C) during heredoc input, allowing the user to interrupt the process.
-It uses temporary files to store the heredoc content, which are automatically deleted after use.
-It supports up to 65535 simultaneous heredocs (though this limit is likely far more than needed).
-It integrates with a larger command parsing structure (evidenced by the t_cmd type).

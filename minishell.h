@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/04 10:03:53 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/13 02:40:10 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ char **fake_env(void);
 void	ft_putstr(char *s, int fd);
 int handle_one_blt(t_line *final,char **env,env_vars *list);
 int is_dir(char *parth);
+void handle_heredoc(t_line *final, env_vars *list_env,char **env);
 //////////////////*PARSING*//////////////////////////
 
 

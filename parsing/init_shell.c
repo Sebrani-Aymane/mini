@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/06 23:22:50 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/13 02:40:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         //     current = current->next;
         // }
         // last_command(list_env, lines);
-        handle_herdoc(lines, list_env);
+        handle_heredoc(lines, list_env,env);
         handle_pipe(lines,env,list_env);
     }
 }
