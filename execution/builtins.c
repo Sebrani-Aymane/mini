@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/03 04:59:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:52:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	chdirr(char **env,t_line *final,env_vars *list)
 	
 	res = 0;
 	pwd_bfr_cd = get_path_from_list(list, "PWD");
+	//if(final->to
 	if (!final->tokens->next)
 	{
 		home = get_path(env,"HOME=");

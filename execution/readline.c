@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/05 15:45:15 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:55:33 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 			exit_status(1, 0);
 			ret = execve(to_do, av, env);
 		}
-		if (!to_do && get_path_from_list(list,"PATH"))
+		else if (!to_do && get_path_from_list(list,"PATH"))
 		{
+			exit_status(1, 127);
 			write(2,"minishell: ",11);
 			write(2,str_joiner(av[0]," :command not found\n"),ft_strlenn(av[0]) + 20);
-	
 			c_malloc(0, 0);
 			exit(127);
 		}

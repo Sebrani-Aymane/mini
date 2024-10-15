@@ -6,69 +6,57 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/13 12:05:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:38:57 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 
-
- #include "../minishell.h"
 #include <stdio.h>
- #include <stdio.h>
- #include <string.h>
 #include <sys/fcntl.h>
+#include <unistd.h>
 
-int check_for_heredoc(t_line *final)
-{
-	t_node *temp;
-	temp = final->tokens;
-	while (final->tokens)
-	{
-		if (final->tokens->type == 3)
-			return(1);
-		final->tokens = final->tokens->next;
-	}
-	final->tokens = temp;
-	return(0);
-}
+void handle_heredoc(t_line *final, env_vars *list, char **env) {
+  char *delim;
+  char *input;
+  char buffer[100];
+  char namefile[20];
+  int fd;
+  char last_input[10];
 
-char *get_delimiters(t_line *final)
-{
-	char *ret;
-	while (final->tokens)
-	{
-		if (final->tokens->type == 3)
-			return(ft_strdup(final->tokens->next->content));
-		final->tokens = final->tokens->next;
+  while (final) {
+    while (final->tokens) {
+      if (final->tokens->type == 3)
+	  {
+        int rand = open("/dev/urandom", O_RDWR);
+        int j = 0;
+        int i = 0;
+        while (1) {
+          read(rand, buffer, 100);
+          buffer[99] = '\0';
+          while (buffer[i]) {
+            if (ft_isalnum(buffer[i])) {
+              namefile[j] = buffer[i];
+              j++;
+            }
+            i++;
+          }
+          if (j == 20)
+            break;
+        }
+        close(rand);
+        namefile[19] = '\0';
+        fd = open(namefile, O_RDWR | O_CREAT);
+        delim = ft_strdup(final->tokens->next->content);
+        	input = readline(">");
+        	if (!input || ft_strcmp(input, delim))
+         	 break;
+        	write(fd, input, ft_strlen(input));
 	}
-}
-void handle_herdoc(t_line *final, env_vars *list_env)
-{
-	int fd[2];
-	int pid;
-	char * delim;
-	char *input;
-	if (!check_for_heredoc(final))
-		return;
-	delim = get_delimiters(final);
-	if (pipe(fd) == -1)
-		return((void)write(2,"error in herdoc_ppipe\n",21));
-	pid = fork();
-	if (pid == 0)
-	{
-		close(fd[1]);
-		while(1)
-		{
-			input = readline(">");
-			if (!input || !ft_strcmp(input,delim))
-			{
-				exit_status(1,0);
-				exit(0);
-			}
-			write(fd[0],input,ft_strlenn(input)); 
-			dup2(fd[0],final->fd_in);
-			
-			
-		}
-	}
+      read(fd, last_input, 10) ;printf("%s\n", last_input);
+
+      final->tokens = final->tokens->next;
+    }
+    final = final->next;
+  }
 }

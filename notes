@@ -6,3 +6,5 @@ last command segv when
 					unset PATH PWD SHLVL _
 					env
 cat << l | cat 
+
+

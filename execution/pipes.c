@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/07 04:30:39 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:04:11 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 				dup2(fd_in,0);
 				close(fd_in);
 				c_malloc(0, 0);
-				exit(127);
+				exit(128);
 			}
 		}
 	}
@@ -128,8 +128,13 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 			final = final->next;
 		}
 	}
+	int status;
 	while (pipes_count-- > 0)
-		wait(NULL);
+		waitpid(pid,&status,0);
+	if (WIFEXITED(status))
+		{
+			exit_status(1,WEXITSTATUS(status) );
+		}
 	dup2(fd_in,0);
 	close(fd_in);
 	return(ret);
