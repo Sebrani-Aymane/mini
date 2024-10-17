@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/17 01:51:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/17 11:03:39 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ int valid_to_add(env_vars *env,char *str)
 	tmp = env;
 	new = c_malloc(sizeof(env_vars), 1);
 	temp = strchr(str, '=');
-	
+	if(check_key(key))
+	{
 		new-> vars = get_till(str,'=');
 		new-> var_value = ft_strdup(temp+1);
 		add_to_list(&tmp,new);
-		return (0);
+		return(0);
+	}
+	return (1);
 }
 
 int	export_it(env_vars *env,char *str)

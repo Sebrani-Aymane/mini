@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/17 01:50:22 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/17 11:08:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@ bool is_space(char *str)
 	return false;
 }
 
+
 int check_key(char *str)
 {
 	int i = 0;
 	
 	if (!str)
-		return (printf("'%s' not a valid identifier\n", str),0);
+		return (printf("'%s' not a valid identifier1\n", str),0);
 	if (is_space(str))
-		return (printf("'%s' not a valid identifier\n", str),0);
-	if ((!ft_isalpha(str[0]) || str[0] != '_'))
-		return (printf("'%s' not a valid identifier\n", str),0);
+		return (printf("'%s' not a valid identifier2\n", str),0);
+	if (!(ft_isalpha(str[0]) || str[0] == '_'))
+		return (printf("'%s' not a valid identifier3\n", str),0);
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return(printf("'%s' not a valid identifier\n",str),0);
+			return(printf("'%s' not a valid identifier4\n",str),0);
 		i++;
 	}
 	return(1);

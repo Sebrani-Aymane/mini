@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/17 01:21:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:06:16 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void handle_redirections(t_line *final)
 	open_files(final);
     if(final->fd_in != 0)
 	{
-		puts("aaaa");
-		//final->default_in = dup(0);
+		//
+		final->default_in = dup(0);
     	dup2(final->fd_in,0);
 		close(final->fd_in);
 	}
@@ -68,6 +68,75 @@ int execute_the_thing(t_line *final,char **env,env_vars *list)
 	return 0;
 }
 
+// int handle_pipe(t_line *final,char **env,env_vars *list)
+// {
+// 	int pid;
+// 	int i = -1;
+// 	int pipes_count;
+// 	int fd[2];
+// 	int ret = 0;
+// 	int fd_in = dup(0);
+	
+// 	pipes_count = ft_listsize(final);
+// 	if (pipes_count == 1 && check_builtin(final,list,env))
+// 		handle_one_blt(final,env,list);
+// 	else
+// 	{
+// 		while (++i < pipes_count)
+// 		{
+// 			if (pipes_count > 1 && pipe(fd) == -1)
+// 				return (fprintf(stderr,"error in pipes\n"),20);
+// 			pid = fork();
+// 			if (pid == -1)
+// 				return (fprintf(stderr,"error in forking\n"),-1);
+// 			if (pid == 0)
+// 			{
+// 				if (i != pipes_count - 1)
+// 				{
+// 					 if (dup2(fd[1], 1) == -1)
+// 						return(fprintf(stderr,"error in dup2"),-1);
+// 					if (close(fd[0]) == -1)
+// 						write(1, "something really bad\n",21);
+// 				}
+// 				handle_redirections(final);
+// 				ret = execute_the_thing(final,env,list);
+// 				if(final->fd_in != 0)
+// 				{
+// 					dup2(final->default_in,0);
+// 					close(final->fd_in);
+// 				}
+// 				if (final ->fd_out != 1)
+// 				{
+// 					dup2(final->default_out,1);
+// 					close(final->fd_out);
+// 				}
+// 				//  close(final->fd_in);
+// 				//  close(final->fd_out);
+// 			}
+// 			else
+// 			{
+// 				if (pipes_count - 1 > 0)
+// 				{
+// 					if (dup2(fd[0],0) == -1)
+// 						return(fprintf(stderr,"error in dup2"),-1);
+// 					close(fd[1]);
+// 					close(fd[0]);
+// 				}
+// 			}
+// 			final = final->next;
+// 		}
+// 	}
+// 	int status;
+// 	while (pipes_count-- > 0)
+// 		waitpid(pid,&status,0);
+// 	if (WIFEXITED(status))
+// 		{
+// 			exit_status(1,WEXITSTATUS(status) );
+// 		}
+// 	dup2(fd_in,0);
+// 	close(fd_in);
+// 	return(ret);
+// }
 int handle_pipe(t_line *final,char **env,env_vars *list)
 {
 	int pid;
@@ -78,31 +147,27 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	int fd_in = dup(0);
 	
 	pipes_count = ft_listsize(final);
-	if (pipes_count == 1 && check_builtin(final,list,env))
-		handle_one_blt(final,env,list);
+	if (pipes_count == 1 && check_builtin(final, list,env))
+		handle_one_blt(final, env, list);
 	else
 	{
-		while (++i < pipes_count)
+		while(++i < pipes_count)
 		{
-			if (pipes_count > 1 && pipe(fd) == -1)
-				return (fprintf(stderr,"error in pipes\n"),20);
+			if(pipes_count > 1 && pipe(fd) == -1)
+				return(write(2,"error in pipes\n",15),20);
 			pid = fork();
-			if (pid == -1)
-				return (fprintf(stderr,"error in forking\n"),-1);
 			if (pid == 0)
 			{
-				if (i != pipes_count - 1)
+				if(i !=pipes_count -1)
 				{
-					// if (dup2(fd[1], 1) == -1)
-					// 	return(fprintf(stderr,"error in dup2"),-1);
-					if (close(fd[0] ) == -1)
-						write(1, "something really bad\n",21);
+					dup2(fd[1],1);
+					close (fd[0]);
+					close (fd[1]);
 				}
 				handle_redirections(final);
-				ret = execute_the_thing(final,env,list);
+				execute_the_thing(final, env,list);
 				if(final->fd_in != 0)
 				{
-					printf("hgfvd\n");
 					dup2(final->default_in,0);
 					close(final->fd_in);
 				}
@@ -111,23 +176,19 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 					dup2(final->default_out,1);
 					close(final->fd_out);
 				}
-				//  close(final->fd_in);
-				//  close(final->fd_out);
-			}
-			else
-			{
-				if (pipes_count - 1 > 0)
-				{
-					if (dup2(fd[0],0) == -1)
-						return(fprintf(stderr,"error in dup2"),-1);
-					close(fd[1]);
-					close(fd[0]);
-				}
+				 close(final->fd_in);
+				 close(final->fd_out);
+			}	
+			else {
+				if(pipes_count - 1> 0)
+					dup2(fd[0],0);
+				close(fd[0]);
+				close(fd[1]);
 			}
 			final = final->next;
 		}
 	}
-	int status;
+		int status;
 	while (pipes_count-- > 0)
 		waitpid(pid,&status,0);
 	if (WIFEXITED(status))
@@ -138,3 +199,5 @@ int handle_pipe(t_line *final,char **env,env_vars *list)
 	close(fd_in);
 	return(ret);
 }
+
+
