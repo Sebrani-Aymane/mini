@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/04 10:05:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:16:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isalnum(int c)
 {
-	if (((c <= 122 && c >= 97) || (c <= 90 && c >= 65)))
+	if (((c <= 122 && c >= 97) && (c <= 90 && c >= 65)))
 		return (1);
 	else
 		return (0);
@@ -45,8 +45,6 @@ int	ft_listsize(t_line *lst)
 	}
 	return (i);
 }
-
-
 int is_dir(char *path)
 {
     struct stat statbuf;

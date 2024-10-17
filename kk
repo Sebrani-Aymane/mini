@@ -1,0 +1,9 @@
+here
+Makefile
+execution
+kk
+minishell
+minishell.h
+notes
+out
+parsing

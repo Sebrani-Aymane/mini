@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 14:57:53 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/17 01:50:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int check_key(char *str)
 		return (printf("'%s' not a valid identifier\n", str),0);
 	if (is_space(str))
 		return (printf("'%s' not a valid identifier\n", str),0);
-	if (!(ft_isalpha(str[0]) || str[0] == '_'))
+	if ((!ft_isalpha(str[0]) || str[0] != '_'))
 		return (printf("'%s' not a valid identifier\n", str),0);
 	while (str[i])
 	{

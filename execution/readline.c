@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/14 11:55:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/17 01:22:20 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	execute_blts(char *blt, t_line *final,
 	return (ret);
 }
 
-
 char **create_av(t_node *tokens)
 {
 	t_node *current = tokens;
@@ -85,15 +84,7 @@ char **create_av(t_node *tokens)
 	av[i] = NULL;
 	return av;
 }
-void print_it(t_line *final)
-{
-	t_node *cmd = final->tokens;
-	while(cmd)
-	{
-		printf("--|%s|\n",cmd->content);
-		cmd = cmd->next;
-	}
-}
+
 int excutefilepath(t_line *final,env_vars *list,char **env)
 {
 	char *to_do;
@@ -103,7 +94,7 @@ int excutefilepath(t_line *final,env_vars *list,char **env)
 	char **av = create_av(final->tokens);
 	if (!av || !*av)
 		return(0);
-	execve(av[0], av, env);
+	 execve(av[0], av, env);
 	if (!check_file_path(final))
 	{
 		to_do = find_executable(final,list,av);

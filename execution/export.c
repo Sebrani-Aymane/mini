@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 14:54:15 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/17 01:51:00 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@ int valid_to_add(env_vars *env,char *str)
 	tmp = env;
 	new = c_malloc(sizeof(env_vars), 1);
 	temp = strchr(str, '=');
-	if (check_key(key) && (temp + 1))
-	{
+	
 		new-> vars = get_till(str,'=');
 		new-> var_value = ft_strdup(temp+1);
 		add_to_list(&tmp,new);
 		return (0);
-	}
-	else
-		return (1);
 }
 
 int	export_it(env_vars *env,char *str)
