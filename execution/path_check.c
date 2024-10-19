@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/14 12:05:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:17:11 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char *find_executable(t_line	*final,env_vars *list,char **av)
 int help_execute_files(t_line *final,char **env,char **av)
 {
 	int ret;
-	int fd_in;
+	// int fd_in;
 	
-	fd_in = dup(0);
+	// fd_in = dup(0);
 	ret = execve(av[0], av, env);
 	if(ret == -1)
 	{
@@ -58,14 +58,14 @@ int help_execute_files(t_line *final,char **env,char **av)
 			write(2, "minishell: ", 11);
             write(2, av[0], ft_strlenn(av[0]));
             write(2, ": is a directory\n", 17);
-			dup2(fd_in,0);
-			close(fd_in);
+			// dup2(fd_in,0);
+			// close(fd_in);
 			c_malloc(0, 0);
 			exit(126);
 		}
 		perror(final->tokens->content);
-		dup2(fd_in,0);
-		close(fd_in);
+		// dup2(fd_in,0);
+		// close(fd_in);
 		c_malloc(0, 0);
 		exit(128);
 	}

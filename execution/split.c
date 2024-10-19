@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 14:58:41 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/19 14:42:30 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**split(char *str, char sep)
 		return (NULL);
 	n = 0;
 	count_word = count_words(str, sep);
-	strs = c_malloc(sizeof(char *) * (count_word + 1),1);
+	strs = c_malloc(sizeof(char *) * (count_word + 1), 1);
 	if (!strs)
 		return (NULL);
 	while (n < count_word && *str)
@@ -41,12 +41,12 @@ char	**split(char *str, char sep)
 }
 
 void	copy_it(char *dest, char *src)
-{	
-	int i;
+{
+	int	i;
 
 	i = 0;
-	if(!src)
-		return;
+	if (!src)
+		return ;
 	while (src[i])
 	{
 		dest[i] = src[i];
@@ -62,7 +62,7 @@ char	*str_joiner(char *s1, char *s2)
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
-		return(ft_strdup(s1));
+		return (ft_strdup(s1));
 	ret = c_malloc(sizeof(char) * (ft_strlenn(s1) + ft_strlenn(s2) + 1), 1);
 	if (!ret)
 		return (NULL);
@@ -70,5 +70,3 @@ char	*str_joiner(char *s1, char *s2)
 	copy_it(ret + strlen(s1), s2);
 	return (ret);
 }
-
-

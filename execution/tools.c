@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 14:53:04 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/19 14:23:18 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_path(char **envp,char *str)
+char	*get_path(char **envp, char *str)
 {
 	char	*path;
-	int i = 0;
-	
+	int		i;
+
+	i = 0;
 	if (!envp || !(*envp))
-		return(NULL);
+		return (NULL);
 	while (envp[i])
-	{	
-		if (strncmp(envp[i], str,5) == 0)
-			return(path  = ft_strdup(envp[i] + 5));
-			i++;
+	{
+		if (strncmp(envp[i], str, 5) == 0)
+			return (path = ft_strdup(envp[i] + 5));
+		i ++;
 	}
 	return (NULL);
 }
@@ -48,8 +49,8 @@ int	count_words(char *str, char c)
 char	*return_word(char *str, char c)
 {
 	char	*ret;
-	size_t		count;
-	size_t		i;
+	size_t	count;
+	size_t	i;
 
 	i = 0;
 	count = 0;
@@ -72,8 +73,8 @@ void	clear_strss(char **strs, int n)
 
 	i = 0;
 	while (i < n)
-		free(strs[i++]);
-	free(strs);
+		free (strs[i++]);
+	free (strs);
 }
 
 int	ft_atoii(char *value)
@@ -85,9 +86,9 @@ int	ft_atoii(char *value)
 	result = 0;
 	while (*value)
 	{
-		while((*value <=13 && *value >= 9) || *value ==32)
+		while ((*value <= 13 && *value >= 9) || *value == 32)
 			value++;
-		break;
+		break ;
 	}
 	if (*value == '-')
 	{

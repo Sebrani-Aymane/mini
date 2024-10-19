@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/17 11:15:31 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:14:09 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void handle_heredoc(t_line *final, env_vars *list, char **env) {
 	char *buff =ft_strdup("");
 	while (final)
 	{
+		//t_node *temp_node ;
 		while (final->tokens)
 		{
 			if (final->tokens->type == 3)
@@ -86,12 +87,12 @@ void handle_heredoc(t_line *final, env_vars *list, char **env) {
 					flag = 1;
 				}
 				final->tokens->content=namefile;
-			close(fd);
+			//close(fd);
 			}
 			final->tokens = final->tokens->next;
 		}
 		final = final->next;
 	}
-	final = tmp;
-	final->tokens = temp;
+	//final = tmp;
+	//final->tokens = temp;
 }

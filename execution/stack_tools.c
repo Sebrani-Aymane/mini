@@ -6,12 +6,11 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/17 11:08:50 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/19 14:33:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "stdbool.h"
 
 int	ft_isalpha(int c)
 {
@@ -21,66 +20,67 @@ int	ft_isalpha(int c)
 		return (0);
 }
 
-bool is_space(char *str)
+int	is_space(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (str[i] == '\0' ||str[i] == '\t' ||str[i] == '\n'  || str[i] == '\v'
-		|| str[i] == '\f' ||str[i] == '\r')
-		return true;
-	return false;
+	if (str[i] == '\0' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r')
+		return (1);
+	return (0);
 }
 
-
-int check_key(char *str)
+int	check_key(char *str)
 {
-	int i = 0;
-	
+	int	i;
+
+	i = 0;
 	if (!str)
-		return (printf("'%s' not a valid identifier1\n", str),0);
+		return (printf("'%s' not a valid identifier1\n", str), 0);
 	if (is_space(str))
-		return (printf("'%s' not a valid identifier2\n", str),0);
+		return (printf("'%s' not a valid identifier2\n", str), 0);
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
-		return (printf("'%s' not a valid identifier3\n", str),0);
+		return (printf("'%s' not a valid identifier3\n", str), 0);
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return(printf("'%s' not a valid identifier4\n",str),0);
+			return (printf("'%s' not a valid identifier4\n", str), 0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
-int check_builtin(t_line *final, env_vars *list,char **env)
+int	check_builtin(t_line *final, env_vars *list, char **env)
 {
-	char **builtins;
-	int j = -1;
+	char	**builtins;
+	int		j;
+
 	(void)env;
 	(void) list;
-		builtins = split("cd echo pwd export unset env exit", ' ');
-		while (builtins[++j])
-		{
-			if (final -> tokens && strcmp(final->tokens->content,builtins[j]) == 0)
-			{
-				return(1);
-			}
-		}
-		return(0);
+	builtins = split("cd echo pwd export unset env exit", ' ');
+	j = -1;
+	while (builtins[++j])
+		if (final -> tokens && strcmp(final->tokens->content, builtins[j]) == 0)
+			return (1);
+	return (0);
 }
 
-int check_file_path(t_line *final)
+int	check_file_path(t_line *final)
 {
-	t_node *current = final->tokens;
-	int i = 0;
+	t_node	*current;
+	int		i;
 
-	if ((!current->content || !current->content) && (!current->next || !current->next->content))
-		return(0);
+	current = final->tokens;
+	i = 0;
+	if ((!current->content || !current->content)
+		&& (!current->next || !current->next->content))
+		return (0);
 	while (current ->content[i])
 	{
 		if (current->content[i] == '/')
-			return(1);
+			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
