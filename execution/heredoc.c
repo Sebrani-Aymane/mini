@@ -6,93 +6,101 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/18 21:14:09 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/19 21:55:17 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-#include <stdio.h>
-#include <sys/fcntl.h>
-#include <unistd.h>
-char *generate_filename(void)
+
+int check_of_herdoc(t_line *final)
 {
-	char *filename;
-	int fd;
-	int j;
-	unsigned char c;
-
-	j = 0;
-	filename = malloc(21);
-	if (!filename){
-		perror("malloc");
-	return(NULL);
-	}
-	fd = open("/dev/urandom",O_RDONLY);
-	if (fd == -1){
-		perror("open /dev/urandom");
-	}
-	while(j < 19)
-	{
-		if(read(fd,&c,1) == -1){
-			perror("read /dev/urandom");
-			close (fd);
-			free(filename);
-			return(NULL);
-		}
-		if(c <= 122 && c >=97)
-	{		filename[j] = c;
-		j++;
-	}
-	}
-	filename[j] = '\0';
-	close(fd);
-	return(filename);
-}
-
-void handle_heredoc(t_line *final, env_vars *list, char **env) {
-	char *delim;
-	char *input;
-	char *namefile;
-	int fd = 0;
-
-	(void)list;
-	(void)env;
-	int flag = 0;
-	t_line *tmp;
-	tmp = final;
 	t_node *temp;
-	temp = final->tokens;
-	char *buff =ft_strdup("");
 	while (final)
 	{
-		//t_node *temp_node ;
-		while (final->tokens)
+		temp = final->tokens;
+		while (temp)
 		{
-			if (final->tokens->type == 3)
-			{
-				namefile = generate_filename();
-				fd = open(namefile, O_RDWR | O_CREAT | O_EXCL, 0600);
-				if(!final->tokens->next)
-					return;
-				delim = ft_strdup(final->tokens->next->content);
-				while(1)
-				{
-					input = readline(">");
-					buff = ft_strjoin(buff,input);
-					if (!input || !ft_strcmp(input, delim))
-				 		return;
-					write(fd, input, ft_strlen(input));
-					write(fd,"\n",1);
-					flag = 1;
-				}
-				final->tokens->content=namefile;
-			//close(fd);
-			}
-			final->tokens = final->tokens->next;
+			if (temp->type == 3)
+				return(1);
+			temp = temp->next;
 		}
 		final = final->next;
+		
 	}
-	//final = tmp;
-	//final->tokens = temp;
+	return(0);
+}
+
+
+t_node *get_delimiter(t_line *final)
+{
+		t_node *temp;
+		temp = final->tokens;
+		while (temp)
+		{
+			if (temp->type == 3)
+			{	
+				return(temp->next);
+			}
+			temp = temp->next;
+		}
+	return(NULL);
+}
+
+void handle_heredoc(t_line *final, env_vars *list_env)
+{
+	int fd[2];
+	char *input;
+	int pid;
+	t_node *delimiter;
+	t_token **hered_tokens;
+	int i;
+
+	if (!check_of_herdoc(final))
+		return;
+	delimiter = get_delimiter(final);
+	if (pipe(fd) == -1)
+	{
+		fprintf(stderr,"error with pipes in herdoc");
+		return;
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		close(fd[0]);
+		while (1)
+		{
+			i = 0;
+			input = readline(">");
+			if (!input)
+				return(free(input));
+			hered_tokens = into_tokens(input, 0, 0);
+			if (delimiter->delimeter_inside_quotes != 1)
+			{
+				check_token_dollar(hered_tokens);
+				expand(hered_tokens, list_env);
+			}
+			if (strcmp(input, delimiter->content) == 0)
+				break;
+			while (hered_tokens && hered_tokens[i])
+			{
+				write(fd[1], hered_tokens[i]->content, ft_strlenn(hered_tokens[i]->content));
+				if (hered_tokens[i + 1])
+					write(fd[1], " ", 1);
+				i++;
+			}
+			write(fd[1],"\n",1);
+			free(input);
+		}
+		exit_status(1, 0);
+		c_malloc(0, 0);
+		exit(0);
+	}
+	else
+	{
+		final->fd_in = dup(fd[0]);
+			wait(NULL);
+			close(fd[1]);
+	}
+	return;
 }

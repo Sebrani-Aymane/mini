@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 14:56:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:12:14 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 	{
 		while (++i < pipes_count)
 		{
-
 			if (pipes_count > 1 && pipe(fd) == -1)
 				return (fprintf(stderr,"error in pipes\n"),20);
 			pid = fork();
@@ -118,7 +117,10 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 	}
 	int status;
 	while (pipes_count-- > 0)
-		waitpid(pid,&status,0);
+	{
+		wait(&status);
+		//waitpid(pid,&status,0);
+	}
 	if (WIFEXITED(status))
 			exit_status(1,WEXITSTATUS(status) );
 	dup2(fd_in,0);

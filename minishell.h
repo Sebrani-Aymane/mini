@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/18 20:03:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/19 20:43:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void handle_herdoc(t_line *final, env_vars *list_env);
 env_vars *envpp_export(env_vars *list);
 int	ft_atoii(char *value);
 void chdiir_help(t_line *final,env_vars *list,char *pwd);
-void printrrr(t_line *final);
 char **create_av(t_node *tokens);
 int help_execute_files(t_line *final,char **env,char **av);
 char *find_executable(t_line  *final,env_vars *list,char **av);
@@ -141,7 +140,7 @@ char **fake_env(void);
 void	ft_putstr(char *s, int fd);
 int handle_one_blt(t_line *final,char **env,env_vars *list);
 int is_dir(char *parth);
-void handle_heredoc(t_line *final, env_vars *list_env,char **env);
+void handle_heredoc(t_line *final, env_vars *list_env);
 //////////////////*PARSING*//////////////////////////
 
 
