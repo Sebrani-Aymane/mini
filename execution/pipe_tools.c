@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/18 20:43:13 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:27:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,14 @@ int handle_one_blt(t_line *final,char **env,env_vars *list)
     ret = execute_blts(final->tokens->content,final,list,env);
 	if(final->fd_in != 0)
 	{
+		dup2(final->fd_in,0);
 		close(final->fd_in);
-	    dup2(final->default_in,0);
 	}
 	if (final ->fd_out != 1)
 	{
+		dup2(final->fd_in,1);
 		close(final->fd_out);
-		dup2(final->default_out,1);
 	}
-	close(final->default_in);
-	close(final->default_out);
-    return(ret);
-}
+     return(ret);
+			}
+

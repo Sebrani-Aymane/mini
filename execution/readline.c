@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 17:00:23 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:26:59 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	execute_blts(char *blt, t_line *final,
 	else if (strcmp(blt, "pwd") == 0)
 	{
 		pwd = pwdd(list);
-		ft_putstr(pwd, final->fd_out);
-		ft_putstr("\n", final->fd_out);
+		ft_putstr(pwd,1 );
+		ft_putstr("\n", 1);
 	}
 	else if (strcmp(blt, "export") == 0)
 	{
