@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 18:41:49 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/20 12:13:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*remove_quotes(char *content, int i, int j, char c)
 		}
 		else
 			final[j++] = content[i];
-		i++;
+		if (content[i])
+			i++;
 	}
 	final[j] = '\0';
 	return (final);

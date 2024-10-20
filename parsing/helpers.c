@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/04 05:25:15 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:14:59 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void last_command(env_vars *list, t_line *final)
 	t_node *last_token;
 	t_node *curr = final->tokens;
 	int final_size = ft_listsize(final);
-	if (final_size == 1)
+	if (!list || final_size == 1)
 		return;
 	while (curr_list)
 	{

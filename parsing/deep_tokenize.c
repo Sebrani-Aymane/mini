@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 19:12:41 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/20 14:43:25 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,21 @@ t_node	*search_token(t_token **tokens)
 	{
 		if (!contains_only_symbol(tokens[i]->content)
 			&& contains_symbol(tokens[i]->content)
-			&& !inside_quotes(tokens[i]->content) 
-			&& (i != 0 && strcmp(tokens[i - 1]->content, "export")))
+			&& !inside_quotes(tokens[i]->content))
+			{
+				printf("here in first cond\n");
 			divide_and_add(&list, tokens[i]->content);
+			}
 		else if (!inside_quotes(tokens[i]->content) && tokens[i]->divide_space == 1)
+		{
+			printf("here in sec\n");
 			divide_space(tokens[i]->content, &list);
+		}
 		else
+		{
+			printf("here in third\n");
 			add_node(&list, tokens[i]->content);
+		}
 		i++;
 	}
 	return (list);

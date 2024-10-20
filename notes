@@ -10,11 +10,11 @@ cat << l | cat
 
 minishell$  export b=' -l'
 minishell$  export a=ls
-minishell$  $a'$b'
+minishell$  $a'$b'--------->done
 =================================================================
 ==50760==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000006334 at pc 0x000101583133 bp 0x7ffeee6892b0 sp 0x7ffeee6892a8
- remove_quotes parse.c:3
+ remove_quotes parse.c:3 
 
 cat << k < ls
-ls|ls
-cat<<k
+ls|ls---->done
+cat<<k---->done

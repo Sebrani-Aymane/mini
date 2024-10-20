@@ -6,13 +6,12 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 18:39:03 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/20 14:08:35 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
-#include <stdio.h>
 
 int	can_expand(char *input)
 {
@@ -185,15 +184,17 @@ void expand(t_token **tokens, env_vars *list_env)
     {
         notif = 0;
         counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
+		// printf("number : %d\n", counter);
         if (counter == 0)
         {
             i++;
             continue;
         }
         temp_token = tokens[i]->content;
-        while (counter)
+        while (counter > 0)
         {
             name = variable_name(temp_token);
+			// printf("name: %s\n", name);
             if (!strcmp(name, "\0"))
             {
                 notif = 1;
@@ -201,15 +202,17 @@ void expand(t_token **tokens, env_vars *list_env)
                 continue ;
             }
             value = get_value(list_env, name, NULL, 0);
+			// printf("value: %s\n", value);
 			if (value && strchr(value, ' '))
 				tokens[i]->divide_space = 1;
-			else 
+			else
 				tokens[i]->divide_space = 0;
             if (value == NULL)
                 value = "";
             new_token = replace_value(temp_token, value, name);
+			// printf("new token: %s\n", new_token);
             temp_token = new_token;
-            counter--;
+			counter = dollars_number(temp_token, tokens[i]->need_expand);
         }
         if (!notif)
             tokens[i]->content = new_token;

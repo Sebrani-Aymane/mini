@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/19 20:43:23 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:51:02 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,27 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         expand(shell.tokens, list_env); 
         expand_home(shell.tokens, list_env); 
         list = search_token(shell.tokens);
+        // t_node *curr = list;
+        // while(curr)
+        //     {
+        //         printf("token: %s\n", curr->content);
+        //         curr = curr->next;
+        //     }
         check_for_delimeter(list);
         lines = tokens_to_lines(list);
+        // t_line *current = lines;
+        // t_node *curr;
+        // while(current)
+        // {
+        //     curr = current->tokens;
+        //     printf("this is line:\n");
+        //     while(curr)
+        //     {
+        //         printf("token: %s\n", curr->content);
+        //         curr = curr->next;
+        //     }
+        //     current = current->next;
+        //  }
         last_command(list_env, lines);
         handle_heredoc(lines, list_env);
         handle_pipe(lines,env,list_env);
