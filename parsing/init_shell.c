@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/20 14:51:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/21 14:51:34 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
     t_line *lines;
     while(1)
     {
-        input = readline("minishell$  "); 
+        input = readline("minishell-1.0$ "); 
         add_history(input);
         if (input == NULL)
         {

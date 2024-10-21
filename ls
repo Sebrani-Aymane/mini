@@ -1,0 +1,12 @@
+>
+Makefile
+execution
+fff
+file1
+file2
+hey
+ls
+minishell
+minishell.h
+notes
+parsing

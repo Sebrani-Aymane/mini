@@ -6,11 +6,12 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 17:12:14 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:13:19 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <csignal>
 
 void	handle_redirections(t_line *final)
 {
@@ -80,8 +81,12 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 			pid = fork();
 			if (pid == -1)
 				return (fprintf(stderr,"error in forking\n"),-1);
+			//ignori signals 
+			//save attr
+			
 			if (pid == 0)
 			{
+				//signals radhom defoult
 				if (i != pipes_count - 1)
 				{
 					if (dup2(fd[1], 1) == -1)
@@ -104,6 +109,8 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 			}
 			else
 			{
+				// trad attr kif kant 
+				// signals hnd
 				if (pipes_count - 1 > 0)
 				{
 					if (dup2(fd[0],0) == -1)
@@ -121,6 +128,7 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 		wait(&status);
 		//waitpid(pid,&status,0);
 	}
+	//
 	if (WIFEXITED(status))
 			exit_status(1,WEXITSTATUS(status) );
 	dup2(fd_in,0);
