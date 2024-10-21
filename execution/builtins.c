@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 10:38:04 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:35:55 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,10 @@ int	chdirr(char **env, t_line *final, env_vars *list)
 		pwd_aftr_cd = getcwd(NULL, 0);
 		if (!pwd_aftr_cd)
 		{
-			chdiir_help(final, list, pwd_bfr_cd);
+			if (!ft_strcmp(final->tokens->next->content,".."))
+				chdiir_help(final, list, pwd_bfr_cd);
+			else if (!ft_strcmp(final->tokens->next->content,".."))
+				chdiir_help2(final, list, pwd_bfr_cd);
 			return (res);
 		}
 	}

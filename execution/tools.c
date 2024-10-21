@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:21 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 14:23:18 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:56:26 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_atoii(char *value)
 	result = 0;
 	while (*value)
 	{
-		while ((*value <= 13 && *value >= 9) || *value == 32)
+		while ((*value <= 13 && *value >= 9) || *value == 32 || *value == '0')
 			value++;
 		break ;
 	}

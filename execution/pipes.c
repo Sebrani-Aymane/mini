@@ -6,12 +6,12 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/21 15:13:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:50:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <csignal>
+
 
 void	handle_redirections(t_line *final)
 {

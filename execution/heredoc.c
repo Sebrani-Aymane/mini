@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/21 15:07:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:36:25 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int check_of_herdoc(t_line *final)
 		temp = final->tokens;
 		while (temp)
 		{
-			if (temp->type == 3 && !ft_strcmp("<< ",temp->content))
+			if (temp->type == 3 && !ft_strcmp("<<",temp->content))
 				count++;
 			temp = temp->next;
 		}
@@ -35,15 +35,14 @@ int check_of_herdoc(t_line *final)
 
 t_node *get_delimiter(t_line *final)
 {
-		t_node *temp;
-		temp = final->tokens;
-		while (temp)
+		while (final->tokens)
 		{
-			if (temp->type == 3)
-			{	
-				return (temp->next);
+			if (final->tokens->type == 3 
+				&& !ft_strcmp("<<",final->tokens->content))
+			{
+				return (final->tokens->next);
 			}
-			temp = temp->next;
+			final->tokens = final->tokens->next;
 		}
 	return (NULL);
 }
@@ -61,8 +60,7 @@ void handle_heredoc(t_line *final, env_vars *list_env)
 	count = check_of_herdoc(final);
 	if (count == 0)
 		return;
-	printf("%d\n",count);
-	while (count -- != 0)
+	while (count != 0)
 	{
 		delimiter = get_delimiter(final);
 		if (pipe(fd) == -1)
@@ -88,8 +86,8 @@ void handle_heredoc(t_line *final, env_vars *list_env)
 				}
 				if (count - 1 == 0)
 				{
-				if (strcmp(input, delimiter->content) == 0)
-					break;
+					if (strcmp(input, delimiter->content) == 0)
+						break;
 					while (hered_tokens && hered_tokens[i])
 					{
 						write(fd[1], hered_tokens[i]->content, ft_strlenn(hered_tokens[i]->content));
@@ -111,6 +109,7 @@ void handle_heredoc(t_line *final, env_vars *list_env)
 			wait(NULL);
 			close(fd[1]);
 		}
+	count --;
 	}
 	return;
 }

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 14:34:26 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:03:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	check_exit_stat(t_line *final)
 void	exitt(env_vars *env, t_line *final)
 {
 	int			num;
-	env_vars	*temp;
 	t_node		*current;
 
+	(void)env;
 	num = 0;
 	current = final->tokens->next;
 	if (current)
@@ -91,7 +91,7 @@ void	exitt(env_vars *env, t_line *final)
 			return ;
 		}
 		num = ft_atoii(current->content);
-		if (!check_exit_stat(final) || (ft_strlenn(current->content) > 19 && num > (int)9223372036854775807))
+		if (!check_exit_stat(final)  || num > (int)9223372036854775807 || num < (int)9223372036854775807)
 		{
 			printf("exit\n");
 			printf("minishell: exit: %s: numeric argument required\n", current->content);
@@ -105,21 +105,9 @@ void	exitt(env_vars *env, t_line *final)
 		c_malloc(0, 0);
 		exit(0);
 	}
-	if (env && env->next)
-	{
-		while (env && env->next)
-		{
-			temp = env->next;
-			env = temp;
-		}
-	}
-	exit_status(1, num);
-	env ->exit = num;
 	if (num > 255)
-	{
-		c_malloc(0, 0);
-		exit(num % 255);
-	}
+		num = num % 255;
+	exit_status(1, num);
 	c_malloc(0, 0);
 	exit(num);
 }

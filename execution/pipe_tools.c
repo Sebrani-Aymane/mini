@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/20 16:27:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/21 18:35:13 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,36 @@ void chdiir_help(t_line *final,env_vars *list,char *pwd)
 
 	token = final->tokens->next;
 	temp = list;
-	if (!ft_strcmp(token->content,".."))
+	while (temp)
 	{
-		while (temp)
+		if (!ft_strcmp(temp->vars,"OLDPWD") || !ft_strcmp(temp->vars,"PWD"))
 		{
-			if (!ft_strcmp(temp->vars,"OLDPWD") || !ft_strcmp(temp->vars,"PWD"))
-			{
-				if (!strcmp(temp->vars,"OLDPWD"))
-				temp->var_value = strdup(pwd);
-				else if (!strcmp(temp->vars,"PWD"))
-					temp->var_value = str_joiner(get_path_from_list(list,"PWD"),"/..");
-			}
-			temp = temp ->next;
+			if (!strcmp(temp->vars,"OLDPWD"))
+			temp->var_value = strdup(pwd);
+			else if (!strcmp(temp->vars,"PWD"))
+				temp->var_value = str_joiner(get_path_from_list(list,"PWD"),"/..");
 		}
+		temp = temp ->next;
+	}
+}
+
+void chdiir_help2(t_line *final,env_vars *list,char *pwd)
+{
+	t_node *token;
+	env_vars *temp;
+
+	token = final->tokens->next;
+	temp = list;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->vars,"OLDPWD") || !ft_strcmp(temp->vars,"PWD"))
+		{
+			if (!strcmp(temp->vars,"OLDPWD"))
+			temp->var_value = strdup(pwd);
+			else if (!strcmp(temp->vars,"PWD"))
+				temp->var_value = str_joiner(get_path_from_list(list,"PWD"),"/.");
+		}
+		temp = temp ->next;
 	}
 }
 
