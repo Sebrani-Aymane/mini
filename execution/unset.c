@@ -5,52 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/21 17:03:38 by asebrani         ###   ########.fr       */
+/*   Created: 2024/10/22 09:18:51 by asebrani          #+#    #+#             */
+/*   Updated: 2024/10/22 16:01:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	unset(env_vars *env, t_line *final)
+#include "../minishell.h"
+
+int	unset_variable(env_vars **env, env_vars *curr, env_vars *prev)
 {
-	t_node		*current;
+	if (!prev)
+		*env = curr->next;
+	else
+		prev->next = curr->next;
+	curr->vars = NULL;
+	curr->var_value = NULL;
+	return (1);
+}
+
+int	process_unset(env_vars *env_bkp, t_node *current)
+{
 	env_vars	*curr;
 	env_vars	*prev;
-	env_vars	*env_bkp;
-	int			ret;
 
 	prev = NULL;
-	ret = 0;
-	if (!env)
-		return (1);
-	if (final->tokens->next)
-		current = final->tokens->next;
-	else
-		return (1);
-	env_bkp = env;
 	while (current)
 	{
-		ret = check_key(current->content);
-		curr = env_bkp;
-		while (curr)
+		if (check_key(current->content) == 1)
 		{
-			if (ft_strcmp(curr->vars, current->content) == 0)
+			curr = env_bkp;
+			while (curr)
 			{
-				if (prev == NULL)
-					env = curr->next;
-				else
-					prev->next = curr->next;
-				curr->vars = NULL;
-				curr->var_value = NULL;
-				break ;
+				if (ft_strcmp(curr->vars, current->content) == 0)
+					return (unset_variable(&env_bkp, curr, prev));
+				prev = curr;
+				curr = curr->next;
 			}
-			prev = curr;
-			curr = curr->next;
 		}
 		current = current->next;
 	}
-	return (ret);
+	return (0);
+}
+
+int	unset(env_vars *env, t_line *final)
+{
+	t_node	*current;
+
+	if (!env || !final->tokens->next)
+		return (1);
+	current = final->tokens->next;
+	return (process_unset(env, current));
 }
 
 int	check_exit_stat(t_line *final)
@@ -62,17 +68,16 @@ int	check_exit_stat(t_line *final)
 	curr = final->tokens->next;
 	if (!curr)
 		return (0);
-	while (curr ->content[i])
+	while (curr->content[i])
 	{
-		if (curr ->content[i] == '+' || curr ->content[i] == '-')
-			i ++;
+		if (curr->content[i] == '+' || curr->content[i] == '-')
+			i++;
 		if (ft_isalpha(curr->content[i]))
 			return (0);
-		i ++;
+		i++;
 	}
 	return (1);
 }
-
 void	exitt(env_vars *env, t_line *final)
 {
 	int			num;
@@ -110,18 +115,4 @@ void	exitt(env_vars *env, t_line *final)
 	exit_status(1, num);
 	c_malloc(0, 0);
 	exit(num);
-}
-
-int	exit_status(int type, int value)
-{
-	static int	var;
-
-	if (type == GET)
-		return (var);
-	else if (type == SET)
-	{
-		var = value;
-		return (var);
-	}
-	return (var);
 }
