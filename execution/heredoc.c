@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 00:36:25 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 04:57:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,83 +33,125 @@ int check_of_herdoc(t_line *final)
 	return (count);
 }
 
-t_node *get_delimiter(t_line *final)
+t_heredoc *collect_heredocs(t_line *final, int count)
 {
-		while (final->tokens)
-		{
-			if (final->tokens->type == 3 
-				&& !ft_strcmp("<<",final->tokens->content))
-			{
-				return (final->tokens->next);
-			}
-			final->tokens = final->tokens->next;
-		}
-	return (NULL);
+    t_heredoc *heredocs;
+    t_node *temp;
+    int i;
+    
+    heredocs = c_malloc((sizeof(t_heredoc) * count),1);
+    i = 0;
+    while (final && i < count)
+    {
+        temp = final->tokens;
+        while (temp)
+        {
+            if (temp->type == 3 && !ft_strcmp("<<", temp->content) && temp->next)
+            {
+                heredocs[i].delimiter = ft_strdup(temp->next->content);
+                heredocs[i].expand_vars = !temp->next->delimeter_inside_quotes;
+                if (pipe(heredocs[i].fd) == -1)
+                {
+                    while (--i >= 0)
+                    {
+                        free(heredocs[i].delimiter);
+                        close(heredocs[i].fd[0]);
+                        close(heredocs[i].fd[1]);
+                    }
+                    free(heredocs);
+                    return (NULL);
+                }
+                i++;
+            }
+            temp = temp->next;
+        }
+        final = final->next;
+    }
+    return (heredocs);
+}
+
+void process_heredoc_input(t_heredoc *heredoc, env_vars *list_env)
+{
+    char *input;
+    t_token **hered_tokens;
+    int j;
+
+    while (1)
+    {
+        input = readline(">");
+        if (!input)
+            exit(1);
+        if (ft_strcmp(input, heredoc->delimiter) == 0)
+        {
+            free(input);
+            break;
+        }
+        hered_tokens = into_tokens(input, 0, 0);
+        if (heredoc->expand_vars)
+        {
+            check_token_dollar(hered_tokens);
+            expand(hered_tokens, list_env);
+        }
+        j = 0;
+        while (hered_tokens && hered_tokens[j])
+        {
+            write(heredoc->fd[1], hered_tokens[j]->content, 
+                  strlen(hered_tokens[j]->content));
+            if (hered_tokens[j + 1])
+                write(heredoc->fd[1], " ", 1);
+            j++;
+        }
+        write(heredoc->fd[1], "\n", 1);
+        free(input);
+    }
 }
 
 void handle_heredoc(t_line *final, env_vars *list_env)
 {
-	int fd[2];
-	char *input;
-	int pid;
-	t_node *delimiter;
-	t_token **hered_tokens;
-	int i;
-	int count;
+    t_heredoc *heredocs;
+    int count;
+    int pid;
+    int i;
 
-	count = check_of_herdoc(final);
-	if (count == 0)
-		return;
-	while (count != 0)
-	{
-		delimiter = get_delimiter(final);
-		if (pipe(fd) == -1)
-		{
-			fprintf(stderr,"error with pipes in herdoc");
-			return;
-		}
-		pid = fork();
-		if (pid == 0)
-		{
-			close(fd[0]);
-			while (1)
-			{
-				i = 0;
-				input = readline(">");
-				if (!input)
-					return(free(input));
-				hered_tokens = into_tokens(input, 0, 0);
-				if (delimiter->delimeter_inside_quotes != 1)
-				{
-					check_token_dollar(hered_tokens);
-					expand(hered_tokens, list_env);
-				}
-				if (count - 1 == 0)
-				{
-					if (strcmp(input, delimiter->content) == 0)
-						break;
-					while (hered_tokens && hered_tokens[i])
-					{
-						write(fd[1], hered_tokens[i]->content, ft_strlenn(hered_tokens[i]->content));
-						if (hered_tokens[i + 1])
-							write(fd[1], " ", 1);
-						i++;
-					}
-					write(fd[1],"\n",1);
-					free(input);
-				}
-		}
-		exit_status(1, 0);
-		c_malloc(0, 0);
-		exit(0);
-		}
-		else
-		{
-			final->fd_in = dup(fd[0]);
-			wait(NULL);
-			close(fd[1]);
-		}
-	count --;
-	}
-	return;
+    count = check_of_herdoc(final);
+    if (count == 0)
+        return;
+    heredocs = collect_heredocs(final, count);
+    if (!heredocs)
+        return;
+    pid = fork();
+    if (pid == 0)
+    {
+        i = 0;
+        while (i < count)
+        {
+            close(heredocs[i].fd[0]);
+            i++;
+        }
+        i = 0;
+        while (i < count)
+        {
+            process_heredoc_input(&heredocs[i], list_env);
+            close(heredocs[i].fd[1]);
+            i++;
+        }
+        exit(0);
+    }
+    i = 0;
+    while (i < count)
+    {
+        close(heredocs[i].fd[1]);
+        i++;
+    }
+    waitpid(pid, NULL, 0);
+    if (final)
+        final->fd_in = dup(heredocs[count - 1].fd[0]);
+    i = 0;
+    while (i < count)
+    {
+        close(heredocs[i].fd[0]);
+        free(heredocs[i].delimiter);
+        i++;
+    }
+    free(heredocs);
 }

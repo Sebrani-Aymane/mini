@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/21 18:35:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 04:51:23 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef struct s_list
     char **env;
     int shlvl;
 } t_list;
+
+typedef struct s_heredoc {
+    int fd[2];
+    char *delimiter;
+    int expand_vars;
+} t_heredoc;
+
 
 typedef struct s_node
 {
