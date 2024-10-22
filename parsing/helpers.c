@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/20 14:14:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/22 15:22:09 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,4 +194,22 @@ void last_command(env_vars *list, t_line *final)
 		else
 		curr_list->var_value = last_token->content;
 	}
+}
+char	*copy_str(char *dest, char *src)
+{
+	int	i;
+
+	dest = c_malloc(sizeof(char) * (ft_strlenn(src) + 1), 1);
+	i = 0;
+	if (!src)
+		return NULL;
+	
+	while (*src)
+	{
+		dest[i] = *src;
+		i++;
+		src++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

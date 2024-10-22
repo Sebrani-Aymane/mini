@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 07:32:51 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:20:56 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,6 @@ char *pass_dollar(char *content);
 char	*ft_strdup(char *s1);
 t_node	*ft_lstlast(t_node *lst);
 void last_command(env_vars *list, t_line *final);
+char	*copy_str(char *dest, char *src);
 
 #endif

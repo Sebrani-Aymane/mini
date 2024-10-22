@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 14:42:30 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:59:32 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	copy_it(char *dest, char *src)
 	int	i;
 
 	i = 0;
+	printf("%s\n", src);
 	if (!src)
 		return ;
 	while (src[i])

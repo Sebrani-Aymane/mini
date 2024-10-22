@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/20 14:08:35 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/22 15:21:27 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,12 @@ void expand(t_token **tokens, env_vars *list_env)
 			else
 				tokens[i]->divide_space = 0;
             if (value == NULL)
-                value = "";
+			{
+				if (name[0] >= '0' && name[0] <= '9')
+					value = copy_str(value, name + 1);
+				else
+                	value = "";
+			}
             new_token = replace_value(temp_token, value, name);
 			// printf("new token: %s\n", new_token);
             temp_token = new_token;
