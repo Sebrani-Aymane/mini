@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 04:51:23 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 07:32:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #include <readline/history.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-
+#include <termios.h>
 #include <signal.h>
 
 

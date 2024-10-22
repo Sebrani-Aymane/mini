@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/21 15:05:01 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 07:34:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	(void)ac;
 	// rl_catch_signal = 0;
+	
 	if (!*env)
 		env = fake_env();
 	shell.env = copy_env(env);

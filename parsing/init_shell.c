@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/21 14:51:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 07:34:40 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void set_shlvl(t_list shell)
 {
     char *final;
     char *nbr;
-    int i = 0;
+     int i = 0;
     nbr = ft_itoa(shell.shlvl);
     final = ft_strjoin("SHLVL=", nbr);
     while(shell.env[i])
@@ -81,6 +81,10 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
     char *input;
     t_node *list;
     t_line *lines;
+    struct termios  stats;
+
+    if (tcgetattr(STDIN_FILENO, &stats) < 0)
+            perror("terminal error ");
     while(1)
     {
         input = readline("minishell-1.0$ "); 
@@ -139,6 +143,8 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         last_command(list_env, lines);
         handle_heredoc(lines, list_env);
         handle_pipe(lines,env,list_env);
+        if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &stats) < 0)
+            perror("terminal error ");
     }
 }
 
