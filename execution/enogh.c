@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/17 11:11:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 06:01:39 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,27 @@ int	ft_listsize(t_line *lst)
 	}
 	return (i);
 }
+
 int is_dir(char *path)
 {
     struct stat statbuf;
 
     if (stat(path, &statbuf) != 0)
         return 0;
-
     return S_ISDIR(statbuf.st_mode);
 }
+
+void	ft_putstr(char *s, int fd)
+{
+	if (!s || !*s)
+		return;
+	write(fd, s, ft_strlenn(s));
+}
+
+// int	ft_isdigit(int c)
+// {
+// 	if (c <= '9' && c >= '0')
+// 		return (1);
+// 	else
+// 		return (0);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/20 16:26:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/23 06:01:07 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	excutefilepath(t_line *final, env_vars *list, char **env)
 	av = create_av(final->tokens);
 	if (!av || !*av)
 		return (0);
-	//execve(av[0], av, env);
 	if (!check_file_path(final))
 	{
 		to_do = find_executable(final, list, av);

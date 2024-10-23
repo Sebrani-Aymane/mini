@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/09/30 00:25:50 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 04:05:07 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_eccho(t_node *node)
 {
 	int	i;
-
+	
 	i = 0;
 	if (!node)
 		return (0);
@@ -28,6 +28,30 @@ int	check_eccho(t_node *node)
 			return (1);
 	}
 	return (0);
+}
+
+
+void check_echo_flags(t_line *final, t_node **current, int *newline)
+{
+    t_node *tmp;
+
+    *newline = 1;
+    if (final->tokens->next)
+    {
+        *current = final->tokens->next;
+        tmp = *current;
+    }
+    else
+        *current = NULL;
+
+    if (check_eccho(*current))
+    {
+        while (check_eccho(*current))
+            *current = (*current)->next;
+        tmp = *current;
+        *newline = 0;
+    }
+    *current = tmp;
 }
 
 int	ft_strlenn(char *str)

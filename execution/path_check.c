@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/18 20:17:11 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 06:06:12 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char *find_executable(t_line	*final,env_vars *list,char **av)
 		to_execute = str_joiner(paths[i],command_path);
 		if (access(to_execute,F_OK | X_OK) == 0)
 			return(to_execute);
-
 		to_execute = NULL;
 		i++;
 	}
@@ -47,9 +46,7 @@ char *find_executable(t_line	*final,env_vars *list,char **av)
 int help_execute_files(t_line *final,char **env,char **av)
 {
 	int ret;
-	// int fd_in;
-	
-	// fd_in = dup(0);
+
 	ret = execve(av[0], av, env);
 	if(ret == -1)
 	{
@@ -58,14 +55,10 @@ int help_execute_files(t_line *final,char **env,char **av)
 			write(2, "minishell: ", 11);
             write(2, av[0], ft_strlenn(av[0]));
             write(2, ": is a directory\n", 17);
-			// dup2(fd_in,0);
-			// close(fd_in);
 			c_malloc(0, 0);
 			exit(126);
 		}
 		perror(final->tokens->content);
-		// dup2(fd_in,0);
-		// close(fd_in);
 		c_malloc(0, 0);
 		exit(128);
 	}
@@ -76,20 +69,20 @@ char **fake_env(void)
 {
 	char **env;
 	char *pwd;
-	
+
 	pwd = getcwd(NULL,0);
 	env = c_malloc(sizeof(char *) *5, 1);
-	env[0] = str_joiner("PWD=",pwd);
+	env[0] = str_joiner("PWD=", pwd);
 	env[1] = ft_strdup("SHLVL=1");
 	env[2] = ft_strdup("_=/usr/bin/env");
 	env[3] = ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	env[4]= NULL; 
-	return(env);
+	return (env);
 }
 
 char *get_path_from_list(env_vars *list,char *str)
 {
-	char *path;
+	char 		*path;
 	env_vars	*temp;
 
 	temp = list;

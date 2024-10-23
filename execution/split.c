@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 14:59:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/23 06:06:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	copy_it(char *dest, char *src)
 	int	i;
 
 	i = 0;
-	printf("%s\n", src);
 	if (!src)
 		return ;
 	while (src[i])
@@ -70,4 +69,23 @@ char	*str_joiner(char *s1, char *s2)
 	copy_it(ret, s1);
 	copy_it(ret + strlen(s1), s2);
 	return (ret);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c <= 122 && c >= 97) || (c <= 90 && c >= 65))
+		return (1);
+	else
+		return (0);
+}
+
+int	is_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '\0' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r')
+		return (1);
+	return (0);
 }

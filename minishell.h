@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 15:20:56 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/23 06:15:28 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,14 @@ int export_all(env_vars *env, t_line *final);
 int ft_strlenn(char *str);
 int export_it(env_vars *env, char *str);
 char	*get_path(char **envp,char *str);
+int	ft_isdigit(int c);
 int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
 int  excutefilepath(t_line *final,env_vars *list,char **env);
 int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
+int	is_space(char *str);
 env_vars *list_init(char **variables);
 void free_double(char **str);
 void	copy_it(char *dest, char *src);
@@ -149,6 +151,8 @@ int handle_one_blt(t_line *final,char **env,env_vars *list);
 int is_dir(char *parth);
 void handle_heredoc(t_line *final, env_vars *list_env);
 void chdiir_help2(t_line *final,env_vars *list,char *pwd);
+void check_echo_flags(t_line *final, t_node **current, int *newline);
+
 //////////////////*PARSING*//////////////////////////
 
 

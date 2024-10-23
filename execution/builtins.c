@@ -6,43 +6,18 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/21 18:35:55 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 06:03:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-#include <errno.h>
-#include <stdio.h>
-#include <unistd.h>
-
-void	ft_putstr(char *s, int fd)
-{
-	write(fd, s, ft_strlenn(s));
-}
-
 void	echoo(t_line *final)
 {
-	int		newline;
 	t_node	*current;
-	t_node	*tmp;
+	int		newline;
 
-	newline = 1;
-	if (final->tokens->next)
-	{
-		current = final->tokens->next;
-		tmp = current;
-	}
-	else
-		current = NULL;
-	if (check_eccho(current))
-	{
-		while (check_eccho(current))
-			current = current->next;
-		tmp = current;
-		newline = 0;
-	}
-	current = tmp;
+	check_echo_flags(final, &current, &newline);
 	while (current)
 	{
 		if ((current->type == 1 || current->type == 2))
@@ -60,28 +35,17 @@ void	echoo(t_line *final)
 char	*pwdd(env_vars *list)
 {
 	env_vars	*tmp;
-	char		*pwd;
-	char		*temp;
 
 	tmp = list;
 	if (!list)
 		return (NULL);
-	pwd = getcwd(NULL, 0);
-	temp = c_malloc(ft_strlenn(pwd) + 1, 1);
-	copy_it(temp, pwd);
-	free(pwd);
-	if (!temp)
+	while (tmp)
 	{
-		while (tmp)
-		{
-			if (ft_strcmp(tmp->vars, "PWD") == 0)
-			{
-				return (tmp->var_value);
-			}
-			tmp = tmp->next;
-		}
+		if (ft_strcmp(tmp->vars, "PWD") == 0)
+			return (tmp->var_value);
+		tmp = tmp->next;
 	}
-	return (temp);
+	return (NULL);
 }
 
 env_vars	*envpp(env_vars *list)
@@ -103,7 +67,6 @@ env_vars	*envpp(env_vars *list)
 	}
 	return (tmp);
 }
-
 int	chdirr(char **env, t_line *final, env_vars *list)
 {
 	char		*home;
@@ -139,10 +102,10 @@ int	chdirr(char **env, t_line *final, env_vars *list)
 	{
 		if (!ft_strcmp(list->vars, "OLDPWD") || !ft_strcmp(list->vars, "PWD"))
 		{
-			if (strcmp(list->vars, "PWD"))
-				list->var_value = pwd_bfr_cd;
-			if (strcmp(list->vars, "OLDPWD"))
+			if (!ft_strcmp(list->vars, "PWD"))
 				list->var_value = getcwd(NULL, 0);
+			if (!ft_strcmp(list->vars, "OLDPWD"))
+				list->var_value = pwd_bfr_cd;
 		}
 		list = list ->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 04:39:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 04:00:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	execute_the_thing(t_line *final, char **env, env_vars *list)
 			{
 				exit_status(1,i);
 				write(2, final->tokens->content, ft_strlenn(final->tokens->content));
-				write(2, ": No such file or directory\n", 28);
+				write(2, ": No such file or directoory\n", 28);
 				c_malloc(0, 0);
 				exit(128);
 			}
@@ -71,7 +71,10 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 
 	pipes_count = ft_listsize(final);
 	if (pipes_count == 1 && check_builtin(final,list,env))
-		handle_one_blt(final,env,list);
+	{
+		ret = handle_one_blt(final,env,list);
+		exit_status(1, ret);
+	}
 	else
 	{
 		while (++i < pipes_count)

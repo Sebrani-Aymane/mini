@@ -6,13 +6,11 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 09:21:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:25:44 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <string.h>
-
 
 void chdiir_help(t_line *final,env_vars *list,char *pwd)
 {

@@ -6,14 +6,14 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:55:44 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/22 04:57:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 00:18:21 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-int check_of_herdoc(t_line *final)
+int check_for_herdoc(t_line *final)
 {
 	t_node *temp;
 	int count;
@@ -33,7 +33,7 @@ int check_of_herdoc(t_line *final)
 	return (count);
 }
 
-t_heredoc *collect_heredocs(t_line *final, int count)
+t_heredoc *get_heredocs(t_line *final, int count)
 {
     t_heredoc *heredocs;
     t_node *temp;
@@ -70,7 +70,7 @@ t_heredoc *collect_heredocs(t_line *final, int count)
     return (heredocs);
 }
 
-void process_heredoc_input(t_heredoc *heredoc, env_vars *list_env)
+void process_heredoc(t_heredoc *heredoc, env_vars *list_env)
 {
     char *input;
     t_token **hered_tokens;
@@ -113,10 +113,10 @@ void handle_heredoc(t_line *final, env_vars *list_env)
     int pid;
     int i;
 
-    count = check_of_herdoc(final);
+    count = check_for_herdoc(final);
     if (count == 0)
         return;
-    heredocs = collect_heredocs(final, count);
+    heredocs = get_heredocs(final, count);
     if (!heredocs)
         return;
     pid = fork();
@@ -131,7 +131,7 @@ void handle_heredoc(t_line *final, env_vars *list_env)
         i = 0;
         while (i < count)
         {
-            process_heredoc_input(&heredocs[i], list_env);
+            process_heredoc(&heredocs[i], list_env);
             close(heredocs[i].fd[1]);
             i++;
         }

@@ -6,46 +6,34 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 14:33:02 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 06:15:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_isalpha(int c)
-{
-	if ((c <= 122 && c >= 97) || (c <= 90 && c >= 65))
-		return (1);
-	else
-		return (0);
-}
-
-int	is_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '\0' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
-		return (1);
-	return (0);
-}
 
 int	check_key(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
-		return (printf("'%s' not a valid identifier1\n", str), 0);
-	if (is_space(str))
-		return (printf("'%s' not a valid identifier2\n", str), 0);
-	if (!(ft_isalpha(str[0]) || str[0] == '_'))
-		return (printf("'%s' not a valid identifier3\n", str), 0);
+	if (!str || is_space(str) || ft_isalpha(str[i]
+		|| str[0] == '_'))
+		{
+			write(1,"minishell: export: ",19);
+			write(1,str,ft_strlenn(str));
+			write(1, " not a valid identifier\n", 24);
+			return (0);
+		}
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return (printf("'%s' not a valid identifier4\n", str), 0);
+		{
+			write(1,"minishell: export: ",19);
+			write(1,str,ft_strlenn(str));
+			write(1, " not a valid identifier\n", 24);
+			return (0);	
+		}
 		i++;
 	}
 	return (1);
@@ -83,4 +71,35 @@ int	check_file_path(t_line *final)
 		i++;
 	}
 	return (0);
+}
+
+int	cd_helper(t_line *final, env_vars *list,char **env)
+{
+	char	*home;
+	int		res;
+	char	*pwd_bfr_cd;
+	char	*pwd_aftr_cd;
+
+	res = 0;
+	pwd_bfr_cd = get_path_from_list(list, "PWD");
+	if (!final->tokens->next)
+	{
+		home = get_path(env, "HOME=");
+		if (!home)
+			return (write(2, "minishell: cd: HOME not set\n", 28), 0);
+		res = chdir(home);
+	}
+	else
+	{
+		res = chdir(final->tokens->next->content);
+		pwd_aftr_cd = getcwd(NULL, 0);
+		if (!pwd_aftr_cd)
+		{
+			if (!ft_strcmp(final->tokens->next->content, ".."))
+				chdiir_help(final, list, pwd_bfr_cd);
+			else if (!ft_strcmp(final->tokens->next->content,".."))
+				chdiir_help2(final, list, pwd_bfr_cd);
+		}
+	}
+			return (res); 
 }

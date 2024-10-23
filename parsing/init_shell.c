@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/22 07:34:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:58:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,12 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         }
         shell.tokens = into_tokens(input, 0, 0);
         free(input);
+  
         check_token_dollar(shell.tokens); 
         expand(shell.tokens, list_env); 
+
         expand_home(shell.tokens, list_env); 
+  
         list = search_token(shell.tokens);
         // t_node *curr = list;
         // while(curr)
@@ -125,7 +128,9 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         //         printf("token: %s\n", curr->content);
         //         curr = curr->next;
         //     }
+
         check_for_delimeter(list);
+
         lines = tokens_to_lines(list);
         // t_line *current = lines;
         // t_node *curr;
@@ -143,6 +148,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         last_command(list_env, lines);
         handle_heredoc(lines, list_env);
         handle_pipe(lines,env,list_env);
+
         if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &stats) < 0)
             perror("terminal error ");
     }
