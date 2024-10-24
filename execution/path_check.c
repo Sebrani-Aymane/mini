@@ -6,35 +6,36 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 06:06:12 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:12:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <unistd.h>
 
-char *find_executable(t_line	*final,env_vars *list,char **av)
+char	*find_executable(t_line	*final, env_vars *list, char **av)
 {
-	int i;
-	char *command_path;
-	char *path;
-	char **paths;
-	char *to_execute;
+	int		i;
+	char	*command_path;
+	char	*path;
+	char	**paths;
+	char	*to_execute;
 
 	(void)final;
 	i = 0;
-	path = get_path_from_list(list,"PATH");
+	path = get_path_from_list(list, "PATH");
 	paths = split(path, ':');
 	if (!paths || !path)
-		return(NULL);
+		return (NULL);
 	command_path = c_malloc(ft_strlenn(av[0]), 1);
 	if (!command_path)
 		return (NULL);
-	command_path = str_joiner("/",av[0]);
-	while(paths[i])
+	command_path = str_joiner("/", av[0]);
+	while (paths[i])
 	{
-		to_execute = c_malloc(ft_strlenn(command_path) + ft_strlen(paths[i]), 1);
-		to_execute = str_joiner(paths[i],command_path);
+		to_execute = c_malloc(ft_strlenn(command_path)
+		+ ft_strlen(paths[i]), 1);
+		to_execute = str_joiner(paths[i],x command_path);÷1
 		if (access(to_execute,F_OK | X_OK) == 0)
 			return(to_execute);
 		to_execute = NULL;

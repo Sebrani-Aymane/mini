@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_help.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/01 14:51:15 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/23 22:15:08 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	export_with_plus(char *str, env_vars *env)
 {
 	char	*key;
 	char	*value;
-	int ret;
+	int		ret;
 
-	value = strchr(str, '=');
+	value = ft_strchrr(str, '=');
 	key = get_till(str, '+');
 	while (env && env->next)
 	{
@@ -30,7 +30,7 @@ int	export_with_plus(char *str, env_vars *env)
 		env = env->next;
 	}
 	ret = valid_to_add_plus(env, str);
-	return(ret);
+	return (ret);
 }
 
 int	first_in(char *str, env_vars *env)
@@ -53,7 +53,7 @@ int	first_in(char *str, env_vars *env)
 	new->var_value = ft_strdup("");
 	new->next = NULL;
 	add_to_list(&env, new);
-	return(0);
+	return (0);
 }
 
 int	valid_to_add_plus(env_vars *env, char *str)
@@ -73,11 +73,11 @@ int	valid_to_add_plus(env_vars *env, char *str)
 			env -> var_value = str_joiner(env->var_value, temp + 1);
 		else
 		{
-			new-> vars = get_till(str, '+');
-			new-> var_value = ft_strdup(temp + 1);
+			new -> vars = get_till(str, '+');
+			new -> var_value = ft_strdup(temp + 1);
 			add_to_list(&tmp, new);
 		}
-		return(0);
+		return (0);
 	}
 	else
 		return (1);

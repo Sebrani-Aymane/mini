@@ -1,11 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
+/*   Updated: 2024/10/24 00:06:11 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../minishell.h"
 
-void printrrr(t_line *final)
+char	*ft_strchrr(const char *s, int c)
 {
+	int	i;
 
-	while (final->tokens)
+	i = 0;
+	while (s[i])
 	{
-		fprintf(stderr,"%s\n",final->tokens->content);
-		final->tokens =final->tokens->next; 
+		if (s[i] == (char)c)
+			return ((char *)s + i);
+		i++;
 	}
+	if ((char)c == '\0')
+		return ((char *)s + i);
+	return (0);
 }

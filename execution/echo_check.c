@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 04:05:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:34:12 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_eccho(t_node *node)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!node)
 		return (0);
@@ -30,28 +30,26 @@ int	check_eccho(t_node *node)
 	return (0);
 }
 
-
-void check_echo_flags(t_line *final, t_node **current, int *newline)
+void	check_echo_flags(t_line *final, t_node **current, int *newline)
 {
-    t_node *tmp;
+	t_node	*tmp;
 
-    *newline = 1;
-    if (final->tokens->next)
-    {
-        *current = final->tokens->next;
-        tmp = *current;
-    }
-    else
-        *current = NULL;
-
-    if (check_eccho(*current))
-    {
-        while (check_eccho(*current))
-            *current = (*current)->next;
-        tmp = *current;
-        *newline = 0;
-    }
-    *current = tmp;
+	*newline = 1;
+	if (final->tokens->next)
+	{
+		*current = final->tokens->next;
+		tmp = *current;
+	}
+	else
+		*current = NULL;
+	if (check_eccho(*current))
+	{
+		while (check_eccho(*current))
+			*current = (*current)->next;
+		tmp = *current;
+		*newline = 0;
+	}
+	*current = tmp;
 }
 
 int	ft_strlenn(char *str)
@@ -65,6 +63,7 @@ int	ft_strlenn(char *str)
 		i++;
 	return (i);
 }
+
 env_vars	*envpp_export(env_vars *list)
 {
 	env_vars	*tmp;
@@ -75,7 +74,7 @@ env_vars	*envpp_export(env_vars *list)
 	while (list)
 	{
 		printf("declare -x %s", list->vars);
-		if(list->var_value && *(list->var_value) != '\0')
+		if (list->var_value && *(list->var_value) != '\0')
 			printf("=\"%s\"\n", list->var_value);
 		else
 			printf("\n");

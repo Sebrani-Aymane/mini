@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 06:15:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:35:45 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ int	check_key(char *str)
 
 	i = 0;
 	if (!str || is_space(str) || ft_isalpha(str[i]
-		|| str[0] == '_'))
-		{
-			write(1,"minishell: export: ",19);
-			write(1,str,ft_strlenn(str));
-			write(1, " not a valid identifier\n", 24);
-			return (0);
-		}
+			|| str[0] == '_'))
+	{
+		write(1, "minishell: export: ", 19);
+		write(1, str, ft_strlenn(str));
+		write(1, " not a valid identifier\n", 24);
+		return (0);
+	}
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 		{
-			write(1,"minishell: export: ",19);
-			write(1,str,ft_strlenn(str));
+			write(1, "minishell: export: ", 19);
+			write(1, str, ft_strlenn(str));
 			write(1, " not a valid identifier\n", 24);
-			return (0);	
+			return (0);
 		}
 		i++;
 	}
@@ -73,12 +73,11 @@ int	check_file_path(t_line *final)
 	return (0);
 }
 
-int	cd_helper(t_line *final, env_vars *list,char **env)
+int	cd_helper(t_line *final, env_vars *list, char **env)
 {
 	char	*home;
 	int		res;
 	char	*pwd_bfr_cd;
-	char	*pwd_aftr_cd;
 
 	res = 0;
 	pwd_bfr_cd = get_path_from_list(list, "PWD");
@@ -92,14 +91,13 @@ int	cd_helper(t_line *final, env_vars *list,char **env)
 	else
 	{
 		res = chdir(final->tokens->next->content);
-		pwd_aftr_cd = getcwd(NULL, 0);
-		if (!pwd_aftr_cd)
+		if (!getcwd(NULL, 0))
 		{
 			if (!ft_strcmp(final->tokens->next->content, ".."))
 				chdiir_help(final, list, pwd_bfr_cd);
-			else if (!ft_strcmp(final->tokens->next->content,".."))
+			else if (!ft_strcmp(final->tokens->next->content, ".."))
 				chdiir_help2(final, list, pwd_bfr_cd);
 		}
 	}
-			return (res); 
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 06:03:02 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:30:20 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,16 @@ env_vars	*envpp(env_vars *list)
 	}
 	return (tmp);
 }
+
 int	chdirr(char **env, t_line *final, env_vars *list)
 {
-	char		*home;
 	int			res;
-	char		*pwd_aftr_cd;
 	char		*pwd_bfr_cd;
 	env_vars	*temp;
 
 	res = 0;
 	pwd_bfr_cd = get_path_from_list(list, "PWD");
-	if (!final->tokens->next)
-	{
-		home = get_path(env, "HOME=");
-		if (!home)
-			return (write(2, "minishell: cd: HOME not set\n", 28), 0);
-		res = chdir(home);
-	}
-	else
-	{
-		res = chdir(final->tokens->next->content);
-		pwd_aftr_cd = getcwd(NULL, 0);
-		if (!pwd_aftr_cd)
-		{
-			if (!ft_strcmp(final->tokens->next->content,".."))
-				chdiir_help(final, list, pwd_bfr_cd);
-			else if (!ft_strcmp(final->tokens->next->content,".."))
-				chdiir_help2(final, list, pwd_bfr_cd);
-			return (res);
-		}
-	}
+	res = cd_helper(final, list, env);
 	temp = list;
 	while (list)
 	{

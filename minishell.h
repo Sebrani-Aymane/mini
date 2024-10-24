@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 06:15:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:51:33 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,9 @@ int is_dir(char *parth);
 void handle_heredoc(t_line *final, env_vars *list_env);
 void chdiir_help2(t_line *final,env_vars *list,char *pwd);
 void check_echo_flags(t_line *final, t_node **current, int *newline);
-
+int	cd_helper(t_line *final, env_vars *list, char **env);
+char	*ft_strchrr(const char *s, int c);
+int check_for_herdoc(t_line *final);
 //////////////////*PARSING*//////////////////////////
 
 

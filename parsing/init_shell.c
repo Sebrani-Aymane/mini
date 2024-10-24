@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/22 22:58:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:54:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         last_command(list_env, lines);
         handle_heredoc(lines, list_env);
         handle_pipe(lines,env,list_env);
-
+        if(lines->fd_in)
+            close(lines->fd_in);
         if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &stats) < 0)
             perror("terminal error ");
     }
