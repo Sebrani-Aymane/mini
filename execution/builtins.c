@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 21:30:20 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:12:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*pwdd(env_vars *list)
 		return (NULL);
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->vars, "PWD") == 0)
+		if (ft_strncmp(tmp->vars, "PWD", 3) == 0)
 			return (tmp->var_value);
 		tmp = tmp->next;
 	}
@@ -80,11 +80,12 @@ int	chdirr(char **env, t_line *final, env_vars *list)
 	temp = list;
 	while (list)
 	{
-		if (!ft_strcmp(list->vars, "OLDPWD") || !ft_strcmp(list->vars, "PWD"))
+		if (!ft_strncmp(list->vars, "OLDPWD", 6)
+			|| !ft_strncmp(list->vars, "PWD", 3))
 		{
-			if (!ft_strcmp(list->vars, "PWD"))
+			if (!ft_strncmp(list->vars, "PWD", 3))
 				list->var_value = getcwd(NULL, 0);
-			if (!ft_strcmp(list->vars, "OLDPWD"))
+			if (!ft_strncmp(list->vars, "OLDPWD", 6))
 				list->var_value = pwd_bfr_cd;
 		}
 		list = list ->next;

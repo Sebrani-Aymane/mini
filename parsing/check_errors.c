@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:19:02 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/25 00:57:53 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/25 23:18:29 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int	pipe_syntax(char *input, int i, int in_quotes)
 			if (input[i] == '\0' || input[i] == '|')
 			{
 				if (input[i + 1] && input[i + 1] == '|')
-					printf("minshell:syntax error near unexpected token`||'\n");
+					printf("minshell:syntax error near unexpected token`|'\n");
 				else
 					printf("minishell:syntax error near unexpected token`|'\n");
 				return (0);

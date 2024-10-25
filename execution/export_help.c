@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 22:15:08 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:29:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	export_with_plus(char *str, env_vars *env)
 	key = get_till(str, '+');
 	while (env && env->next)
 	{
-		if (ft_strcmp(env->vars, key) == 0)
+		if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)
 		{
 			break ;
 			env->var_value = ft_strdup(value);
@@ -44,8 +44,8 @@ int	first_in(char *str, env_vars *env)
 		return (1);
 	while (env && env ->next)
 	{
-		if (ft_strcmp(env->vars, str) == 0
-			|| ft_strcmp(env->next->vars, str) == 0)
+		if (ft_strncmp(env->vars, str, ft_strlenn(str)) == 0
+			|| ft_strncmp(env->next->vars, str, ft_strlenn(str)) == 0)
 			return (0);
 		env = env->next;
 	}
@@ -69,7 +69,7 @@ int	valid_to_add_plus(env_vars *env, char *str)
 	temp = strchr(str, '=');
 	if (check_key(key))
 	{
-		if (strcmp(env->vars, key) == 0)
+		if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)
 			env -> var_value = str_joiner(env->var_value, temp + 1);
 		else
 		{

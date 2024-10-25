@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/25 11:20:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/25 18:11:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void set_shlvl(t_list shell)
 {
     char *final;
     char *nbr;
-     int i = 0;
+    int i = 0;
     nbr = ft_itoa(shell.shlvl);
     final = ft_strjoin("SHLVL=", nbr);
     while(shell.env[i])

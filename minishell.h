@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 14:24:41 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/25 22:44:08 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void handle_parent_process(int fd[2], int pipes_count);
 int check_key(char *str);
 void echoo(t_line *final);
 char* pwdd(env_vars *list);
+int	ft_strncmp(char *s1, char *s2, int	n);
 env_vars *envpp(env_vars *list);
 int export_all(env_vars *env, t_line *final);
 int ft_strlenn(char *str);
@@ -145,7 +146,9 @@ void chdiir_help(t_line *final,env_vars *list,char *pwd);
 char **create_av(t_node *tokens);
 int help_execute_files(t_line *final,char **env,char **av);
 char *find_executable(t_line  *final,env_vars *list,char **av);
+void    when_not_blt(t_line *final, char **env, env_vars *list);
 char **fake_env(void);
+long long ft_atoll(char *str);
 void	ft_putstr(char *s, int fd);
 int handle_one_blt(t_line *final,char **env,env_vars *list);
 int is_dir(char *parth);
@@ -154,7 +157,11 @@ void chdiir_help2(t_line *final,env_vars *list,char *pwd);
 void check_echo_flags(t_line *final, t_node **current, int *newline);
 int	cd_helper(t_line *final, env_vars *list, char **env);
 char	*ft_strchrr(const char *s, int c);
-int check_for_herdoc(t_line *final);
+void	process_heredoc(t_heredoc *heredoc, env_vars *list_env);
+int	is_valid_number(char *str);
+int get_delim_expand_pipe(t_line *final, t_heredoc	*heredocs, int *len);
+void	writing_heredoc(t_token **hered_tokens, t_heredoc *heredoc, env_vars *list);
+void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count);
 //////////////////*PARSING*//////////////////////////
 
 

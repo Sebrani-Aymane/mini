@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 06:01:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 21:52:26 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	execute_blts(char *blt, t_line *final,
 	else if (strcmp(blt, "pwd") == 0)
 	{
 		pwd = pwdd(list);
-		ft_putstr(pwd,1 );
+		ft_putstr(pwd, 1);
 		ft_putstr("\n", 1);
 	}
 	else if (strcmp(blt, "export") == 0)

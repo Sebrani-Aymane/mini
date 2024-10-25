@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 22:09:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 21:50:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	valid_to_add(env_vars *env, char *str)
 		return (1);
 	key = get_till(str, '=');
 	tmp = env;
-	temp = strchr(str, '=');
+	temp = ft_strchrr(str, '=');
 	if (!check_key(key))
 		return (1);
 	new -> vars = get_till(str, '=');
@@ -39,16 +39,16 @@ int	export_it(env_vars *env, char *str)
 	char	*value;
 	int		ret;
 
-	value = strchr(str, '=');
+	value = ft_strchrr(str, '=');
 	key = get_till(str, '=');
 	while (env && env ->next)
 	{
-		if (ft_strcmp(env->vars, key) == 0
-			|| ft_strcmp(env->next->vars, key) == 0)
+		if (ft_strncmp(env->vars, key, ft_strlenn(key) == 0
+				|| ft_strncmp(env->next->vars, key, ft_strlenn(key)) == 0))
 		{
-			if (ft_strcmp(env->vars, key) == 0)
+			if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)
 				env->var_value = ft_strdup(value + 1);
-			else if (ft_strcmp(env->next->vars, key) == 0)
+			else if (ft_strncmp(env->next->vars, key, ft_strlenn(key)) == 0)
 				env->next->var_value = ft_strdup(value + 1);
 			return (0);
 		}
@@ -68,13 +68,38 @@ int	export_all(env_vars *env, t_line *final)
 	ret = 0;
 	while (current)
 	{
-		if (strchr(current->content, '+'))
+		if (ft_strchr(current->content, '+'))
 			ret = export_with_plus(current->content, env);
 		else if (!(ft_strchr(current->content, '=')))
 			ret = first_in(current->content, env);
-		else if (strchr(current->content, '='))
+		else if (ft_strchr(current->content, '='))
 			ret = export_it(env, current->content);
 		current = current->next;
 	}
 	return (ret);
+}
+
+long long	ft_atoll(char *str)
+{
+	long long	result;
+	int			sign;
+	int			i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] && ft_isdigit(str[i]))
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * sign);
 }

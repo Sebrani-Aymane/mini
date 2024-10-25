@@ -3,76 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 16:59:52 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/25 22:59:09 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
 void	handle_redirections(t_line *final)
 {
 	open_files(final);
-	if(final->fd_in != 0)
+	if (final->fd_in != 0)
 	{
 		dup2(final->fd_in, 0);
 		close(final->fd_in);
 	}
-    if (final ->fd_out != 1)
+	if (final ->fd_out != 1)
 	{
 		dup2(final->fd_out, 1);
 		close(final->fd_out);
 	}
-	return;
+	return ;
 }
 
 int	execute_the_thing(t_line *final, char **env, env_vars *list)
 {
 	int	ret;
-	int i;
+	int	i;
 
 	i = 0;
 	if (check_builtin(final, list, env))
 	{
-		ret = execute_blts(final->tokens->content ,final, list, env);
+		ret = execute_blts(final->tokens->content,
+				final, list, env);
 		exit_status(1, ret);
 		c_malloc(0, 0);
 		exit(ret);
 	}
 	else
-	{
- 		i = excutefilepath(final, list, env);
-		if (i == 2)
-		{
-			if (final->tokens->type == 1 || final->tokens->type == 2)
-			{
-				exit_status(1,i);
-				write(2, final->tokens->content, ft_strlenn(final->tokens->content));
-				write(2, ": No such file or directoory\n", 28);
-				c_malloc(0, 0);
-				exit(128);
-			}
-		}
-	}
+		when_not_blt(final, env, list);
 	return (0);
 }
 
-int handle_pipe(t_line *final, char **env, env_vars *list)
+void	signals_ignore()
+{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+}
+
+void	signals_allow(void)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+int	handle_pipe(t_line *final, char **env, env_vars *list)
 {
 	int	pid;
-	int i = -1;
-	int pipes_count;
-	int fd[2];
-	int ret = 0;
-	int fd_in = dup(0);
+	int	i;
+	int	pipes_count;
+	int	fd[2];
+	int	ret;
+	int	fd_in;
+	int	status;
 
+	ret = 0;
+	fd_in = dup(0);
+	i = -1;
 	pipes_count = ft_listsize(final);
-	if (pipes_count == 1 && check_builtin(final,list,env))
+	if (pipes_count == 1 && check_builtin(final, list, env))
 	{
-		ret = handle_one_blt(final,env,list);
+		ret = handle_one_blt(final, env, list);
 		exit_status(1, ret);
 	}
 	else
@@ -80,45 +83,41 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 		while (++i < pipes_count)
 		{
 			if (pipes_count > 1 && pipe(fd) == -1)
-				return (fprintf(stderr,"error in pipes\n"),20);
+				return (ft_putstr("error in pipes", 1), 20);
 			pid = fork();
 			if (pid == -1)
-				return (fprintf(stderr,"error in forking\n"),-1);
+				return (ft_putstr("error in forking", 1), -1);
 			signal(SIGINT, SIG_IGN);
-			//save attr
-			
 			if (pid == 0)
 			{
-				signal(SIGINT, SIG_DFL);
-				signal(SIGQUIT, SIG_DFL);
+				signals_ignore();
 				if (i != pipes_count - 1)
 				{
 					if (dup2(fd[1], 1) == -1)
-						return(fprintf(stderr,"error in dup2"),-1);
-					if (close(fd[0])== -1)
-						write(1, "something really bad\n",21);
+						return (ft_putstr("error in dup2", 1), -1);
+					if (close(fd[0]) == -1)
+						write(1, "something really bad\n", 21);
 				}
 				handle_redirections(final);
-				ret = execute_the_thing(final,env,list);
+				ret = execute_the_thing(final, env, list);
+				if (final->fd_in != 0)
 				{
-					dup2(final->fd_in,0);
+					dup2(final->fd_in, 0);
 					close(final->fd_in);
 				}
 				if (final ->fd_out != 1)
 				{
-					dup2(final->fd_in,1);
+					dup2(final->fd_out, 1);
 					close(final->fd_out);
 				}
 			}
 			else
 			{
-				// trad attr kif kant 
-				signal(SIGINT, sigint_handler);
-				signal(SIGQUIT, SIG_IGN);
+				signals_allow();
 				if (pipes_count - 1 > 0)
 				{
-					if (dup2(fd[0],0) == -1)
-						return(fprintf(stderr,"error in dup2"),-1);
+					if (dup2(fd[0], 0) == -1)
+						return (ft_putstr("error in dup2", 1), -1);
 					close(fd[1]);
 					close(fd[0]);
 				}
@@ -126,12 +125,11 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 			final = final->next;
 		}
 	}
-	int status;
 	while (pipes_count-- > 0)
 		wait(&status);
 	if (WIFEXITED(status))
-			exit_status(1,WEXITSTATUS(status) );
-	dup2(fd_in,0);
+		exit_status(1, WEXITSTATUS(status));
+	dup2(fd_in, 0);
 	close(fd_in);
-	return(ret);
+	return (ret);
 }
