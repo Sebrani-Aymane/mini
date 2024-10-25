@@ -3,26 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/22 15:59:39 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:01:45 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdlib.h>
+
 void	sigint_handler(int signal)
 {
 	(void)signal;
-	write(1, "\nminishell$  ", 13);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+void sigint_hand_heredoc(int signal)
+{
+	(void)signal;
+	printf("\n");
+	exit(1);
 }
 
 void	handle_signals(void)
 {
+	rl_catch_signals = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-	//chi l3ibat dread line
 }
 
 int	main(int ac, char **av, char **env)
@@ -31,7 +40,6 @@ int	main(int ac, char **av, char **env)
 	env_vars	*list_env;
 	(void)av;
 	(void)ac;
-	// rl_catch_signal = 0;
 
 	if (!*env)
 		env = fake_env();
@@ -43,4 +51,3 @@ int	main(int ac, char **av, char **env)
 	display_prompt(shell, shell.env, list_env);
 	c_malloc(0, 0);
 }
-// unset PATH PWD SHLVL _if (final_size > 1)

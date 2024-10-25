@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/24 15:51:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:24:41 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,5 +199,6 @@ char	*ft_strdup(char *s1);
 t_node	*ft_lstlast(t_node *lst);
 void last_command(env_vars *list, t_line *final);
 char	*copy_str(char *dest, char *src);
-
+void sigint_hand_heredoc(int signal);
+void	sigint_handler(int signal);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:19:02 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 18:36:57 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/25 00:57:53 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	check_prohibited_char(char *input)
 	i = 0;
 	while (input && input[i])
 	{
-		if (input[i] == '\\' || input[i] == ';'
-			|| input[i] == '(' || input[i] == ')')
+		if (input[i] == '\\' || input[i] == ';')
 		{
 			printf("prohibited character\n");
 			return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/24 11:48:40 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:59:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,13 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 			pid = fork();
 			if (pid == -1)
 				return (fprintf(stderr,"error in forking\n"),-1);
-			//ignori signals 
+			signal(SIGINT, SIG_IGN);
 			//save attr
 			
 			if (pid == 0)
 			{
-				//signals radhom defoult
+				signal(SIGINT, SIG_DFL);
+				signal(SIGQUIT, SIG_DFL);
 				if (i != pipes_count - 1)
 				{
 					if (dup2(fd[1], 1) == -1)
@@ -99,7 +100,6 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 				}
 				handle_redirections(final);
 				ret = execute_the_thing(final,env,list);
-				if(final->fd_in != 0)
 				{
 					dup2(final->fd_in,0);
 					close(final->fd_in);
@@ -113,7 +113,8 @@ int handle_pipe(t_line *final, char **env, env_vars *list)
 			else
 			{
 				// trad attr kif kant 
-				// signals hnd
+				signal(SIGINT, sigint_handler);
+				signal(SIGQUIT, SIG_IGN);
 				if (pipes_count - 1 > 0)
 				{
 					if (dup2(fd[0],0) == -1)

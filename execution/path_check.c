@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/24 19:12:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:56:49 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*find_executable(t_line	*final, env_vars *list, char **av)
 	{
 		to_execute = c_malloc(ft_strlenn(command_path)
 		+ ft_strlen(paths[i]), 1);
-		to_execute = str_joiner(paths[i],x command_path);÷1
+		to_execute = str_joiner(paths[i],command_path);
 		if (access(to_execute,F_OK | X_OK) == 0)
 			return(to_execute);
 		to_execute = NULL;

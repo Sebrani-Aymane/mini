@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/24 19:08:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:23:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,11 @@ void	handle_heredoc(t_line *final, env_vars *list_env)
 	heredocs = get_heredocs(final, count);
 	if (!heredocs)
 		return ;
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, sigint_hand_heredoc);
 		i = 0;
 		while (i < count)
 			close(heredocs[i++].fd[0]);
@@ -138,6 +140,7 @@ void	handle_heredoc(t_line *final, env_vars *list_env)
 	while (i < count)
 		close(heredocs[i++].fd[1]);
 	waitpid(pid, NULL, 0);
+	signal(SIGINT, sigint_handler);
 	if (final)
 		final->fd_in = dup(heredocs[count - 1].fd[0]);
 	i = 0;

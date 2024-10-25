@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/24 15:54:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:20:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         {
             printf("exit\n");
             c_malloc(0, 0);
+            rl_clear_history();
             exit(0);
         }
         if (ft_is_space(input) || (input[0] == ':' && !input[1]) || check_for_and(input))
