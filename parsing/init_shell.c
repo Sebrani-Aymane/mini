@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/25 18:11:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 01:31:17 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
             perror("terminal error ");
     while(1)
     {
-        input = readline("minishell-1.0$ "); 
+        input = readline("minishell-1.0$ ");
+        if (glob_var)
+            exit_status(1, 1);
         add_history(input);
         if (input == NULL)
         {
@@ -96,6 +98,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
             rl_clear_history();
             exit(0);
         }
+        glob_var = 0;
         if (ft_is_space(input) || (input[0] == ':' && !input[1]) || check_for_and(input))
         {
             free(input);
@@ -123,29 +126,11 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         expand_home(shell.tokens, list_env); 
   
         list = search_token(shell.tokens);
-        // t_node *curr = list;
-        // while(curr)
-        //     {
-        //         printf("token: %s\n", curr->content);
-        //         curr = curr->next;
-        //     }
 
         check_for_delimeter(list);
 
         lines = tokens_to_lines(list);
-        // t_line *current = lines;
-        // t_node *curr;
-        // while(current)
-        // {
-        //     curr = current->tokens;
-        //     printf("this is line:\n");
-        //     while(curr)
-        //     {
-        //         printf("token: %s\n", curr->content);
-        //         curr = curr->next;
-        //     }
-        //     current = current->next;
-        //  }
+
         last_command(list_env, lines);
         handle_heredoc(lines, list_env);
         handle_pipe(lines,env,list_env);

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:22:57 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 23:15:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 03:04:37 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count)
 	while (i < count)
 	{
 		process_heredoc(&heredocs[i], list);
+		if (glob_var)
+			return ;
 		close(heredocs[i].fd[1]);
 		i ++;
 	}

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 22:44:08 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 04:39:16 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 #include <termios.h>
 #include <signal.h>
 
-
+int glob_var;
 typedef struct s_token
 {
     char *content;
@@ -106,9 +106,7 @@ int	ft_isalpha(int c);
 int unset(env_vars *env, t_line *final);
 int valid_to_add_plus(env_vars *env,char *str);
 void add_to_list(env_vars **head,env_vars *newe);
-int	ft_isalnum(int c);
-int handle_child_process(t_line *final, char **env, env_vars *list, int i, int pipes_count, int fd[2]);
-void handle_parent_process(int fd[2], int pipes_count);
+int ft_isalnum(int c);
 int check_key(char *str);
 void echoo(t_line *final);
 char* pwdd(env_vars *list);
@@ -125,12 +123,16 @@ int  excutefilepath(t_line *final,env_vars *list,char **env);
 int	ft_listsize(t_line *lst);
 env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
+int handle_single_pipe(t_line *final, char **env, env_vars *list, int pipes_count, int i);
 int	is_space(char *str);
+void handle_child_fds(t_line *final);
 env_vars *list_init(char **variables);
 void free_double(char **str);
 void	copy_it(char *dest, char *src);
+int handle_parent_process(int fd[2], int pipes_count);
 char	*str_joiner(char *s1, char *s2);
 int check_builtin(t_line *final, env_vars *list,char **env);
+int handle_child_processs(t_line *final, char **env, env_vars *list, int fd[2], int pipes_count, int i);
 int get_nodee(env_vars *list);
 int	chdirr(char **env, t_line *final,env_vars *list);
 int handle_pipe(t_line *final,char **env,env_vars *list);

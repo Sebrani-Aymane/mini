@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 20:20:59 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 04:46:10 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,4 @@ int	handle_one_blt(t_line *final, char **env, env_vars *list)
 		close(final->fd_out);
 	}
 	return (ret);
-}
-
-int	exit_status(int type, int value)
-{
-	static int	var;
-
-	if (type == GET)
-		return (var);
-	if (type == SET)
-		var = value;
-	return (var);
 }

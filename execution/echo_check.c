@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 21:34:12 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 03:17:18 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,15 @@ env_vars	*envpp_export(env_vars *list)
 		list = list->next;
 	}
 	return (tmp);
+}
+
+int	exit_status(int type, int value)
+{
+	static int	var;
+
+	if (type == GET)
+		return (var);
+	if (type == SET)
+		var = value;
+	return (var);
 }

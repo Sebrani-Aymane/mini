@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/25 12:01:45 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/26 03:05:20 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
 
 void	sigint_handler(int signal)
 {
@@ -19,11 +21,12 @@ void	sigint_handler(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	glob_var = 1;
 }
 void sigint_hand_heredoc(int signal)
 {
 	(void)signal;
-	printf("\n");
+	//printf("\n");
 	exit(1);
 }
 
