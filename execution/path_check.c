@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 20:16:31 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:12:35 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ int	help_execute_files(t_line *final, char **env, char **av)
 			write(2, "minishell: ", 11);
 			write(2, av[0], ft_strlenn(av[0]));
 			write(2, ": is a directory\n", 17);
-			c_malloc(0, 0);
 			exit (126);
 		}
 		perror(final->tokens->content);
-		c_malloc(0, 0);
 		exit (128);
 	}
 	return (ret);

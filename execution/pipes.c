@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 04:50:55 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:09:15 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	execute_the_thing(t_line *final, char **env, env_vars *list)
 		ret = execute_blts(final->tokens->content,
 				final, list, env);
 		exit_status(1, ret);
-		c_malloc(0, 0);
 		exit(ret);
 	}
 	else
@@ -90,7 +89,7 @@ int	handle_pipe(t_line *final, char **env, env_vars *list)
 				return (ft_putstr("error in pipes", 1), 20);
 			pid = fork();
 			if (pid == -1)
-				return (ft_putstr("error in forking", 1), -1);
+				return (ft_putstr("error in foking", 1), -1);
 			if (pid == 0)
 			{
 				signals_ignore();

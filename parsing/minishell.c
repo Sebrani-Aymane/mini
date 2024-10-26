@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/26 03:05:20 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:59:07 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sigint_handler(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	glob_var = 1;
+	glob_var = SIGINT;
 }
 void sigint_hand_heredoc(int signal)
 {

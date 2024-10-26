@@ -1,0 +1,80 @@
+// ./minishell < /dev/urandom !!!
+
+// pwd = getcwd(NULL, 0); // when env -i leaks
+
+// _ export _ before execve
+
+// ➜  minishell git:(master) ✗ ./minishell
+// minishell-1.0$ mkdir test
+// minishell-1.0$ cd test
+// minishell-1.0$ mkdir -p a/b/   
+// minishell-1.0$ cd a/b/
+// minishell-1.0$ rm -rf ../../a/
+// minishell-1.0$ pwd
+// /Users/asebrani/Desktop/minishell/test/a/b
+// minishell-1.0$ cd ..
+// minishell-1.0$ pwd
+
+// minishell-1.0$ clear
+// TERM environment variable not set.
+// minishell-1.0$ cd ..
+// [1]    22351 segmentation fault  env -i ./minishell
+
+
+// Save pwd backup in case of unsetting PWD
+
+// leaks cd
+
+//         add_history(input); do not add history if line empty
+
+// int	ft_is_space(char *input) if null or '\0' returns 1 (?????)
+
+// ➜  minishell git:(master) ✗ ./minishell
+// minishell-1.0$ /
+// [1]    26819 segmentation fault  ./minishell
+
+// minishell-1.0$ echo $?
+// 0
+// minishell-1.0$ gtvcfrvgtcf
+// minishell: gtvcfrvgtcf :command not found
+// minishell-1.0$ echo $?
+// 127
+
+// check all sys calls for fail
+// check all strings if NULL before passing it to a libft function
+
+
+// pwd = pwdd(list);
+// ft_putstr(pwd, 1);
+// ft_putstr("\n", 1);
+// mauy print (null)
+
+
+// Print all errors in fd 2 STDERR
+
+
+// minishell-1.0$ env
+// PWD=/Users/asebrani/Desktop/minishell
+// _=/usr/bin/env
+// PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+// minishell-1.0$ unset PWD
+// minishell-1.0$ env
+
+// _=/usr/bin/env
+// PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+// minishell-1.0$ unset PWD
+// [1]    33588 segmentation fault  env -i ./minishell
+
+// minishell-1.0$ export a= 
+// minishell-1.0$ export
+// declare -x PWD="/Users/asebrani/Desktop/minishell"
+// declare -x SHLVL="1"
+// declare -x _="/usr/bin/env"
+// declare -x PATH="/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
+// declare -x a
+
+// ONLY UNSETS THE FIRST ARG
+
+// ➜  minishell git:(master) ✗ ./minishell
+// minishell-1.0$  h (' h')
+// [1]    37688 segmentation fault  ./minishell

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 01:10:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:14:17 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	excutefilepath(t_line *final, env_vars *list, char **env)
 		if (to_do)
 		{
 			exit_status(1, 0);
-			ret = execve(to_do, av, env);
+			execve(to_do, av, env);
 		}
 		else if (!to_do && get_path_from_list(list, "PATH"))
 		{
@@ -111,13 +111,11 @@ int	excutefilepath(t_line *final, env_vars *list, char **env)
 			exit_status(1, 127);
 			write(2, "minishell: ", 11);
 			write(2, str, ft_strlenn(av[0]) + 20);
-			c_malloc(0, 0);
 			exit(127);
 		}
 		if (!to_do && !get_path_from_list(list, "PATH"))
 		{
 			exit_status(1, 127);
-			c_malloc(0, 0);
 			exit(127);
 		}
 	}

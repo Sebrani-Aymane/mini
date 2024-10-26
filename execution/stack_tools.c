@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/23 08:35:45 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 15:40:46 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ int	check_key(char *str)
 	if (!str || is_space(str) || ft_isalpha(str[i]
 			|| str[0] == '_'))
 	{
-		write(1, "minishell: export: ", 19);
-		write(1, str, ft_strlenn(str));
-		write(1, " not a valid identifier\n", 24);
+		write(2, "minishell: export: ", 19);
+		write(2, str, ft_strlenn(str));
+		write(2, " not a valid identifier\n", 24);
 		return (0);
 	}
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 		{
-			write(1, "minishell: export: ", 19);
-			write(1, str, ft_strlenn(str));
-			write(1, " not a valid identifier\n", 24);
+			write(2, "minishell: export: ", 19);
+			write(2, str, ft_strlenn(str));
+			write(2, " not a valid identifier\n", 24);
 			return (0);
 		}
 		i++;

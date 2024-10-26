@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 21:56:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:31:04 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 void	exit_help(t_node *arg)
 {
-	printf("exit\n");
-	printf("minishell: exit: %s: numeric argument required\n",
-		arg->content);
+	write(2, "exit\n",5);
+	write(2, "minishell: exit: ",17);
+	write(2, arg->content, ft_strlen(arg->content));
+	write( 2, "numeric argument required\n",17);
 	exit_status(1, 255);
 	c_malloc(0, 0);
 	exit(255);
