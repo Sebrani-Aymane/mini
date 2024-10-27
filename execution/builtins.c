@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 20:12:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:26:17 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,26 @@ env_vars	*envpp(env_vars *list)
 	}
 	return (tmp);
 }
-
 int	chdirr(char **env, t_line *final, env_vars *list)
 {
 	int			res;
 	char		*pwd_bfr_cd;
 	env_vars	*temp;
 
-	res = 0;
 	pwd_bfr_cd = get_path_from_list(list, "PWD");
 	res = cd_helper(final, list, env);
+	if (res != 0)
+		return (-1);
 	temp = list;
 	while (list)
 	{
-		if (!ft_strncmp(list->vars, "OLDPWD", 6)
-			|| !ft_strncmp(list->vars, "PWD", 3))
-		{
-			if (!ft_strncmp(list->vars, "PWD", 3))
-				list->var_value = getcwd(NULL, 0);
-			if (!ft_strncmp(list->vars, "OLDPWD", 6))
-				list->var_value = pwd_bfr_cd;
-		}
+		if (!ft_strncmp(list->vars, "PWD", 3))
+			list->var_value = getcwd(NULL, 0);
+		if (!ft_strncmp(list->vars, "OLDPWD", 6))
+			list->var_value = pwd_bfr_cd;
 		list = list ->next;
-	}
+		}
 	list = temp;
 	return (res);
-}
+	}
+

@@ -1,27 +1,5 @@
-// ./minishell < /dev/urandom !!!
-
-// pwd = getcwd(NULL, 0); // when env -i leaks
 
 // _ export _ before execve
-
-// ➜  minishell git:(master) ✗ ./minishell
-// minishell-1.0$ mkdir test
-// minishell-1.0$ cd test
-// minishell-1.0$ mkdir -p a/b/   
-// minishell-1.0$ cd a/b/
-// minishell-1.0$ rm -rf ../../a/
-// minishell-1.0$ pwd
-// /Users/asebrani/Desktop/minishell/test/a/b
-// minishell-1.0$ cd ..
-// minishell-1.0$ pwd
-
-// minishell-1.0$ clear
-// TERM environment variable not set.
-// minishell-1.0$ cd ..
-// [1]    22351 segmentation fault  env -i ./minishell
-
-
-// Save pwd backup in case of unsetting PWD
 
 // leaks cd
 

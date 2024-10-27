@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 17:12:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:52:33 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	**fake_env(void)
 	pwd = getcwd(NULL, 0);
 	env = c_malloc(sizeof(char *) * 5, 1);
 	env[0] = str_joiner("PWD=", pwd);
+	free(pwd);
 	env[1] = ft_strdup("SHLVL=1");
 	env[2] = ft_strdup("_=/usr/bin/env");
 	env[3] = ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
@@ -84,13 +85,13 @@ char	*get_path_from_list(env_vars *list, char *str)
 
 	len = ft_strlenn(str);
 	temp = list;
-	if (!temp || temp == NULL)
+	if (!temp)
 		return (NULL);
 	while (temp)
 	{
 		if (ft_strncmp(temp->vars, str, len) == 0)
 		{
-			path = ft_strdup(temp->var_value);
+			path = ft_strdupp(temp->var_value);
 			return (path);
 		}
 		temp = temp-> next;

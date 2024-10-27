@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:18:51 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 21:47:43 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:30:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,28 @@ int	process_unset(env_vars *env_bkp, t_node *current)
 {
 	env_vars	*curr;
 	env_vars	*prev;
+	int			ret;
 
 	prev = NULL;
 	while (current)
 	{
 		if (check_key(current->content) == 1)
 		{
+			ret = 0;
 			curr = env_bkp;
 			while (curr)
 			{
 				if (ft_strcmp(curr->vars, current->content) == 0)
-					return (unset_variable(&env_bkp, curr, prev));
+					unset_variable(&env_bkp, curr, prev);
 				prev = curr;
 				curr = curr->next;
 			}
 		}
+		else
+			ret = 1;
 		current = current->next;
 	}
-	return (0);
+	return (ret);
 }
 
 int	unset(env_vars *env, t_line *final)

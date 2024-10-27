@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 17:09:15 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:46:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ int	handle_pipe(t_line *final, char **env, env_vars *list)
 		while (++i < pipes_count)
 		{
 			if (pipes_count > 1 && pipe(fd) == -1)
-				return (ft_putstr("error in pipes", 1), 20);
+				return (ft_putstr("error in pipes", 2), 20);
 			pid = fork();
 			if (pid == -1)
-				return (ft_putstr("error in foking", 1), -1);
+				return (ft_putstr("error in foking", 2), -1);
 			if (pid == 0)
 			{
 				signals_ignore();
 				if (i != pipes_count - 1)
 				{
 					if (dup2(fd[1], 1) == -1)
-						return (ft_putstr("error in dup2", 1), -1);
+						return (ft_putstr("error in dup2", 2), -1);
 					if (close(fd[0]) == -1)
-						write(1, "something really bad\n", 21);
+						write(2, "something really bad\n", 21);
 				}
 				handle_redirections(final);
 				ret = execute_the_thing(final, env, list);
@@ -121,7 +121,7 @@ int	handle_pipe(t_line *final, char **env, env_vars *list)
 				if (pipes_count - 1 > 0)
 				{
 					if (dup2(fd[0], 0) == -1)
-						return (ft_putstr("error in dup2", 1), -1);
+						return (ft_putstr("error in dup2", 2), -1);
 					close(fd[1]);
 					close(fd[0]);
 				}

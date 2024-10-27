@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 04:39:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:40:50 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int	is_valid_number(char *str);
 int get_delim_expand_pipe(t_line *final, t_heredoc	*heredocs, int *len);
 void	writing_heredoc(t_token **hered_tokens, t_heredoc *heredoc, env_vars *list);
 void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count);
+char	*ft_strdupp(char *s1);
 //////////////////*PARSING*//////////////////////////
 
 

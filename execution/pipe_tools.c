@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 04:46:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:26:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	chdiir_help(t_line *final, env_vars *list, char *pwd)
 	temp = list;
 	while (temp)
 	{
-		if (!ft_strncmp(temp->vars, "OLDPWD", 6)
-			|| !ft_strncmp(temp->vars, "PWD", 3))
-		{
-			if (!ft_strncmp(temp->vars, "OLDPWD", 6))
-				temp ->var_value = strdup(pwd);
-			else if (!strcmp(temp->vars, "PWD"))
-				temp->var_value = str_joiner(get_path_from_list(list,
-							"PWD"), "/..");
-		}
+		if (!ft_strncmp(temp->vars, "OLDPWD", 6))
+			temp ->var_value = ft_strdup(pwd);
+		else if (!ft_strncmp(temp->vars, "PWD", 3))
+			temp->var_value = str_joiner(get_path_from_list(list,
+						"PWD"), "/..");
 		temp = temp ->next;
 	}
+	write(2,"cd: error retrieving current directory: getcwd: ",
+		48); 
+	write(2,"cannot access parent directories: No such file or directory\n",
+		60);
 }
 
 void	chdiir_help2(t_line *final, env_vars *list, char *pwd)
@@ -43,18 +43,19 @@ void	chdiir_help2(t_line *final, env_vars *list, char *pwd)
 	temp = list;
 	while (temp)
 	{
-		if (!ft_strncmp(temp->vars, "OLDPWD", 6)
-			|| !ft_strncmp(temp->vars, "PWD", 3))
-		{
-			if (!ft_strncmp(temp->vars, "OLDPWD", 6))
-				temp->var_value = strdup(pwd);
-			else if (!ft_strncmp(temp->vars, "PWD", 3))
-				temp->var_value = str_joiner(get_path_from_list(list,
-							"PWD"), "/.");
-		}
+		if (!ft_strncmp(temp->vars, "OLDPWD", 6))
+			temp->var_value = strdup(pwd);
+		else if (!ft_strncmp(temp->vars, "PWD", 3))
+			temp->var_value = str_joiner(get_path_from_list(list,
+						"PWD"), "/.");
 		temp = temp ->next;
 	}
+	write(2,"cd: error retrieving current directory: getcwd: ",
+		48); 
+	write(2,"cannot access parent directories: No such file or directory\n",
+		59);
 }
+
 
 int	handle_one_blt(t_line *final, char **env, env_vars *list)
 {

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 15:40:46 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:25:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,36 @@ int	cd_helper(t_line *final, env_vars *list, char **env)
 		if (!home)
 			return (write(2, "minishell: cd: HOME not set\n", 28), 0);
 		res = chdir(home);
+		return (res);
 	}
-	else
+	res = chdir(final->tokens->next->content);
+	if (res < 0)
 	{
-		res = chdir(final->tokens->next->content);
-		if (!getcwd(NULL, 0))
-		{
-			if (!ft_strcmp(final->tokens->next->content, ".."))
-				chdiir_help(final, list, pwd_bfr_cd);
-			else if (!ft_strcmp(final->tokens->next->content, ".."))
-				chdiir_help2(final, list, pwd_bfr_cd);
-		}
+		if (!ft_strncmp(final->tokens->next->content, "..", 2))
+			chdiir_help(final, list, pwd_bfr_cd);
+		else if (!ft_strcmp(final->tokens->next->content, "."))
+			chdiir_help2(final, list, pwd_bfr_cd);
 	}
 	return (res);
+}
+
+
+char	*ft_strdupp(char *s1)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = ft_strlen(s1);
+	str = c_malloc(j + 1, 1);
+	if (str == 0)
+		return (0);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

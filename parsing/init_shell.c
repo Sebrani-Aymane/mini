@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/26 16:57:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 02:25:30 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
 
         lines = tokens_to_lines(list);
 
-        last_command(list_env, lines);
+        // last_command(list_env, lines);
+       
         handle_heredoc(lines, list_env);
         handle_pipe(lines,env,list_env);
         if(lines->fd_in)
