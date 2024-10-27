@@ -3,39 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 23:26:17 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 04:35:01 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	echoo(t_line *final)
+void	echoo(t_node *node)
 {
-	t_node	*current;
 	int		newline;
 
-	check_echo_flags(final, &current, &newline);
-	while (current)
+	check_echo_flags(&node, &newline);
+	
+	if (node)
 	{
-		if ((current->type == 1 || current->type == 2))
+		while (node)
 		{
-			ft_putstr(current->content, 1);
-			if (current->next)
-				ft_putstr(" ", 1);
+			if ((node->type == 1 || node->type == 2))
+			{
+				ft_putstr(node->content, 1);
+				if (node->next)
+					ft_putstr(" ", 1);
+			}
+		node = node->next;
 		}
-		current = current->next;
 	}
 	if (newline)
 		ft_putstr("\n", 1);
+	
 }
 
 char	*pwdd(env_vars *list)
 {
 	env_vars	*tmp;
-
+	
 	tmp = list;
 	if (!list)
 		return (NULL);
@@ -72,16 +76,18 @@ int	chdirr(char **env, t_line *final, env_vars *list)
 	int			res;
 	char		*pwd_bfr_cd;
 	env_vars	*temp;
-
+	char *str;
+	
 	pwd_bfr_cd = get_path_from_list(list, "PWD");
 	res = cd_helper(final, list, env);
 	if (res != 0)
 		return (-1);
 	temp = list;
+	str = getcwd(NULL, 0);
 	while (list)
 	{
 		if (!ft_strncmp(list->vars, "PWD", 3))
-			list->var_value = getcwd(NULL, 0);
+			list->var_value =str;
 		if (!ft_strncmp(list->vars, "OLDPWD", 6))
 			list->var_value = pwd_bfr_cd;
 		list = list ->next;

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/22 15:22:09 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 04:42:22 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,24 +176,28 @@ void last_command(env_vars *list, t_line *final)
 	t_node *last_token;
 	t_node *curr = final->tokens;
 	int final_size = ft_listsize(final);
-	if (!list || final_size == 1)
+	if (!list)
 		return;
-	while (curr_list)
+	while (list)
 	{
-		if (!ft_strcmp(curr_list->vars , "_"))
+		if (!ft_strcmp(list->vars , "_"))
 			break;
-		curr_list = curr_list->next;
+		list = list->next;
 	}
-	if (final_size > 1 && curr_list)
-		curr_list->var_value = ft_strdup("");
+	if (final_size > 1 && list)
+		list->var_value = ft_strdup("");
 	else
 	{
 		last_token = ft_lstlast(curr);
-		if (!ft_strcmp(last_token->content, "env") && curr_list )
-			curr_list->var_value = ft_strdup("/usr/bin/env");
+		if (!ft_strcmp(last_token->content, "env") && list )
+			list->var_value = ft_strdup("/usr/bin/env");
 		else
-		curr_list->var_value = last_token->content;
+		{
+			
+		list->var_value = ft_strdup(last_token->content);
+		}
 	}
+	list = curr_list;
 }
 char	*copy_str(char *dest, char *src)
 {
@@ -212,4 +216,30 @@ char	*copy_str(char *dest, char *src)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+int pass_spaces(char *input)
+{
+	int i;
+
+	i = 0;
+	while (input[i] && (input[i] == ' ' || input[i] == '\t'))
+		i++;
+	return (i);
+}
+
+void copy_without_spaces(char *dst, char *src)
+{
+	int i;
+	int j;
+
+	i = pass_spaces(src);
+	j = 0;
+	while (src[i])
+	{
+		dst[j] = src[i];
+		i++;
+		j++;
+	}
+	dst[j] = '\0';
 }

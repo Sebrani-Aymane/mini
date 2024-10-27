@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 18:40:50 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 04:42:47 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int valid_to_add_plus(env_vars *env,char *str);
 void add_to_list(env_vars **head,env_vars *newe);
 int ft_isalnum(int c);
 int check_key(char *str);
-void echoo(t_line *final);
+void echoo(t_node *current);
 char* pwdd(env_vars *list);
 int	ft_strncmp(char *s1, char *s2, int	n);
 env_vars *envpp(env_vars *list);
@@ -156,7 +156,7 @@ int handle_one_blt(t_line *final,char **env,env_vars *list);
 int is_dir(char *parth);
 void handle_heredoc(t_line *final, env_vars *list_env);
 void chdiir_help2(t_line *final,env_vars *list,char *pwd);
-void check_echo_flags(t_line *final, t_node **current, int *newline);
+void check_echo_flags(t_node **current, int *newline);
 int	cd_helper(t_line *final, env_vars *list, char **env);
 char	*ft_strchrr(const char *s, int c);
 void	process_heredoc(t_heredoc *heredoc, env_vars *list_env);
@@ -211,4 +211,6 @@ void last_command(env_vars *list, t_line *final);
 char	*copy_str(char *dest, char *src);
 void sigint_hand_heredoc(int signal);
 void	sigint_handler(int signal);
+int pass_spaces(char *input);
+void copy_without_spaces(char *dst, char *src);
 #endif

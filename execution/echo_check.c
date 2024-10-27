@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 03:17:18 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 04:25:05 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ int	check_eccho(t_node *node)
 	return (0);
 }
 
-void	check_echo_flags(t_line *final, t_node **current, int *newline)
+void	check_echo_flags(t_node **current, int *newline)
 {
-	t_node	*tmp;
+	t_node	*tmp = NULL;
 
 	*newline = 1;
-	if (final->tokens->next)
-	{
-		*current = final->tokens->next;
-		tmp = *current;
-	}
+	if ((*current)->next)
+		*current = (*current)->next;
 	else
 		*current = NULL;
 	if (check_eccho(*current))
@@ -49,7 +46,8 @@ void	check_echo_flags(t_line *final, t_node **current, int *newline)
 		tmp = *current;
 		*newline = 0;
 	}
-	*current = tmp;
+	if (tmp)
+		*current = tmp;
 }
 
 int	ft_strlenn(char *str)

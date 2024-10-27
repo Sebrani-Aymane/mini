@@ -1,9 +1,5 @@
 
-// _ export _ before execve
 
-// leaks cd
-
-//         add_history(input); do not add history if line empty
 
 // int	ft_is_space(char *input) if null or '\0' returns 1 (?????)
 
@@ -20,13 +16,6 @@
 
 // check all sys calls for fail
 // check all strings if NULL before passing it to a libft function
-
-
-// pwd = pwdd(list);
-// ft_putstr(pwd, 1);
-// ft_putstr("\n", 1);
-// mauy print (null)
-
 
 // Print all errors in fd 2 STDERR
 

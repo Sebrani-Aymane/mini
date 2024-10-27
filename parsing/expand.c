@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/22 15:21:27 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 02:55:10 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,8 @@ void expand(t_token **tokens, env_vars *list_env)
 				else
                 	value = "";
 			}
+			if (!strcmp(name, "_") && !strcmp(value, "/usr/bin/env"))
+				value = ft_strdup("env");
             new_token = replace_value(temp_token, value, name);
 			// printf("new token: %s\n", new_token);
             temp_token = new_token;
