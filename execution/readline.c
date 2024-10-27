@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 04:36:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 18:09:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	execute_blts(char *blt, t_line *final,
 		{
 			ret = 1;
 			printf("minishell: cd: %s", final->tokens->next->content);
-			printf("no such file or directory\n");
+			perror("no such file or directory\n");
 		}
 	}
 	else if (ft_strncmp(blt, "unset", 5) == 0)

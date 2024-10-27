@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 15:56:00 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 19:03:27 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int get_shlvl(char **env)
     int i;
     int shlvl;
     char *temp = NULL;
+    int notif = 0;
     
     i = 0;
     while (env && env[i])
@@ -50,15 +51,20 @@ int get_shlvl(char **env)
         if (!strncmp(env[i], "SHLVL", 5))
         {
             temp = env[i];
+            notif = 1;
             break;
         }
         i++;
     }
-    while (*temp != '=')
+    if (notif)
+    {
+        while (temp && *temp != '=')
+            temp++;
         temp++;
-    temp++;
-    shlvl = ft_atoi(temp) + 1;
-    return (shlvl);
+        shlvl = ft_atoi(temp) + 1;
+        return (shlvl);
+    }
+    return (-1);
 }
 
 void set_shlvl(t_list shell)
@@ -66,6 +72,9 @@ void set_shlvl(t_list shell)
     char *final;
     char *nbr;
     int i = 0;
+    if (shell.shlvl != -1)
+    {
+        
     nbr = ft_itoa(shell.shlvl);
     final = ft_strjoin("SHLVL=", nbr);
     while(shell.env[i])
@@ -73,6 +82,7 @@ void set_shlvl(t_list shell)
         if (!strncmp(shell.env[i], "SHLVL", 5))
             shell.env[i] = final;
         i++;
+    }
     }
 }
 
@@ -118,7 +128,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         if (!strcmp(input, "''") || !strcmp(input, "\"\"") || check_unclosed_quotes(input, 0, 0, 0) || check_prohibited_char(input) || !validate_redirection_syntax(input) || !pipe_syntax(input, 0, 0))
         {
             if (!strcmp(input, "\"\"") || !strcmp(input, "''"))
-                printf("minishell: : command not found\n");
+                perror("minishell: : command not found\n");
             free(input);
             free(input_rl);
             continue; 

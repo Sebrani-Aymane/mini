@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 16:31:04 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:08:13 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exitt(env_vars *env, t_line *final)
 	num = ft_atoll(arg->content);
 	if (arg->next)
 	{
-		printf("minishell: exit: too many arguments\n");
+		perror("minishell: exit: too many arguments\n");
 		exit_status(1, 1);
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 02:55:10 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 18:11:36 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,6 @@ void expand(t_token **tokens, env_vars *list_env)
     {
         notif = 0;
         counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
-		// printf("number : %d\n", counter);
         if (counter == 0)
         {
             i++;
@@ -194,7 +193,6 @@ void expand(t_token **tokens, env_vars *list_env)
         while (counter > 0)
         {
             name = variable_name(temp_token);
-			// printf("name: %s\n", name);
             if (!strcmp(name, "\0"))
             {
                 notif = 1;
@@ -202,7 +200,6 @@ void expand(t_token **tokens, env_vars *list_env)
                 continue ;
             }
             value = get_value(list_env, name, NULL, 0);
-			// printf("value: %s\n", value);
 			if (value && strchr(value, ' '))
 				tokens[i]->divide_space = 1;
 			else
@@ -217,7 +214,6 @@ void expand(t_token **tokens, env_vars *list_env)
 			if (!strcmp(name, "_") && !strcmp(value, "/usr/bin/env"))
 				value = ft_strdup("env");
             new_token = replace_value(temp_token, value, name);
-			// printf("new token: %s\n", new_token);
             temp_token = new_token;
 			counter = dollars_number(temp_token, tokens[i]->need_expand);
         }
