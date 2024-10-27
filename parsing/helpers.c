@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 04:42:22 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 17:29:32 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void last_command(env_vars *list, t_line *final)
 	t_node *last_token;
 	t_node *curr = final->tokens;
 	int final_size = ft_listsize(final);
-	if (!list)
+	if (!list || !final)
 		return;
 	while (list)
 	{
@@ -232,14 +232,18 @@ void copy_without_spaces(char *dst, char *src)
 {
 	int i;
 	int j;
+	int k;
 
 	i = pass_spaces(src);
-	j = 0;
-	while (src[i])
+	j = ft_strlenn(src) - 1;
+	k = 0;
+	while (src[j] == ' ' || src[j] == '\t')
+		j--;
+	while (i <= j)
 	{
-		dst[j] = src[i];
+		dst[k] = src[i];
 		i++;
-		j++;
+		k++;
 	}
-	dst[j] = '\0';
+	dst[k] = '\0';
 }

@@ -1,19 +1,5 @@
 
 
-
-// int	ft_is_space(char *input) if null or '\0' returns 1 (?????)
-
-// ➜  minishell git:(master) ✗ ./minishell
-// minishell-1.0$ /
-// [1]    26819 segmentation fault  ./minishell
-
-// minishell-1.0$ echo $?
-// 0
-// minishell-1.0$ gtvcfrvgtcf
-// minishell: gtvcfrvgtcf :command not found
-// minishell-1.0$ echo $?
-// 127
-
 // check all sys calls for fail
 // check all strings if NULL before passing it to a libft function
 

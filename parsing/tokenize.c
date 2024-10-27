@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
-/*   Updated: 2024/09/25 19:05:03 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 17:27:37 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	tokens_number(char *input, int i, int count, int i_d)
 	i_s = 0;
 	while (input[i] == ' ' || input[i] == '\t')
 		i++;
-	end = ft_strlen(input) - 1;
+	end = ft_strlen(input);
 	while (end > 0 && (input[end] == ' ' || input[end] == '\t'))
 		end--;
 	if (i == end)
@@ -48,6 +48,7 @@ int	tokens_number(char *input, int i, int count, int i_d)
 	}
 	return (count + 1);
 }
+
 
 int	divide(char *input, int start, int inside_d, int inside_s)
 {
