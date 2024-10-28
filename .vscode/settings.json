@@ -1,6 +1,11 @@
 {
     "files.autoSave": "afterDelay",
     "files.associations": {
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "__bit_reference": "c",
+        "algorithm": "c",
+        "bitset": "c",
+        "chrono": "c",
+        "unordered_map": "c"
     }
 }
