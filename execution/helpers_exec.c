@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 23:01:26 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:44:30 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 	i = 0;
 	if (n == 0)
-		return (0);
+		return (1);
 	if (!s1)
 		return(-1);
 	while (i < n - 1 && s1[i] == s2[i] && s2[i] && s1[i])

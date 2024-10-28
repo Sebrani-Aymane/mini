@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 22:45:37 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:48:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 int	execute_blts(char *blt, t_line *final,
 						env_vars *list, char **env)
@@ -52,8 +53,8 @@ int	execute_blts(char *blt, t_line *final,
 		if (ret == -1)
 		{
 			ret = 1;
-			printf("minishell: cd: %s", final->tokens->next->content);
-			perror("no such file or directory\n");
+			printf("minishell: cd: %s ", final->tokens->next->content);
+			printf("no such file or directory\n");
 		}
 	}
 	else if (ft_strncmp(blt, "unset", 5) == 0)
