@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 18:08:13 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 23:01:26 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	i = 0;
 	if (n == 0)
 		return (0);
+	if (!s1)
+		return(-1);
 	while (i < n - 1 && s1[i] == s2[i] && s2[i] && s1[i])
 		i++;
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));

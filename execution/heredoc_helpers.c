@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:22:57 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 03:04:37 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 23:19:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count)
 		if (glob_var)
 			return ;
 		close(heredocs[i].fd[1]);
-		i ++;
+		i++;
 	}
 	exit(0);
 }

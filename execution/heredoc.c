@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 03:16:16 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 23:21:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	process_heredoc(t_heredoc *heredoc, env_vars *list_env)
 	t_token	**hered_tokens;
 	int		len;
 
-	len = ft_strlenn(heredoc->delimiter);
 	while (1)
 	{
 		input = readline(">");
 		if (!input)
 			return ;
+		len = ft_strlenn(input);
 		if (ft_strncmp(input, heredoc->delimiter,
 				len) == 0)
 		{
@@ -87,12 +87,15 @@ void	handle_heredoc(t_line *final, env_vars *list_env)
 	heredocs = get_heredocs(final, count);
 	if (!heredocs)
 		return ;
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 		child_heredoc(heredocs, list_env, count);
 	while (i < count)
 		close(heredocs[i++].fd[1]);
 	waitpid(pid, NULL, 0);
+	signal(SIGINT, sigint_handler);
+	
 	if (final)
 		final->fd_in = dup(heredocs[count - 1].fd[0]);
 	i = 0;

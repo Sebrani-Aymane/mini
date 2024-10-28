@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 18:52:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 23:31:57 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,3 +118,4 @@ char	*ft_strdup(char *s1)
 	str[i] = '\0';
 	return (str);
 }
+ls | ls| ls| ls | ls | ls| ls | ls | ls| ls | ls | ls| ls| ls | ls | ls| ls | ls | ls| ls | ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |ls | ls| ls| ls | ls | ls| ls | ls | ls| ls |

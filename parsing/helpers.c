@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 19:30:58 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 22:59:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,8 @@ void last_command(env_vars *list, t_line *final)
 		return;
 	while (list)
 	{
-		if (!ft_strcmp(list->vars , "_"))
-		{
+		if (!ft_strncmp(list->vars , "_",1))
 			break;
-		}
 		list = list->next;
 	}
 	if (final_size > 1 && list)

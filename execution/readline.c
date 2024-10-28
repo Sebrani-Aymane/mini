@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 18:09:04 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 22:45:37 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	execute_blts(char *blt, t_line *final,
 {
 	int		ret;
 	char	*pwd;
-
+	int		flag;
+	
+	flag = 0;
 	ret = 0;
 	if (ft_strncmp(blt, "echo", 4) == 0)
 		echoo(final->tokens);
@@ -25,10 +27,14 @@ int	execute_blts(char *blt, t_line *final,
 	{
 		pwd = pwdd(list);
 		if (!pwd)
+		{
 			pwd = getcwd(NULL, 0);
+			flag = 1;
+		}
 		ft_putstr(pwd, 1);
 		ft_putstr("\n", 1);
-		free(pwd);
+		if (flag)
+			free(pwd);
 	}
 	else if (ft_strncmp(blt, "export", 6) == 0)
 	{

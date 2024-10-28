@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:18:51 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 00:30:59 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:55:43 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	unset_variable(env_vars **env, env_vars *curr, env_vars *prev)
 		prev->next = curr->next;
 	curr->vars = NULL;
 	curr->var_value = NULL;
+	curr = NULL;
 	return (0);
 }
 
@@ -28,17 +29,19 @@ int	process_unset(env_vars *env_bkp, t_node *current)
 	env_vars	*curr;
 	env_vars	*prev;
 	int			ret;
+	int			len;
 
 	prev = NULL;
 	while (current)
 	{
-		if (check_key(current->content) == 1)
+		if (check_key(current->content) == 1 && ft_strncmp("_", current->content, len))
 		{
 			ret = 0;
 			curr = env_bkp;
+			len = ft_strlenn(current->content);
 			while (curr)
 			{
-				if (ft_strcmp(curr->vars, current->content) == 0)
+				if (ft_strncmp(curr->vars, current->content, len) == 0)
 					unset_variable(&env_bkp, curr, prev);
 				prev = curr;
 				curr = curr->next;

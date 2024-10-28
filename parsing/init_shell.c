@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 19:03:27 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/27 23:07:43 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         {
             if (!strcmp(input, "\"\"") || !strcmp(input, "''"))
                 perror("minishell: : command not found\n");
+            exit_status(1, 127);
             free(input);
             free(input_rl);
             continue; 
@@ -136,6 +137,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
         if (ft_strlenn(input) == 1 && input[0] != '/')
         {
             printf("minishell: %c:command not found\n", input[0]);
+            exit_status(1, 127);
             free(input);
             free(input_rl);
             continue ; 
