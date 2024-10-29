@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 16:48:22 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:32:13 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	execute_blts(char *blt, t_line *final,
 			pwd = getcwd(NULL, 0);
 			flag = 1;
 		}
+		if (!pwd)
+			pwd = list->pwd;
 		ft_putstr(pwd, 1);
 		ft_putstr("\n", 1);
 		if (flag)
@@ -126,6 +128,7 @@ int	excutefilepath(t_line *final, env_vars *list, char **env)
 		if (!to_do && !get_path_from_list(list, "PATH"))
 		{
 			exit_status(1, 127);
+			execve(av[0], av, env);
 			exit(127);
 		}
 	}

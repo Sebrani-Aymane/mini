@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 16:24:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:28:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct env_vars_t{
 	char *vars;
 	char *var_value;
 	char **env;
+    char *pwd;
 	struct env_vars_t *next;
 }  env_vars;
 

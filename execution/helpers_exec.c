@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 16:44:30 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/29 23:06:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	if (n == 0)
 		return (1);
 	if (!s1)
-		return(-1);
+		return (-1);
 	while (i < n - 1 && s1[i] == s2[i] && s2[i] && s1[i])
 		i++;
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
@@ -44,13 +44,16 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 void	exit_help(t_node *arg)
 {
-	write(2, "exit\n",5);
-	write(2, "minishell: exit: ",17);
-	write(2, arg->content, ft_strlen(arg->content));
-	write( 2, "numeric argument required\n",17);
+	int	len;
+
+	len = ft_strlen(arg->content);
+	write(2, "exit\n", 5);
+	write(2, "minishell: exit: ", 17);
+	write(2, arg->content, len);
+	write(2, "numeric argument required\n", 17);
 	exit_status(1, 255);
 	c_malloc(0, 0);
-	exit(255);
+	exit (255);
 }
 
 void	exitt(env_vars *env, t_line *final)

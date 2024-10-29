@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 23:07:43 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/29 20:17:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void display_prompt(t_list shell, char **env, env_vars *list_env)
             continue;
         }
         glob_var = 0;
-        input = malloc(sizeof(char) * ((ft_strlenn(input_rl) - pass_spaces(input_rl)) + 2));
+        input = calloc(sizeof(char), ((ft_strlenn(input_rl) - pass_spaces(input_rl)) + 2));
         copy_without_spaces(input, input_rl);
         if (ft_is_space(input) || (input[0] == ':' && !input[1]) || check_for_and(input))
         {

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 16:23:30 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:29:31 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	check_eccho(t_node *node)
 
 void	check_echo_flags(t_node **current, int *newline)
 {
-	t_node	*tmp = NULL;
+	t_node	*tmp;
 
+	tmp = NULL;
 	*newline = 1;
 	if ((*current)->next)
 		*current = (*current)->next;
@@ -86,7 +87,9 @@ int	exit_status(int type, int value)
 	static int	var;
 
 	if (type == GET)
+	{
 		return (var);
+	}
 	if (type == SET)
 		var = value;
 	return (var);

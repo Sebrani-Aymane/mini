@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 06:28:06 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/28 19:05:34 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_path_from_list(env_vars *list, char *str)
 	{
 		if (ft_strncmp(temp->vars, str, len) == 0)
 		{
-			path = ft_strdupp(temp->var_value);
+			path = ft_strdup(temp->var_value);
 			return (path);
 		}
 		temp = temp-> next;

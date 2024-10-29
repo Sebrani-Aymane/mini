@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 16:23:57 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/29 23:05:19 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	export_it(env_vars *env, char *str)
 		if (ft_strncmp(env->vars, key, ft_strlenn(key) == 0
 				|| ft_strncmp(env->next->vars, key, ft_strlenn(key)) == 0))
 		{
-			if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)	
-					env->var_value = ft_strdup(value + 1);
+			if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)
+				env->var_value = ft_strdup(value + 1);
 			else if (ft_strncmp(env->next->vars, key, ft_strlenn(key)) == 0)
 				env->next->var_value = ft_strdup(value + 1);
 			return (0);
