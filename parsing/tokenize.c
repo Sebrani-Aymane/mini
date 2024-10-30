@@ -6,19 +6,12 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/27 17:27:37 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:40:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_quotes(char *input, int *inside_d, int *inside_s, int i)
-{
-	if (input[i] == '"' && (*inside_s) == 0)
-		(*inside_d) = !(*inside_d);
-	else if (input[i] == '\'' && *inside_d == 0)
-		(*inside_s) = !(*inside_s);
-}
 
 int	tokens_number(char *input, int i, int count, int i_d)
 {
@@ -48,7 +41,6 @@ int	tokens_number(char *input, int i, int count, int i_d)
 	}
 	return (count + 1);
 }
-
 
 int	divide(char *input, int start, int inside_d, int inside_s)
 {

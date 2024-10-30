@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 04:42:47 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:49:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,11 +192,11 @@ t_line *tokens_to_lines(t_node *tokens);
 t_node  *ft_lstnew(char *content);
 int	ft_lstsize(t_node *lst);
 int pipe_syntax(char *input, int i, int in_quotes);
-int open_files(t_line *lines);
+int	open_files(t_line *lines, t_node *curr_node, int in, int out);
 void    *c_malloc(size_t size, int flag);
 int	ft_atoi(const char *str);
 int dollar_inside_quotes_alone(char *content);
-int get_shlvl(char **env);
+int	get_shlvl(char **env, int notif, int i);
 void set_shlvl(t_list shell);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -207,10 +207,30 @@ int check_edge_case(char *content);
 char *pass_dollar(char *content);
 char	*ft_strdup(char *s1);
 t_node	*ft_lstlast(t_node *lst);
-void last_command(env_vars *list, t_line *final);
+void	last_command(env_vars *list, t_line *final, int final_size, t_node *curr);
 char	*copy_str(char *dest, char *src);
 void sigint_hand_heredoc(int signal);
 void	sigint_handler(int signal);
 int pass_spaces(char *input);
 void copy_without_spaces(char *dst, char *src);
+void sig_handler(char *input_rl);
+int	inside_quotes(char *str);
+int	contains_only_symbol(char *str);
+int	contains_symbol(char *str);
+int	can_expand(char *input);
+int	check_edge_case(char *content);
+int	ft_is_space(char *input);
+void	add_node(t_node **list, char *content);
+void	add_token(t_node **list, char *content, int start, int end);
+int	dollars_number(char *content, int need_exp);
+int	find_var_end(char *input, int *start);
+char	*variable_name(char *input);
+char	*exp_exit_status(char *num);
+char	*get_value(env_vars *list_env, char *name, char *value, int j);
+int	check_input(char *input);
+void	check_quotes(char *input, int *inside_d, int *inside_s, int i);
+void	quotes_handle(char *input, int *inside_q, int *q_type, int i);
+int	print_error_message(int i, char *input);
+int	handle_redirec_edge_cases(char *input);
+void	final_tokens(t_node *token);
 #endif

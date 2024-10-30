@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/20 12:13:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:38:44 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,53 +20,6 @@ infile 4
 outfile 5
 append 6
 */
-
-char	*remove_quotes(char *content, int i, int j, char c)
-{
-	char	*final;
-
-	final = c_malloc(sizeof(char) * ft_strlen(content) + 1, 1);
-	if (!final)
-		return (NULL);
-	while (content && content[i])
-	{
-		if (content[i] == '\'' || content[i] == '\"')
-		{
-			c = content[i++];
-			while (content[i])
-			{
-				if (content[i] != c)
-					final[j++] = content[i];
-				else if (content[i] == c)
-					break ;
-				i++;
-			}
-		}
-		else
-			final[j++] = content[i];
-		if (content[i])
-			i++;
-	}
-	final[j] = '\0';
-	return (final);
-}
-
-void	final_tokens(t_node *token)
-{
-	t_node	*current;
-	char	*final;
-
-	current = token;
-	while (current)
-	{
-		final = remove_quotes(current->content, 0, 0, 0);
-		if (final)
-		{
-			current->content = final;
-		}
-		current = current->next;
-	}
-}
 
 void	redirections_classifier(t_node **lst_token)
 {
@@ -84,7 +37,6 @@ void	redirections_classifier(t_node **lst_token)
 		else if (current->type == 3 && (!strcmp(current->content, "<<"))
 			&& current->next != NULL)
 			current->next->type = 3;
-			
 		current = current->next;
 	}
 }

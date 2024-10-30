@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/27 00:46:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:40:16 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	handle_redirections(t_line *final)
 {
-	open_files(final);
+	open_files(final, final->tokens, 0, 0);
 	if (final->fd_in != 0)
 	{
 		dup2(final->fd_in, 0);
@@ -144,6 +144,8 @@ int	handle_pipe(t_line *final, char **env, env_vars *list)
 		exit_status(1, WEXITSTATUS(status));
 	dup2(fd_in, 0);
 	close(fd_in);
+	if(final->fd_in)
+		close(final->fd_in);
 	return (ret);
 }
 // Main pipe handler
