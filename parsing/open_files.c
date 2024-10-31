@@ -6,11 +6,20 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 20:26:51 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:25:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+word 1
+built 2
+heredoc 3
+infile 4
+outfile 5
+append 6
+*/
 
 int	in_file(t_node *token)
 {
@@ -47,7 +56,6 @@ int	out_file(t_node *token)
 	return (fd);
 }
 
-//TODO: close prev files
 int	open_files(t_line *curr_line, t_node *curr_node, int in, int out)
 {
 	while (curr_line)
@@ -55,7 +63,8 @@ int	open_files(t_line *curr_line, t_node *curr_node, int in, int out)
 		curr_node = curr_line->tokens;
 		while (curr_node && curr_node->next)
 		{
-			if (curr_node->type == 5 && curr_node->next->type == 5)
+			if ((curr_node->type == 5 && curr_node->next->type == 5)
+				|| (curr_node->type == 6 && curr_node->next->type == 6))
 			{
 				out = out_file(curr_node->next);
 				curr_line->fd_out = out;

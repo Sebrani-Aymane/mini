@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 06:31:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 18:51:35 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void	process_heredoc(t_heredoc *heredoc, env_vars *list_env)
 	}
 }
 
-void	handle_heredoc(t_line *final, env_vars *list_env)
+void	handle_heredoc(t_line *final, env_vars *list_env, struct termios *stats)
 {
 	t_heredoc	*heredocs;
 	int			count;
 	int			pid;
 	int			i;
-
+	int status;
 	i = 0;
 	count = check_for_herdoc(final);
 	if (count == 0)
@@ -93,9 +93,12 @@ void	handle_heredoc(t_line *final, env_vars *list_env)
 		child_heredoc(heredocs, list_env, count);
 	while (i < count)
 		close(heredocs[i++].fd[1]);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WEXITSTATUS(status) == 100)
+		glob_var = 100;
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, stats) < 0)
+        perror("Error restoring terminal attributes");
 	signal(SIGINT, sigint_handler);
-	
 	if (final)
 		final->fd_in = dup(heredocs[count - 1].fd[0]);
 	i = 0;

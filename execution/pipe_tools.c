@@ -3,76 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/26 23:26:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:00:02 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	chdiir_help(t_line *final, env_vars *list, char *pwd)
+
+void	close_files(t_line *final)
 {
-	t_node		*token;
-	env_vars	*temp;
-
-	token = final->tokens->next;
-	temp = list;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->vars, "OLDPWD", 6))
-			temp ->var_value = ft_strdup(pwd);
-		else if (!ft_strncmp(temp->vars, "PWD", 3))
-			temp->var_value = str_joiner(get_path_from_list(list,
-						"PWD"), "/..");
-		temp = temp ->next;
-	}
-	write(2,"cd: error retrieving current directory: getcwd: ",
-		48); 
-	write(2,"cannot access parent directories: No such file or directory\n",
-		60);
-}
-
-void	chdiir_help2(t_line *final, env_vars *list, char *pwd)
-{
-	t_node		*token;
-	env_vars	*temp;
-
-	token = final->tokens->next;
-	temp = list;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->vars, "OLDPWD", 6))
-			temp->var_value = strdup(pwd);
-		else if (!ft_strncmp(temp->vars, "PWD", 3))
-			temp->var_value = str_joiner(get_path_from_list(list,
-						"PWD"), "/.");
-		temp = temp ->next;
-	}
-	write(2,"cd: error retrieving current directory: getcwd: ",
-		48); 
-	write(2,"cannot access parent directories: No such file or directory\n",
-		59);
-}
-
-
-int	handle_one_blt(t_line *final, char **env, env_vars *list)
-{
-	int	ret;
-
-	ret = 0;
-	handle_redirections(final);
-	ret = execute_blts(final->tokens->content, final, list, env);
 	if (final->fd_in != 0)
-	{
-		dup2(final->fd_in, 0);
-		close(final->fd_in);
-	}
-	if (final ->fd_out != 1)
-	{
-		dup2(final->fd_in, 1);
-		close(final->fd_out);
-	}
-	return (ret);
+				{
+					dup2(final->fd_in, 0);
+					close(final->fd_in);
+				}
+				if (final ->fd_out != 1)
+				{
+					dup2(final->fd_out, 1);
+					close(final->fd_out);
+				}
 }
+
+// int	handle_child(t_line *final, char **env, env_vars *list,int *pipes_count)
+// {
+// 	int	pid;
+// 	int ret;
+// 	int fd[2];
+// 	if (pipes_count > 1 && pipe(fd) == -1)
+// 		return (ft_putstr("error in pipes", 2), 20);
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		if (pid == 0)
+// 		{
+// 			signals_ignore();
+// 			if (i != pipes_count - 1)
+// 			{
+// 				if (dup2(fd[1], 1) == -1)
+// 					return (ft_putstr("error in dup2", 2), -1);
+// 				if (close(fd[0]) == -1)
+// 					write(2, "something really bad\n", 21);
+// 			}
+// 			handle_redirections(final);
+// 			ret = execute_the_thing(final, env, list);
+// 			close_files(final);
+// 			exit(1);
+// 		}
+// 	}
+// }

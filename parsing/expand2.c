@@ -6,12 +6,11 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:32:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:34:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:22:20 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	dollars_number(char *content, int need_exp)
 {

@@ -6,11 +6,36 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:39:33 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:48:38 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:21:49 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	**copy_env(char **env)
+{
+	int		size;
+	char	**to_copy;
+	int		i;
+
+	i = 0;
+	size = 0;
+	while (env && env[size])
+		size++;
+	to_copy = c_malloc ((sizeof(char *) * (size + 1)), 1);
+	if (!to_copy)
+	{
+		c_malloc(0, 0);
+		exit(1);
+	}
+	while (env[i])
+	{
+		to_copy[i] = ft_strdup(env[i]);
+		i++;
+	}
+	to_copy[i] = NULL;
+	return (to_copy);
+}
 
 void	check_quotes(char *input, int *inside_d, int *inside_s, int i)
 {
@@ -20,8 +45,12 @@ void	check_quotes(char *input, int *inside_d, int *inside_s, int i)
 		(*inside_s) = !(*inside_s);
 }
 
-int	check_input(char *input)
+int	check_input(char *input, char *input_rl)
 {
+	if (ft_is_space(input_rl))
+	{
+		return (1);
+	}
 	if (ft_is_space(input) || (input[0] == ':'
 			&& !input[1]) || check_for_and(input))
 		return (1);

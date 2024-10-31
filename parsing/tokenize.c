@@ -6,12 +6,11 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:40:04 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:26:35 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	tokens_number(char *input, int i, int count, int i_d)
 {

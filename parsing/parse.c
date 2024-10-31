@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:38:44 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:26:11 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ void	redirections_classifier(t_node **lst_token)
 		if (current->type == 4 && !strcmp(current->content, "<")
 			&& current->next != NULL && strcmp(current->next->content, ">"))
 			current->next->type = 4;
-		else if (current->type == 5 && (!strcmp(current->content, ">")
-				|| !strcmp(current->content, ">>")) && current->next != NULL)
+		else if (current->type == 5 && !strcmp(current->content, ">")
+			&& current->next != NULL)
 			current->next->type = 5;
+		else if (current->type == 6 && !strcmp(current->content, ">>")
+			&& current->next != NULL)
+			current->next->type = 6;
 		else if (current->type == 3 && (!strcmp(current->content, "<<"))
 			&& current->next != NULL)
 			current->next->type = 3;
@@ -50,9 +53,10 @@ void	giving_type(t_node *token)
 	{
 		if (!strcmp(current->content, "<"))
 			current->type = 4;
-		else if (!strcmp(current->content, ">")
-			|| !strcmp(current->content, ">>"))
+		else if (!strcmp(current->content, ">"))
 			current->type = 5;
+		else if (!strcmp(current->content, ">>"))
+			current->type = 6;
 		else if (!strcmp(current->content, "<<"))
 			current->type = 3;
 		else if (!strcmp(current->content, "echo")

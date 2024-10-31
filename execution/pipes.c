@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/30 19:40:16 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 16:25:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	handle_pipe(t_line *final, char **env, env_vars *list)
 	{
 		ret = handle_one_blt(final, env, list);
 		exit_status(1, ret);
+		return (ret);
 	}
 	else
 	{
@@ -130,22 +131,22 @@ int	handle_pipe(t_line *final, char **env, env_vars *list)
 		}
 	}
 	while (pipes_count-- > 0)
-		wait(&status);
-	signals_allow();
-	if (WIFSIGNALED(status))
 	{
-		if (WTERMSIG(status) == SIGINT)
-			printf("\n");
-		else if (WTERMSIG(status) == SIGQUIT)
-			printf("Quit: 3\n");
-		exit_status(1, WTERMSIG(status) + 128);
+		wait(&status);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT)
+				printf("\n");
+			else if (WTERMSIG(status) == SIGQUIT)
+				printf("Quit: 3\n");
+			exit_status(1, WTERMSIG(status) + 128);
+		}
+		if (WIFEXITED(status))
+			exit_status(1, WEXITSTATUS(status));
 	}
-	else if (WIFEXITED(status))
-		exit_status(1, WEXITSTATUS(status));
 	dup2(fd_in, 0);
 	close(fd_in);
-	if(final->fd_in)
-		close(final->fd_in);
+	signals_allow();
 	return (ret);
 }
 // Main pipe handler

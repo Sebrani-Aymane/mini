@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/30 21:49:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:19:27 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ typedef struct env_vars_t{
 	char *vars;
 	char *var_value;
 	char **env;
+    char *pwd;
 	struct env_vars_t *next;
-    int exit;
 }  env_vars;
 
 
@@ -154,7 +154,7 @@ long long ft_atoll(char *str);
 void	ft_putstr(char *s, int fd);
 int handle_one_blt(t_line *final,char **env,env_vars *list);
 int is_dir(char *parth);
-void handle_heredoc(t_line *final, env_vars *list_env);
+void	handle_heredoc(t_line *final, env_vars *list_env, struct termios *stats);
 void chdiir_help2(t_line *final,env_vars *list,char *pwd);
 void check_echo_flags(t_node **current, int *newline);
 int	cd_helper(t_line *final, env_vars *list, char **env);
@@ -165,6 +165,8 @@ int get_delim_expand_pipe(t_line *final, t_heredoc	*heredocs, int *len);
 void	writing_heredoc(t_token **hered_tokens, t_heredoc *heredoc, env_vars *list);
 void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count);
 char	*ft_strdupp(char *s1);
+void	signals_ignore(void);
+void	signals_allow(void);
 //////////////////*PARSING*//////////////////////////
 
 
@@ -227,7 +229,7 @@ int	find_var_end(char *input, int *start);
 char	*variable_name(char *input);
 char	*exp_exit_status(char *num);
 char	*get_value(env_vars *list_env, char *name, char *value, int j);
-int	check_input(char *input);
+int	check_input(char *input, char *input_rl);
 void	check_quotes(char *input, int *inside_d, int *inside_s, int i);
 void	quotes_handle(char *input, int *inside_q, int *q_type, int i);
 int	print_error_message(int i, char *input);

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 20:29:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:24:48 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ void	sig_handler(char *input_rl)
 	}
 }
 
+void	sigint_hand_heredoc(int signal)
+{
+	(void)signal;
+	printf("\n");
+	exit(100);
+}
+
 void	sigint_handler(int signal)
 {
 	(void)signal;
@@ -30,15 +37,6 @@ void	sigint_handler(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	glob_var = SIGINT;
-}
-
-void	sigint_hand_heredoc(int signal)
-{
-	(void)signal;
-	printf("\n");
-	glob_var = SIGINT;
-	exit(1);
 }
 
 void	handle_signals(void)

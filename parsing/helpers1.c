@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:29:44 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 20:22:54 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_strchr(char *s, int c)
 	}
 	return (0);
 }
-
 
 int	ft_strlen(char *str)
 {
@@ -53,6 +52,7 @@ void	check_for_delimeter(t_node *tokens)
 		current = current->next;
 	}
 }
+
 void	add_node(t_node **list, char *content)
 {
 	t_node	*new_node;
