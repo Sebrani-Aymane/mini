@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/31 20:19:27 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 21:34:53 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,10 +229,11 @@ int	find_var_end(char *input, int *start);
 char	*variable_name(char *input);
 char	*exp_exit_status(char *num);
 char	*get_value(env_vars *list_env, char *name, char *value, int j);
-int	check_input(char *input, char *input_rl);
+int	check_input(char *input);
 void	check_quotes(char *input, int *inside_d, int *inside_s, int i);
 void	quotes_handle(char *input, int *inside_q, int *q_type, int i);
 int	print_error_message(int i, char *input);
 int	handle_redirec_edge_cases(char *input);
 void	final_tokens(t_node *token);
+int pass_spaces_end(char *input);
 #endif

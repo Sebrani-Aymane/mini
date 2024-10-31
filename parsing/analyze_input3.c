@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:39:33 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:21:49 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 21:34:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,8 @@ void	check_quotes(char *input, int *inside_d, int *inside_s, int i)
 		(*inside_s) = !(*inside_s);
 }
 
-int	check_input(char *input, char *input_rl)
+int	check_input(char *input)
 {
-	if (ft_is_space(input_rl))
-	{
-		return (1);
-	}
 	if (ft_is_space(input) || (input[0] == ':'
 			&& !input[1]) || check_for_and(input))
 		return (1);

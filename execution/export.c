@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/29 23:05:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/10/31 21:01:51 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ int	export_it(env_vars *env, char *str)
 	key = get_till(str, '=');
 	while (env && env ->next)
 	{
-		if (ft_strncmp(env->vars, key, ft_strlenn(key) == 0
-				|| ft_strncmp(env->next->vars, key, ft_strlenn(key)) == 0))
-		{
 			if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)
-				env->var_value = ft_strdup(value + 1);
+				return(env->var_value = ft_strdup(value + 1),0);
 			else if (ft_strncmp(env->next->vars, key, ft_strlenn(key)) == 0)
-				env->next->var_value = ft_strdup(value + 1);
-			return (0);
-		}
-		else
+				return (env->next->var_value = ft_strdup(value + 1),0);
 			env = env->next;
 	}
 	ret = valid_to_add(env, str);

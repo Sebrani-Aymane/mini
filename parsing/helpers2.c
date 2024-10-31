@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:27:48 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:28:25 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/10/31 21:38:24 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ int	pass_spaces(char *input)
 		i++;
 	return (i);
 }
+int pass_spaces_end(char *input)
+{
+	int i;
+
+	i = ft_strlenn(input) - 1;
+	while (input[i] == ' ' || input[i] == '\t')
+		i--;
+	return (i);
+}
 
 void	copy_without_spaces(char *dst, char *src)
 {
@@ -92,6 +101,8 @@ void	copy_without_spaces(char *dst, char *src)
 	i = pass_spaces(src);
 	j = ft_strlenn(src) - 1;
 	k = 0;
+	if (!src && !*src)
+		return ;
 	while (src[j] == ' ' || src[j] == '\t')
 		j--;
 	while (i <= j)
