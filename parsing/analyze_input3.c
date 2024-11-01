@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:39:33 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 21:34:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:09:00 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,20 @@ int	check_input(char *input)
 		return (1);
 	}
 	return (0);
+}
+
+char	*pass_dollar(char *content)
+{
+	int		i;
+	char	*new;
+
+	new = c_malloc(ft_strlen(content), 1);
+	i = 1;
+	while (content && content[i])
+	{
+		new[i - 1] = content[i];
+		i++;
+	}
+	new[i - 1] = '\0';
+	return (new);
 }

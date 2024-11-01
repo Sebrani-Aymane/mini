@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:24:48 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:10:01 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,17 @@ void	handle_signals(void)
 
 int	main(int ac, char **av, char **env)
 {
-	t_list		shell;
-	env_vars	*list_env;
+	t_list			shell;
+	env_vars		*list_env;
+	struct termios	stats;
 
 	(void)av;
 	(void)ac;
+	if (!isatty(STDIN_FILENO))
+	{
+		perror("Error\n");
+		exit(1);
+	}
 	if (!*env)
 		env = fake_env();
 	shell.env = copy_env(env);
@@ -60,6 +66,8 @@ int	main(int ac, char **av, char **env)
 	shell.shlvl = get_shlvl(shell.env, 0, 0);
 	set_shlvl(shell);
 	handle_signals();
-	display_prompt(shell, shell.env, list_env);
+	if (tcgetattr(STDIN_FILENO, &stats) < 0)
+		perror("terminal error ");
+	display_prompt(shell, shell.env, list_env, &stats);
 	c_malloc(0, 0);
 }

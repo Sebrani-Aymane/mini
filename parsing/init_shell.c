@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 21:39:24 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:09:44 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,11 @@ int	execution(char **env, env_vars *list_env, t_list *shell,
 	return (1);
 }
 
-void	display_prompt(t_list shell, char **env, env_vars *list_env)
+void	display_prompt(t_list shell, char **env, env_vars *list_env,
+						struct termios *stats)
 {
 	char			*input_rl;
-	struct termios	stats;
 
-	if (tcgetattr(STDIN_FILENO, &stats) < 0)
-		perror("terminal error ");
 	while (1)
 	{
 		input_rl = readline("minishell-1.0$ ");
@@ -117,15 +115,15 @@ void	display_prompt(t_list shell, char **env, env_vars *list_env)
 		if (ft_is_space(input_rl))
 		{
 			free(input_rl);
-			continue;
+			continue ;
 		}
 		glob_var = 0;
 		if (!parse(input_rl, &shell, list_env))
 			continue ;
-		if (!execution(env, list_env, &shell, &stats))
+		if (!execution(env, list_env, &shell, stats))
 			continue ;
 		free(input_rl);
-		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &stats) < 0)
+		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, stats) < 0)
 			perror("terminal error ");
 	}
 }

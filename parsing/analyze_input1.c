@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:19:28 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 21:27:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 14:40:29 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	check_edge_case(char *content)
 	i = 0;
 	d_quote = 0;
 	s_quote = 0;
+	if (!content)
+		return (0);
 	while (content && content[i])
 	{
 		if (content[i] == '"' && s_quote == 0)
