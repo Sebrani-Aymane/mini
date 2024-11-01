@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:18:51 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 16:50:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:57:56 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@ int	unset_variable(env_vars **env, env_vars *curr, env_vars *prev)
 	return (0);
 }
 
+void	find_and_unset_variable(env_vars **env_bkp, char *content)
+{
+	env_vars	*curr;
+	env_vars	*prev;
+	int			len;
+
+	prev = NULL;
+	curr = *env_bkp;
+	len = ft_strlenn(content);
+	while (curr)
+	{
+		if (ft_strncmp(curr->vars, content, len) == 0)
+			unset_variable(env_bkp, curr, prev);
+		prev = curr;
+		curr = curr->next;
+	}
+}
+
 int	process_unset(env_vars *env_bkp, t_node *current)
 {
 	env_vars	*curr;
@@ -34,18 +52,13 @@ int	process_unset(env_vars *env_bkp, t_node *current)
 	prev = NULL;
 	while (current)
 	{
-		if (check_key(current->content) == 1 && ft_strncmp("_", current->content, len))
+		if (check_key(current->content) == 1
+			&& ft_strncmp("_", current->content, len))
 		{
 			ret = 0;
 			curr = env_bkp;
 			len = ft_strlenn(current->content);
-			while (curr)
-			{
-				if (ft_strncmp(curr->vars, current->content, len) == 0)
-					unset_variable(&env_bkp, curr, prev);
-				prev = curr;
-				curr = curr->next;
-			}
+			find_and_unset_variable(&env_bkp, current->content);
 		}
 		else
 			ret = 1;
@@ -57,11 +70,13 @@ int	process_unset(env_vars *env_bkp, t_node *current)
 int	unset(env_vars *env, t_line *final)
 {
 	t_node	*current;
+	int		res;
 
 	if (!env || !final->tokens->next)
 		return (1);
 	current = final->tokens->next;
-	return (process_unset(env, current));
+	res = process_unset(env, current);
+	return (res);
 }
 
 int	check_exit_stat(t_line *final)
@@ -78,22 +93,6 @@ int	check_exit_stat(t_line *final)
 		if (curr->content[i] == '+' || curr->content[i] == '-')
 			i++;
 		if (ft_isalpha(curr->content[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	is_valid_number(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}

@@ -6,39 +6,57 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 19:32:13 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 00:38:14 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
 
-int	execute_blts(char *blt, t_line *final,
-						env_vars *list, char **env)
+int	handle_pwd_command(env_vars *list)
 {
-	int		ret;
 	char	*pwd;
-	int		flag;
-	
+	int		flag;	
+
 	flag = 0;
+	pwd = pwdd(list);
+	if (!pwd)
+	{
+		pwd = getcwd(NULL, 0);
+		flag = 1;
+	}
+	if (!pwd)
+		pwd = list->pwd;
+	ft_putstr(pwd, 1);
+	ft_putstr("\n", 1);
+	if (flag)
+		free(pwd);
+	return (0);
+}
+
+int	handle_cd_command(char **env, t_line *final, env_vars *list)
+{
+	int	ret;
+
+	exit_status(1, -1);
+	ret = chdirr(env, final, list);
+	if (ret == -1)
+	{
+		ret = 1;
+		printf("minishell: cd: %s ", final->tokens->next->content);
+		printf("no such file or directory\n");
+	}
+	return (ret);
+}
+
+int	execute_blts(char *blt, t_line *final, env_vars *list, char **env)
+{
+	int	ret;
+
 	ret = 0;
 	if (ft_strncmp(blt, "echo", 4) == 0)
 		echoo(final->tokens);
 	else if (ft_strncmp(blt, "pwd", 3) == 0)
-	{
-		pwd = pwdd(list);
-		if (!pwd)
-		{
-			pwd = getcwd(NULL, 0);
-			flag = 1;
-		}
-		if (!pwd)
-			pwd = list->pwd;
-		ft_putstr(pwd, 1);
-		ft_putstr("\n", 1);
-		if (flag)
-			free(pwd);
-	}
+		ret = handle_pwd_command(list);
 	else if (ft_strncmp(blt, "export", 6) == 0)
 	{
 		if (!(final->tokens->next))
@@ -49,16 +67,7 @@ int	execute_blts(char *blt, t_line *final,
 	else if (ft_strncmp(blt, "env", 3) == 0)
 		envpp(list);
 	else if (ft_strncmp(blt, "cd", 2) == 0)
-	{
-		ret = chdirr(env, final, list);
-		exit_status(1, -1);
-		if (ret == -1)
-		{
-			ret = 1;
-			printf("minishell: cd: %s ", final->tokens->next->content);
-			printf("no such file or directory\n");
-		}
-	}
+		ret = handle_cd_command(env, final, list);
 	else if (ft_strncmp(blt, "unset", 5) == 0)
 		ret = unset(list, final);
 	else if (ft_strncmp(blt, "exit", 4) == 0)
@@ -66,27 +75,38 @@ int	execute_blts(char *blt, t_line *final,
 	return (ret);
 }
 
-char	**create_av(t_node *tokens)
+int	count_valid_tokens(t_node *tokens)
 {
 	t_node	*current;
 	int		count;
-	char	**av;
-	int		i;
 
-	i = 0;
-	current = tokens;
 	count = 0;
+	current = tokens;
 	while (current)
 	{
-		if ((current->type == 1 || current->type == 2))
+		if (current->type == 1 || current->type == 2)
 			count++;
 		current = current->next;
 	}
-	av = c_malloc (sizeof(char *) * (count + 1), 1);
+	return (count);
+}
+
+char	**create_av(t_node *tokens)
+{
+	t_node	*current;
+	char	**av;
+	int		i;
+	int		count;
+
+	i = 0;
+	count = count_valid_tokens(tokens);
+	av = c_malloc(sizeof(char *) * (count + 1), 1);
+	if (!av)
+		return (NULL);
 	current = tokens;
 	while (current)
 	{
-		if ((current->type == 1 || current->type == 2))
+		if (current->type == 1 || current->type == 2)
 		{
 			av[i] = ft_strdup(current->content);
 			i++;
@@ -95,44 +115,4 @@ char	**create_av(t_node *tokens)
 	}
 	av[i] = NULL;
 	return (av);
-}
-
-int	excutefilepath(t_line *final, env_vars *list, char **env)
-{
-	char	*to_do;
-	int		ret;
-	char	**av;
-	char	*str;
-
-	(void)list;
-	ret = 2;
-	av = create_av(final->tokens);
-	if (!av || !*av)
-		return (0);
-	if (!check_file_path(final))
-	{
-		to_do = find_executable(final, list, av);
-		if (to_do)
-		{
-			exit_status(1, 0);
-			execve(to_do, av, env);
-		}
-		else if (!to_do && get_path_from_list(list, "PATH"))
-		{
-			str = str_joiner(av[0], " :command not found\n");
-			exit_status(1, 127);
-			write(2, "minishell: ", 11);
-			write(2, str, ft_strlenn(av[0]) + 20);
-			exit(127);
-		}
-		if (!to_do && !get_path_from_list(list, "PATH"))
-		{
-			exit_status(1, 127);
-			execve(av[0], av, env);
-			exit(127);
-		}
-	}
-	else
-		help_execute_files(final, env, av);
-	return (ret);
 }

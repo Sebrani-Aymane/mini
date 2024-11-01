@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/31 18:51:35 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 00:01:00 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,35 +73,44 @@ void	process_heredoc(t_heredoc *heredoc, env_vars *list_env)
 	}
 }
 
-void	handle_heredoc(t_line *final, env_vars *list_env, struct termios *stats)
+void	handle_heredoc_parent(t_heredoc_params *params)
 {
-	t_heredoc	*heredocs;
-	int			count;
-	int			pid;
-	int			i;
-	int status;
+	int	i;
+	int	status;
+
 	i = 0;
-	count = check_for_herdoc(final);
-	if (count == 0)
-		return ;
-	heredocs = get_heredocs(final, count);
-	if (!heredocs)
-		return ;
-	signal(SIGINT, SIG_IGN);
-	pid = fork();
-	if (pid == 0)
-		child_heredoc(heredocs, list_env, count);
-	while (i < count)
-		close(heredocs[i++].fd[1]);
-	waitpid(pid, &status, 0);
+	while (i < params->count)
+		close(params->heredocs[i++].fd[1]);
+	waitpid(params->pid, &status, 0);
 	if (WEXITSTATUS(status) == 100)
 		glob_var = 100;
-	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, stats) < 0)
-        perror("Error restoring terminal attributes");
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, params->stats) < 0)
+		perror("Error restoring terminal attributes");
 	signal(SIGINT, sigint_handler);
-	if (final)
-		final->fd_in = dup(heredocs[count - 1].fd[0]);
+	if (params->final)
+		params->final->fd_in = dup(params->heredocs[params->count - 1].fd[0]);
 	i = 0;
-	while (i < count)
-		close(heredocs[i++].fd[0]);
+	while (i < params->count)
+		close(params->heredocs[i++].fd[0]);
+}
+
+void	handle_heredoc(t_line *final, env_vars *list_env, struct termios *stats)
+{
+	t_heredoc_params	params;
+
+	params.final = final;
+	params.list_env = list_env;
+	params.stats = stats;
+	params.count = check_for_herdoc(final);
+	if (params.count == 0)
+		return ;
+	params.heredocs = get_heredocs(final, params.count);
+	if (!params.heredocs)
+		return ;
+	signal(SIGINT, SIG_IGN);
+	params.pid = fork();
+	if (params.pid == 0)
+		child_heredoc(params.heredocs, params.list_env, params.count);
+	else
+		handle_heredoc_parent(&params);
 }

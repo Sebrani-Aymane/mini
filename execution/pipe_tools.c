@@ -3,54 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/31 16:00:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 18:18:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
 void	close_files(t_line *final)
 {
 	if (final->fd_in != 0)
-				{
-					dup2(final->fd_in, 0);
-					close(final->fd_in);
-				}
-				if (final ->fd_out != 1)
-				{
-					dup2(final->fd_out, 1);
-					close(final->fd_out);
-				}
+	{
+		dup2(final->fd_in, 0);
+		close(final->fd_in);
+	}
+	if (final ->fd_out != 1)
+	{
+		dup2(final->fd_out, 1);
+		close(final->fd_out);
+	}
 }
 
-// int	handle_child(t_line *final, char **env, env_vars *list,int *pipes_count)
-// {
-// 	int	pid;
-// 	int ret;
-// 	int fd[2];
-// 	if (pipes_count > 1 && pipe(fd) == -1)
-// 		return (ft_putstr("error in pipes", 2), 20);
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		if (pid == 0)
-// 		{
-// 			signals_ignore();
-// 			if (i != pipes_count - 1)
-// 			{
-// 				if (dup2(fd[1], 1) == -1)
-// 					return (ft_putstr("error in dup2", 2), -1);
-// 				if (close(fd[0]) == -1)
-// 					write(2, "something really bad\n", 21);
-// 			}
-// 			handle_redirections(final);
-// 			ret = execute_the_thing(final, env, list);
-// 			close_files(final);
-// 			exit(1);
-// 		}
-// 	}
-// }
+int	setup_pipe(struct handle_attr *attr)
+{
+	if (attr->pipes_count > 1 && pipe(attr->fd) == -1)
+		return (ft_putstr("error in pipes", 2), 20);
+	return (0);
+}
+
+int	create_child_process(struct handle_attr *attr)
+{
+	attr->pid = fork();
+	if (attr->pid == -1)
+		return (ft_putstr("error in forking", 2), -1);
+	return (0);
+}
+
+void	wait_for_children(struct handle_attr *attr)
+{
+	while (attr->pipes_count-- > 0)
+	{
+		wait(&attr->status);
+		handle_child_signals(attr->status);
+	}
+}
+
+void	cleanup_pipe_handler(struct handle_attr *attr)
+{
+	dup2(attr->fd_in, 0);
+	close(attr->fd_in);
+	signals_allow();
+}

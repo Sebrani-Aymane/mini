@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/29 19:59:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:55:13 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,20 @@ int	check_file_path(t_line *final)
 	return (0);
 }
 
-int	cd_helper(t_line *final, env_vars *list, char **env)
+int	handle_cd_home(char **env)
 {
 	char	*home;
+	int		res;
+
+	home = get_path(env, "HOME=");
+	if (!home)
+		return (write(2, "minishell: cd: HOME not set\n", 28), 0);
+	res = chdir(home);
+	return (res);
+}
+
+int	cd_helper(t_line *final, env_vars *list, char **env)
+{
 	int		res;
 	char	*pwd_bfr_cd;
 	char	*tmp;
@@ -84,10 +95,7 @@ int	cd_helper(t_line *final, env_vars *list, char **env)
 	pwd_bfr_cd = get_path_from_list(list, "PWD");
 	if (!final->tokens->next)
 	{
-		home = get_path(env, "HOME=");
-		if (!home)
-			return (write(2, "minishell: cd: HOME not set\n", 28), 0);
-		res = chdir(home);
+		res = handle_cd_home(env);
 		return (res);
 	}
 	res = chdir(final->tokens->next->content);

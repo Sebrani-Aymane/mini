@@ -3,237 +3,278 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/31 21:34:53 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 18:15:29 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
+# define SET 1
+# define GET 2
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/stat.h>
+# include <errno.h>
+# include <string.h>
+# include <strings.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <signal.h>
 
-#define SET 1
-#define GET 2
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include <string.h>
-#include <strings.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <fcntl.h>
-#include <sys/wait.h>
-#include <termios.h>
-#include <signal.h>
+int	glob_var;
 
-int glob_var;
 typedef struct s_token
 {
-    char *content;
-    int need_expand;
-    int divide_space;
+	char	*content;
+	int		need_expand;
+	int		divide_space;
 } t_token;
 
 typedef struct s_list
 {
-    t_token **tokens;
-    char **env;
-    int shlvl;
+	t_token	**tokens;
+	char	**env;
+	int		shlvl;
 } t_list;
 
 typedef struct s_heredoc {
-    int fd[2];
-    char *delimiter;
-    int expand_vars;
+	int		fd[2];
+	char	*delimiter;
+	int		expand_vars;
 } t_heredoc;
 
 
 typedef struct s_node
 {
-    char *content;
-    int type;
-    int delimeter_inside_quotes;
-    struct s_node *next;
+	char			*content;
+	int				type;
+	int				delimeter_inside_quotes;
+	struct s_node	*next;
 } t_node;
 
 typedef struct s_line
 {
-    t_node *tokens;
-    int fd_in;
-	int fd_out;
-    int default_in;
-    int default_out;
-    struct s_line *next;
+	t_node			*tokens;
+	int				fd_in;
+	int				fd_out;
+	int				default_in;
+	int				default_out;
+	struct s_line	*next;
 } t_line;
-
-
 typedef struct env_vars_t{
-	char *vars;
-	char *var_value;
-	char **env;
-    char *pwd;
-	struct env_vars_t *next;
+	char				*vars;
+	char				*var_value;
+	char				**env;
+	char				*pwd;
+	struct env_vars_t	*next;
 }  env_vars;
-
-
-
 typedef struct shell{
-	char **argv;
-	char **env;
-	int fd_in;
-	int fd_out;
+	char	**argv;
+	char	**env;
+	int		fd_in;
+	int		fd_out;
 }t_shell;
 
 typedef struct s_coll{
-    void *ptr;
-    struct s_coll *next;
+	void			*ptr;
+	struct s_coll	*next;
 } t_coll;
 
-void	clear_strss(char **strs, int n);
-int execute_the_thing(t_line *final,char **env,env_vars *list);
-int 	export_with_plus(char *av,env_vars *env);
-int ft_strcmp(char *str,char *str1);
-int execute_blts(char* builtin, t_line *final, env_vars *list, char **env);
-int valid_to_add(env_vars *env,char *str);
-char *get_till(char *str, char c);
-void exitt(env_vars *env, t_line *final);
-int first_in(char *str,env_vars *env);
-int	ft_isalpha(int c);
-int unset(env_vars *env, t_line *final);
-int valid_to_add_plus(env_vars *env,char *str);
-void add_to_list(env_vars **head,env_vars *newe);
-int ft_isalnum(int c);
-int check_key(char *str);
-void echoo(t_node *current);
-char* pwdd(env_vars *list);
-int	ft_strncmp(char *s1, char *s2, int	n);
-env_vars *envpp(env_vars *list);
-int export_all(env_vars *env, t_line *final);
-int ft_strlenn(char *str);
-int export_it(env_vars *env, char *str);
-char	*get_path(char **envp,char *str);
-int	ft_isdigit(int c);
-int	count_words(char *str, char c);
-char	*return_word(char *str, char c);
-int  excutefilepath(t_line *final,env_vars *list,char **env);
-int	ft_listsize(t_line *lst);
-env_vars *append_to_list(env_vars *list,char **temp);
-char	**split(char *str, char sep);
-int handle_single_pipe(t_line *final, char **env, env_vars *list, int pipes_count, int i);
-int	is_space(char *str);
-void handle_child_fds(t_line *final);
-env_vars *list_init(char **variables);
-void free_double(char **str);
-void	copy_it(char *dest, char *src);
-int handle_parent_process(int fd[2], int pipes_count);
-char	*str_joiner(char *s1, char *s2);
-int check_builtin(t_line *final, env_vars *list,char **env);
-int handle_child_processs(t_line *final, char **env, env_vars *list, int fd[2], int pipes_count, int i);
-int get_nodee(env_vars *list);
-int	chdirr(char **env, t_line *final,env_vars *list);
-int handle_pipe(t_line *final,char **env,env_vars *list);
-int check_eccho(t_node *final);
-char *get_path_from_list(env_vars *list,char *str);
-int exit_status(int type, int value);
-void handle_redirections(t_line *final);
-int check_file_path(t_line *final);
-void handle_herdoc(t_line *final, env_vars *list_env);
-env_vars *envpp_export(env_vars *list);
-int	ft_atoii(char *value);
-void chdiir_help(t_line *final,env_vars *list,char *pwd);
-char **create_av(t_node *tokens);
-int help_execute_files(t_line *final,char **env,char **av);
-char *find_executable(t_line  *final,env_vars *list,char **av);
-void    when_not_blt(t_line *final, char **env, env_vars *list);
-char **fake_env(void);
+typedef struct s_heredoc_params {
+	t_line			*final;
+	env_vars		*list_env;
+	struct termios	*stats;
+	t_heredoc		*heredocs;
+	int				count;
+	int				pid;
+} t_heredoc_params;
+struct handle_attr {
+	int	pid;
+	int	i;
+	int	pipes_count;
+	int	fd[2];
+	int	ret;
+	int	fd_in;
+	int	status;
+};
+
+char    *ft_strdup(char *s1);
+char    *ft_strjoin(char const *s1, char const *s2);
+char    *str_joiner(char *s1, char *s2);
+int		ft_strcmp(char *str, char *str1);
+int		ft_strncmp(char *s1, char *s2, int n);
+int		ft_strlen(char *str);
+int		ft_strlenn(char *str);
+char    *ft_strchrr(const char *s, int c);
+void    copy_it(char *dest, char *src);
+char    *copy_str(char *dest, char *src);
+void    ft_putstr(char *s, int fd);
+int		ft_strchr(char *s, int c);
+
+/* Character checks */
+int	    ft_isalpha(int c);
+int     ft_isalnum(int c);
+int	    ft_isdigit(int c);
+int	    is_space(char *str);
+int     ft_is_space(char *input);
+
+/* Number utilities */
+int	    ft_atoi(const char *str);
 long long ft_atoll(char *str);
-void	ft_putstr(char *s, int fd);
-int handle_one_blt(t_line *final,char **env,env_vars *list);
-int is_dir(char *parth);
+char	*ft_itoa(int n);
+int	    is_valid_number(char *str);
+
+/* Memory management */
+void    *c_malloc(size_t size, int flag);
+void    free_double(char **str);
+void	clear_strss(char **strs, int n);
+
+/* Environment variables */
+env_vars *list_init(char **variables);
+env_vars *envpp(env_vars *list);
+env_vars *envpp_export(env_vars *list);
+env_vars *append_to_list(env_vars *list, char **temp);
+void    add_to_list(env_vars **head, env_vars *newe);
+int     valid_to_add(env_vars *env, char *str);
+int     valid_to_add_plus(env_vars *env, char *str);
+int     first_in(char *str, env_vars *env);
+int     check_key(char *str);
+char    *get_path(char **envp, char *str);
+char    *get_path_from_list(env_vars *list, char *str);
+char    **fake_env(void);
+char    **copy_env(char **env);
+void set_shlvl(t_list shell);
+int	    get_shlvl(char **env, int notif, int i);
+
+/* Builtin commands */
+void    echoo(t_node *current);
+char    *pwdd(env_vars *list);
+int     export_all(env_vars *env, t_line *final);
+int     export_it(env_vars *env, char *str);
+int     export_with_plus(char *av, env_vars *env);
+void    exitt(env_vars *env, t_line *final);
+int     unset(env_vars *env, t_line *final);
+int     chdirr(char **env, t_line *final, env_vars *list);
+void    chdiir_help(t_line *final, env_vars *list, char *pwd);
+void    chdiir_help2(t_line *final, env_vars *list, char *pwd);
+int	    cd_helper(t_line *final, env_vars *list, char **env);
+
+/* Command execution */
+int     execute_the_thing(t_line *final, char **env, env_vars *list);
+int     execute_blts(char *builtin, t_line *final, env_vars *list, char **env);
+int     executefilepath(t_line *final, char **env, env_vars *list);
+int     check_builtin(t_line *final, env_vars *list, char **env);
+int     handle_one_blt(t_line *final, char **env, env_vars *list);
+void    when_not_blt(t_line *final, char **env, env_vars *list);
+int     help_execute_files(t_line *final, char **env, char **av);
+char    *find_executable(t_line *final, env_vars *list, char **av);
+int     is_dir(char *path);
+
+/* Pipe handling */
+int handle_pipe(t_line *final, char **env, env_vars *list);
+int setup_pipe(struct handle_attr *attr);
+int create_child_process(struct handle_attr *attr);
+void wait_for_children(struct handle_attr *attr);
+void cleanup_pipe_handler(struct handle_attr *attr);
+int handle_single_builtin(struct handle_attr *attr, t_line *final, 
+                         char **env, env_vars *list);
+
+/* Heredoc handling */
 void	handle_heredoc(t_line *final, env_vars *list_env, struct termios *stats);
-void chdiir_help2(t_line *final,env_vars *list,char *pwd);
-void check_echo_flags(t_node **current, int *newline);
-int	cd_helper(t_line *final, env_vars *list, char **env);
-char	*ft_strchrr(const char *s, int c);
 void	process_heredoc(t_heredoc *heredoc, env_vars *list_env);
-int	is_valid_number(char *str);
-int get_delim_expand_pipe(t_line *final, t_heredoc	*heredocs, int *len);
-void	writing_heredoc(t_token **hered_tokens, t_heredoc *heredoc, env_vars *list);
 void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count);
-char	*ft_strdupp(char *s1);
+int     get_delim_expand_pipe(t_line *final, t_heredoc *heredocs, int *len);
+void	writing_heredoc(t_token **hered_tokens, t_heredoc *heredoc, env_vars *list);
+void init_pipe_attr(struct handle_attr *attr, t_line *final);
+void handle_child_signals(int status);
+int parent_process(struct handle_attr *attr);
+int child_process(struct handle_attr *attr, t_line *final, 
+                char **env, env_vars *list);
+void restore_file_descriptors(t_line *final);
+int handle_child_redirections(struct handle_attr *attr);
+
+/* Signal handling */
 void	signals_ignore(void);
 void	signals_allow(void);
-//////////////////*PARSING*//////////////////////////
-
-
-void display_prompt(t_list shell, char **env, env_vars *list);
-char **copy_env(char **env);
-int		check_unclosed_quotes(char *input, int i , int inside_d, int inside_s);
-t_token **into_tokens(char *input, int i, int start);
-int check_prohibited_char(char *input);
-int is_redirection_op(char c);
-int skip_spaces(char *input, int i);
-void	ft_lstadd_back(t_node **lst, t_node *neew);
-int validate_redirection_syntax(char *input);
-int tokens_number(char *input, int i, int count, int inside_d);
-int more_than_op(char *input);
-void check_token_dollar(t_token **token);
-int ft_strlen(char *str);
-char	*cat_token(char *input, int start, int end);
-void expand(t_token **tokens, env_vars *list_env);
-char *get_value(env_vars *list_env, char *name, char *value, int j);
-char *replace_value(char *token, char *value, char *name);
-void expand_home(t_token **tokens, env_vars *list_env);
-int ft_strchr(char *s, int c);
-t_node *search_token(t_token **tokens);
-t_line *tokens_to_lines(t_node *tokens);
-t_node  *ft_lstnew(char *content);
-int	ft_lstsize(t_node *lst);
-int pipe_syntax(char *input, int i, int in_quotes);
-int	open_files(t_line *lines, t_node *curr_node, int in, int out);
-void    *c_malloc(size_t size, int flag);
-int	ft_atoi(const char *str);
-int dollar_inside_quotes_alone(char *content);
-int	get_shlvl(char **env, int notif, int i);
-void set_shlvl(t_list shell);
-char	*ft_itoa(int n);
-char	*ft_strjoin(char const *s1, char const *s2);
-void check_for_delimeter(t_node *tokens);
-int ft_is_space(char *input);
-int check_for_and(char *input);
-int check_edge_case(char *content);
-char *pass_dollar(char *content);
-char	*ft_strdup(char *s1);
-t_node	*ft_lstlast(t_node *lst);
-void	last_command(env_vars *list, t_line *final, int final_size, t_node *curr);
-char	*copy_str(char *dest, char *src);
-void sigint_hand_heredoc(int signal);
+void    sigint_hand_heredoc(int signal);
 void	sigint_handler(int signal);
-int pass_spaces(char *input);
-void copy_without_spaces(char *dst, char *src);
-void sig_handler(char *input_rl);
-int	inside_quotes(char *str);
-int	contains_only_symbol(char *str);
-int	contains_symbol(char *str);
-int	can_expand(char *input);
-int	check_edge_case(char *content);
-int	ft_is_space(char *input);
+void    sig_handler(char *input_rl);
+
+/* Parser utilities */
+int	    count_words(char *str, char c);
+char	*return_word(char *str, char c);
+char	**split(char *str, char sep);
+char    *get_till(char *str, char c);
+int     get_nodee(env_vars *list);
+int	    ft_listsize(t_line *lst);
+int     exit_status(int type, int value);
+void    handle_redirections(t_line *final);
+int     check_file_path(t_line *final);
+char    **create_av(t_node *tokens);
+
+/* Token handling */
+void	ft_lstadd_back(t_node **lst, t_node *neew);
+t_node  *ft_lstnew(char *content);
+int	    ft_lstsize(t_node *lst);
+t_node	*ft_lstlast(t_node *lst);
 void	add_node(t_node **list, char *content);
 void	add_token(t_node **list, char *content, int start, int end);
-int	dollars_number(char *content, int need_exp);
-int	find_var_end(char *input, int *start);
+
+/* Parser functions */
+void    display_prompt(t_list shell, char **env, env_vars *list);
+int	    check_unclosed_quotes(char *input, int i, int inside_d, int inside_s);
+t_token **into_tokens(char *input, int i, int start);
+int     check_prohibited_char(char *input);
+int     is_redirection_op(char c);
+int     skip_spaces(char *input, int i);
+int     validate_redirection_syntax(char *input);
+int     tokens_number(char *input, int i, int count, int inside_d);
+int     more_than_op(char *input);
+void    check_token_dollar(t_token **token);
+char	*cat_token(char *input, int start, int end);
+int     check_for_and(char *input);
+int     pass_spaces(char *input);
+int     pass_spaces_end(char *input);
+void    copy_without_spaces(char *dst, char *src);
+int	    inside_quotes(char *str);
+int	    contains_only_symbol(char *str);
+int	    contains_symbol(char *str);
+int	    can_expand(char *input);
+int	    check_edge_case(char *content);
+int	    dollars_number(char *content, int need_exp);
+int	    find_var_end(char *input, int *start);
 char	*variable_name(char *input);
 char	*exp_exit_status(char *num);
 char	*get_value(env_vars *list_env, char *name, char *value, int j);
-int	check_input(char *input);
+int	    check_input(char *input);
 void	check_quotes(char *input, int *inside_d, int *inside_s, int i);
 void	quotes_handle(char *input, int *inside_q, int *q_type, int i);
-int	print_error_message(int i, char *input);
-int	handle_redirec_edge_cases(char *input);
+int	    print_error_message(int i, char *input);
+int	    handle_redirec_edge_cases(char *input);
 void	final_tokens(t_node *token);
-int pass_spaces_end(char *input);
+char *replace_value(char *token, char *value, char *name);
+
+/* Expansion handling */
+void    expand(t_token **tokens, env_vars *list_env);
+void    expand_home(t_token **tokens, env_vars *list_env);
+char    *pass_dollar(char *content);
+int     dollar_inside_quotes_alone(char *content);
+
+/* Line handling */
+t_node  *search_token(t_token **tokens);
+t_line  *tokens_to_lines(t_node *tokens);
+void	last_command(env_vars *list, t_line *final, int final_size, t_node *curr);
+int     pipe_syntax(char *input, int i, int in_quotes);
+int	    open_files(t_line *lines, t_node *curr_node, int in, int out);
+void    check_for_delimeter(t_node *tokens);
+void    check_echo_flags(t_node **current, int *newline);
+int     check_eccho(t_node *final);
+
 #endif
