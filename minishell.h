@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 18:15:29 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:12:23 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void	add_node(t_node **list, char *content);
 void	add_token(t_node **list, char *content, int start, int end);
 
 /* Parser functions */
-void    display_prompt(t_list shell, char **env, env_vars *list);
+void	display_prompt(t_list shell, char **env, env_vars *list_env, struct termios *stats);
 int	    check_unclosed_quotes(char *input, int i, int inside_d, int inside_s);
 t_token **into_tokens(char *input, int i, int start);
 int     check_prohibited_char(char *input);

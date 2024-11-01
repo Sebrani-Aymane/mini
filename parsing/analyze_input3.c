@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:39:33 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 16:09:00 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 20:36:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int	check_input(char *input)
 		|| !pipe_syntax(input, 0, 0))
 	{
 		if (!strcmp(input, "\"\"") || !strcmp(input, "''"))
-			perror("minishell: : command not found\n");
+			write(2, "minishell: : command not found\n", 31);
 		exit_status(1, 127);
+		return (1);
 	}
 	if (ft_strlenn(input) == 1 && input[0] != '/')
 	{

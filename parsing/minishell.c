@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 16:10:01 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 20:17:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	if (!isatty(STDIN_FILENO))
 	{
-		perror("Error\n");
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	if (!*env)
