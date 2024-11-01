@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:19:28 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 14:40:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:36:40 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	inside_quotes(char *str)
 
 int	contains_only_symbol(char *str)
 {
-	return (!strcmp(str, ">") || !strcmp(str, "<") || !strcmp(str, "<<")
-		|| !strcmp(str, ">>") || !strcmp(str, "|"));
+	return (!ft_strcmp(str, ">") || !ft_strcmp(str, "<") || !ft_strcmp(str, "<<")
+		|| !ft_strcmp(str, ">>") || !ft_strcmp(str, "|"));
 }
 
 int	contains_symbol(char *str)

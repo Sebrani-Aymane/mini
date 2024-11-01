@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:00:10 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:17:17 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	sigint_handler(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	exit_status(1, 1);
 }
 
 void	handle_signals(void)

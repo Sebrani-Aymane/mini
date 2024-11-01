@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:32:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:22:20 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:40:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	dollars_number(char *content, int need_exp)
 	counter = 0;
 	if (can_expand(content) && need_exp
 		&& !dollar_inside_quotes_alone(content)
-		&& strcmp(content, "$"))
+		&& ft_strcmp(content, "$"))
 	{
 		while (content[i])
 		{
@@ -90,13 +90,13 @@ char	*get_value(env_vars *list_env, char *name, char *value, int j)
 	env_vars	*current;
 
 	current = list_env;
-	if (!strcmp(name, "?"))
+	if (!ft_strcmp(name, "?"))
 		return (exp_exit_status(0));
 	if (!current->vars)
 		return (NULL);
 	while (current)
 	{
-		if (strcmp(name, current->vars) == 0)
+		if (ft_strcmp(name, current->vars) == 0)
 		{
 			j = ft_strlen(current->var_value);
 			value = c_malloc((sizeof(char) * (j + 1)), 1);

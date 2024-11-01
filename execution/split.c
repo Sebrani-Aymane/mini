@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 20:07:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:42:15 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*str_joiner(char *s1, char *s2)
 	if (!ret)
 		return (NULL);
 	copy_it(ret, s1);
-	copy_it(ret + strlen(s1), s2);
+	copy_it(ret + ft_strlen(s1), s2);
 	return (ret);
 }
 

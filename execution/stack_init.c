@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:23:32 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/19 14:40:55 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:44:50 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ env_vars	*list_init(char **env)
 	while (*env)
 	{
 		temp_var = c_malloc((sizeof(env_vars)), 1);
-		temp = strchr(*env, '=');
+		temp = ft_strchrr(*env, '=');
 		if (!temp)
 		{
 			temp_var ->vars = ft_strdup(*env);

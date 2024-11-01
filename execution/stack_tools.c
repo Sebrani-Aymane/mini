@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 15:55:13 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:34:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_builtin(t_line *final, env_vars *list, char **env)
 	builtins = split("cd echo pwd export unset env exit", ' ');
 	j = -1;
 	while (builtins[++j])
-		if (final -> tokens && strcmp(final->tokens->content, builtins[j]) == 0)
+		if (final -> tokens && ft_strcmp(final->tokens->content, builtins[j]) == 0)
 			return (1);
 	return (0);
 }

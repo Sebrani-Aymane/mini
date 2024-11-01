@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:40:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/01 18:37:53 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:44:07 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	expand_home(t_token **tokens, env_vars *list_env)
 	i = 0;
 	while (tokens && tokens[i])
 	{
-		if (strchr(tokens[i]->content, '~'))
+		if (ft_strchr(tokens[i]->content, '~'))
 		{
 			if (can_expand_home(tokens[i]->content))
 			{

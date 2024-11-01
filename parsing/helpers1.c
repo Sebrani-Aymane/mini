@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:22:54 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:46:05 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	check_for_delimeter(t_node *tokens)
 	current = tokens;
 	while (current && current->next)
 	{
-		if (!strcmp(current->content, "<<")
-			&& (strchr(current->next->content, '\'')
-				|| strchr(current->next->content, '"')))
+		if (!ft_strcmp(current->content, "<<")
+			&& (ft_strchrr(current->next->content, '\'')
+				|| ft_strchrr(current->next->content, '"')))
 			current->next->delimeter_inside_quotes = 1;
 		else
 			current->next->delimeter_inside_quotes = 0;

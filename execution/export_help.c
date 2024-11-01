@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_help.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/25 18:29:50 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:43:36 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	valid_to_add_plus(env_vars *env, char *str)
 	key = get_till(str, '+');
 	tmp = env;
 	new = c_malloc(sizeof(env_vars), 1);
-	temp = strchr(str, '=');
+	temp = ft_strchr(str, '=');
 	if (check_key(key))
 	{
 		if (ft_strncmp(env->vars, key, ft_strlenn(key)) == 0)

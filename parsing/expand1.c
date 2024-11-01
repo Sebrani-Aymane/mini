@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 21:33:34 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:44:20 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	calculate_new_token_len(char *token, char *value, char *name, int *ig_d)
 	int		value_len;
 
 	pos = strstr(token, name);
-	name_len = strlen(name);
-	token_len = strlen(token);
-	value_len = strlen(value);
-	if (!strcmp(name, "~"))
+	name_len = ft_strlen(name);
+	token_len = ft_strlen(token);
+	value_len = ft_strlen(value);
+	if (!ft_strcmp(name, "~"))
 	{
 		*ig_d = pos - token;
 		return ((token_len - name_len) + value_len);
@@ -48,13 +48,13 @@ char	*replace_value(char *token, char *value, char *name)
 	strncpy(new_token, token, ignore_dollar);
 	new_token[ignore_dollar] = '\0';
 	strcat(new_token, value);
-	strcat(new_token, pos + strlen(name));
+	strcat(new_token, pos + ft_strlen(name));
 	return (new_token);
 }
 
 char	*check_value(char *value, char *name, t_token *temp)
 {
-	if (value && strchr(value, ' '))
+	if (value && ft_strchr(value, ' '))
 		temp->divide_space = 1;
 	else
 		temp->divide_space = 0;
@@ -77,7 +77,7 @@ char	*counter_loop(int counter, t_token *temp, env_vars *l_env, int *notif)
 	while (counter)
 	{
 		name = variable_name(temp->content);
-		if (!strcmp(name, "\0"))
+		if (!ft_strcmp(name, "\0"))
 		{
 			*notif = 1;
 			counter--;
@@ -85,7 +85,7 @@ char	*counter_loop(int counter, t_token *temp, env_vars *l_env, int *notif)
 		}
 		value = get_value(l_env, name, NULL, 0);
 		value = check_value(value, name, temp);
-		if (!strcmp(name, "_") && !strcmp(value, "/usr/bin/env"))
+		if (!ft_strcmp(name, "_") && !ft_strcmp(value, "/usr/bin/env"))
 			value = ft_strdup("env");
 		new_token = replace_value(temp->content, value, name);
 		temp->content = new_token;

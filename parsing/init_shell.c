@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 16:09:44 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:46:51 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_shlvl(char **env, int notif, int i)
 	temp = NULL;
 	while (env && env[i])
 	{
-		if (!strncmp(env[i], "SHLVL", 5))
+		if (!ft_strncmp(env[i], "SHLVL", 5))
 		{
 			temp = env[i];
 			notif = 1;
@@ -52,7 +52,7 @@ void	set_shlvl(t_list shell)
 		final = ft_strjoin("SHLVL=", nbr);
 		while (shell.env[i])
 		{
-			if (!strncmp(shell.env[i], "SHLVL", 5))
+			if (!ft_strncmp(shell.env[i], "SHLVL", 5))
 				shell.env[i] = final;
 			i++;
 		}
@@ -106,11 +106,11 @@ void	display_prompt(t_list shell, char **env, env_vars *list_env,
 
 	while (1)
 	{
-		input_rl = readline("minishell-1.0$ ");
+		input_rl = readline("minishell$ ");
 		if (glob_var)
 			exit_status(1, 1);
 		sig_handler(input_rl);
-		if (strcmp(input_rl, ""))
+		if (ft_strcmp(input_rl, ""))
 			add_history(input_rl);
 		if (ft_is_space(input_rl))
 		{

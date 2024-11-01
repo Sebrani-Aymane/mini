@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:26:35 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:43:02 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	divide(char *input, int start, int inside_d, int inside_s)
 		while (input[start] == ' ' || input[start] == '\t')
 			start++;
 	}
-	last = strlen(input) - 1;
+	last = ft_strlen(input) - 1;
 	while (last > 0 && (input[last] == ' ' || input[last] == '\t'))
 		last--;
 	while (start <= last)

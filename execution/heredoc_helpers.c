@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:22:57 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 06:31:46 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:42:03 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	writing_heredoc(t_token **hered_tokens,
 	while (hered_tokens && hered_tokens[j])
 	{
 		write(heredoc->fd[1], hered_tokens[j]->content,
-			strlen(hered_tokens[j]->content));
+			ft_strlen(hered_tokens[j]->content));
 		if (hered_tokens[j + 1])
 			write(heredoc->fd[1], " ", 1);
 		j++;

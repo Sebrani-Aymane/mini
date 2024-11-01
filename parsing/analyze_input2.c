@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:24:23 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 21:26:45 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:37:02 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	check_token_dollar(t_token **token)
 	i = 0;
 	while (token && token[i])
 	{
-		if (i != 0 && !strcmp(token[i - 1]->content, "<<"))
+		if (i != 0 && !ft_strcmp(token[i - 1]->content, "<<"))
 			token[i]->need_expand = 0;
 		else if (token[i]->content && ft_strchr(token[i]->content, '$'))
 			token[i]->need_expand = 1;

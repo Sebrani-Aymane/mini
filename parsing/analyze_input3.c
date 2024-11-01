@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:39:33 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 20:36:08 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/01 21:37:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	check_input(char *input)
 	if (ft_is_space(input) || (input[0] == ':'
 			&& !input[1]) || check_for_and(input))
 		return (1);
-	if (!strcmp(input, "''") || !strcmp(input, "\"\"")
+	if (!ft_strcmp(input, "''") || !ft_strcmp(input, "\"\"")
 		|| check_unclosed_quotes(input, 0, 0, 0)
 		|| check_prohibited_char(input)
 		|| !validate_redirection_syntax(input)
 		|| !pipe_syntax(input, 0, 0))
 	{
-		if (!strcmp(input, "\"\"") || !strcmp(input, "''"))
+		if (!ft_strcmp(input, "\"\"") || !ft_strcmp(input, "''"))
 			write(2, "minishell: : command not found\n", 31);
 		exit_status(1, 127);
 		return (1);
