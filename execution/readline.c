@@ -6,13 +6,13 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 20:20:28 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	handle_pwd_command(env_vars *list)
+int	handle_pwd_command(t_env_vars *list)
 {
 	char	*pwd;
 	int		flag;	
@@ -33,7 +33,7 @@ int	handle_pwd_command(env_vars *list)
 	return (0);
 }
 
-int	handle_cd_command(char **env, t_line *final, env_vars *list)
+int	handle_cd_command(char **env, t_line *final, t_env_vars *list)
 {
 	int	ret;
 
@@ -48,7 +48,7 @@ int	handle_cd_command(char **env, t_line *final, env_vars *list)
 	return (ret);
 }
 
-int	execute_blts(char *blt, t_line *final, env_vars *list, char **env)
+int	execute_blts(char *blt, t_line *final, t_env_vars *list, char **env)
 {
 	int	ret;
 

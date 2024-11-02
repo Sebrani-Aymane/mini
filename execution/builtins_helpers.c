@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_helpers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 23:12:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/31 22:48:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:01:11 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	chdiir_help(t_line *final, env_vars *list, char *pwd)
+void	chdiir_help(t_line *final, t_env_vars *list, char *pwd)
 {
 	t_node		*token;
-	env_vars	*temp;
+	t_env_vars	*temp;
 
 	token = final->tokens->next;
 	temp = list;
@@ -37,10 +37,10 @@ void	chdiir_help(t_line *final, env_vars *list, char *pwd)
 		60);
 }
 
-void	chdiir_help2(t_line *final, env_vars *list, char *pwd)
+void	chdiir_help2(t_line *final, t_env_vars *list, char *pwd)
 {
 	t_node		*token;
-	env_vars	*temp;
+	t_env_vars	*temp;
 
 	token = final->tokens->next;
 	temp = list;
@@ -62,7 +62,7 @@ void	chdiir_help2(t_line *final, env_vars *list, char *pwd)
 		59);
 }
 
-int	handle_one_blt(t_line *final, char **env, env_vars *list)
+int	handle_one_blt(t_line *final, char **env, t_env_vars *list)
 {
 	int	ret;
 

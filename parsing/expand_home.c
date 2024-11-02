@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:40:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:44:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	can_expand_home(char *input)
 	return (1);
 }
 
-void	expand_home(t_token **tokens, env_vars *list_env)
+void	expand_home(t_token **tokens, t_env_vars *list_env)
 {
 	int		i;
 	char	*value;

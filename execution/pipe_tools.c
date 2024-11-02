@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 18:18:52 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:06:54 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	close_files(t_line *final)
 	}
 }
 
-int	setup_pipe(struct handle_attr *attr)
+int	setup_pipe(struct s_handle_attr *attr)
 {
 	if (attr->pipes_count > 1 && pipe(attr->fd) == -1)
 		return (ft_putstr("error in pipes", 2), 20);
 	return (0);
 }
 
-int	create_child_process(struct handle_attr *attr)
+int	create_child_process(struct s_handle_attr *attr)
 {
 	attr->pid = fork();
 	if (attr->pid == -1)
@@ -41,7 +41,7 @@ int	create_child_process(struct handle_attr *attr)
 	return (0);
 }
 
-void	wait_for_children(struct handle_attr *attr)
+void	wait_for_children(struct s_handle_attr *attr)
 {
 	while (attr->pipes_count-- > 0)
 	{
@@ -50,7 +50,7 @@ void	wait_for_children(struct handle_attr *attr)
 	}
 }
 
-void	cleanup_pipe_handler(struct handle_attr *attr)
+void	cleanup_pipe_handler(struct s_handle_attr *attr)
 {
 	dup2(attr->fd_in, 0);
 	close(attr->fd_in);

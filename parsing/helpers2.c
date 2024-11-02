@@ -6,15 +6,15 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:27:48 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 16:10:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:04:57 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	last_command(env_vars *list, t_line *final, int f_s, t_node *curr)
+void	last_command(t_env_vars *list, t_line *final, int f_s, t_node *curr)
 {
-	env_vars	*curr_list;
+	t_env_vars	*curr_list;
 	t_node		*last_token;
 
 	curr_list = list;

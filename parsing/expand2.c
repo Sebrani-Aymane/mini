@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:32:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:40:18 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:04:50 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*variable_name(char *input)
 	var_name = c_malloc((sizeof(char) * (len + 1)), 1);
 	if (var_name)
 	{
-		strncpy(var_name, input + start, len);
+		ft_strncpy(var_name, input + start, len);
 		var_name[len] = '\0';
 	}
 	return (var_name);
@@ -85,9 +85,9 @@ char	*exp_exit_status(char *num)
 	return (value);
 }
 
-char	*get_value(env_vars *list_env, char *name, char *value, int j)
+char	*get_value(t_env_vars *list_env, char *name, char *value, int j)
 {
-	env_vars	*current;
+	t_env_vars	*current;
 
 	current = list_env;
 	if (!ft_strcmp(name, "?"))
@@ -102,7 +102,7 @@ char	*get_value(env_vars *list_env, char *name, char *value, int j)
 			value = c_malloc((sizeof(char) * (j + 1)), 1);
 			if (!value)
 				return (NULL);
-			strcpy(value, current->var_value);
+			copy_it(value, current->var_value);
 			value[j] = '\0';
 			return (value);
 		}

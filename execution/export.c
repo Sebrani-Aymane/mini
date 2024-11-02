@@ -6,20 +6,20 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 21:45:13 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:02:57 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	valid_to_add(env_vars *env, char *str)
+int	valid_to_add(t_env_vars *env, char *str)
 {
 	char		*temp;
-	env_vars	*tmp;
-	env_vars	*new;
+	t_env_vars	*tmp;
+	t_env_vars	*new;
 	char		*key;
 
-	new = c_malloc(sizeof(env_vars), 1);
+	new = c_malloc(sizeof(t_env_vars), 1);
 	if (!new)
 		return (1);
 	key = get_till(str, '=');
@@ -33,7 +33,7 @@ int	valid_to_add(env_vars *env, char *str)
 	return (0);
 }
 
-int	export_it(env_vars *env, char *str)
+int	export_it(t_env_vars *env, char *str)
 {
 	char	*key;
 	char	*value;
@@ -53,7 +53,7 @@ int	export_it(env_vars *env, char *str)
 	return (ret);
 }
 
-int	export_all(env_vars *env, t_line *final)
+int	export_all(t_env_vars *env, t_line *final)
 {
 	int		ret;
 	t_node	*current;

@@ -6,13 +6,13 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 20:26:38 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:08:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	parent_process(struct handle_attr *attr)
+int	parent_process(struct s_handle_attr *attr)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
@@ -40,7 +40,7 @@ void	handle_child_signals(int status)
 		exit_status(1, WEXITSTATUS(status));
 }
 
-void	init_pipe_attr(struct handle_attr *attr, t_line *final)
+void	init_pipe_attr(struct s_handle_attr *attr, t_line *final)
 {
 	attr->ret = 0;
 	attr->fd_in = dup(0);
@@ -48,8 +48,8 @@ void	init_pipe_attr(struct handle_attr *attr, t_line *final)
 	attr->pipes_count = ft_listsize(final);
 }
 
-int	handle_single_builtin(struct handle_attr *attr, t_line *final,
-							char **env, env_vars *list)
+int	handle_single_builtin(struct s_handle_attr *attr, t_line *final,
+							char **env, t_env_vars *list)
 {
 	if (attr->pipes_count == 1 && check_builtin(final, list, env))
 	{
@@ -60,12 +60,12 @@ int	handle_single_builtin(struct handle_attr *attr, t_line *final,
 	return (-3);
 }
 
-int	handle_pipe(t_line *final, char **env, env_vars *list)
+int	handle_pipe(t_line *final, char **env, t_env_vars *list)
 {
-	struct handle_attr	attr;
-	int					fork_ret;
-	int					builtin_ret;
-	int					pipe_ret;
+	struct s_handle_attr	attr;
+	int						fork_ret;
+	int						builtin_ret;
+	int						pipe_ret;
 
 	init_pipe_attr(&attr, final);
 	builtin_ret = handle_single_builtin(&attr, final, env, list);

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:46:51 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	set_shlvl(t_list shell)
 	}
 }
 
-int	parse(char *input_rl, t_list *shell, env_vars *list_env)
+int	parse(char *input_rl, t_list *shell, t_env_vars *list_env)
 {
 	char	*input;
 
@@ -80,7 +80,7 @@ int	parse(char *input_rl, t_list *shell, env_vars *list_env)
 	return (1);
 }
 
-int	execution(char **env, env_vars *list_env, t_list *shell,
+int	execution(char **env, t_env_vars *list_env, t_list *shell,
 			struct termios *stats)
 {
 	t_node	*list;
@@ -91,7 +91,7 @@ int	execution(char **env, env_vars *list_env, t_list *shell,
 	lines = tokens_to_lines(list);
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
 	handle_heredoc(lines, list_env, stats);
-	if (glob_var == 100)
+	if (g_var == 100)
 		return (0);
 	handle_pipe(lines, env, list_env);
 	if (lines->fd_in)
@@ -99,7 +99,7 @@ int	execution(char **env, env_vars *list_env, t_list *shell,
 	return (1);
 }
 
-void	display_prompt(t_list shell, char **env, env_vars *list_env,
+void	display_prompt(t_list shell, char **env, t_env_vars *list_env,
 						struct termios *stats)
 {
 	char			*input_rl;
@@ -107,7 +107,7 @@ void	display_prompt(t_list shell, char **env, env_vars *list_env,
 	while (1)
 	{
 		input_rl = readline("minishell$ ");
-		if (glob_var)
+		if (g_var)
 			exit_status(1, 1);
 		sig_handler(input_rl);
 		if (ft_strcmp(input_rl, ""))
@@ -117,7 +117,7 @@ void	display_prompt(t_list shell, char **env, env_vars *list_env,
 			free(input_rl);
 			continue ;
 		}
-		glob_var = 0;
+		g_var = 0;
 		if (!parse(input_rl, &shell, list_env))
 			continue ;
 		if (!execution(env, list_env, &shell, stats))

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 19:05:34 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:03:31 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_executable(t_line	*final, env_vars *list, char **av)
+char	*find_executable(t_line	*final, t_env_vars *list, char **av)
 {
 	int		i;
 	char	*command_path;
@@ -77,10 +77,10 @@ char	**fake_env(void)
 	return (env);
 }
 
-char	*get_path_from_list(env_vars *list, char *str)
+char	*get_path_from_list(t_env_vars *list, char *str)
 {
 	char		*path;
-	env_vars	*temp;
+	t_env_vars	*temp;
 	int			len;
 
 	len = ft_strlenn(str);

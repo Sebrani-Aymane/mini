@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:25:24 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 15:58:41 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	when_not_blt(t_line *final, char **env, env_vars *list)
+void	when_not_blt(t_line *final, char **env, t_env_vars *list)
 {
 	if (executefilepath(final, env, list) == 2)
 	{
@@ -28,7 +28,7 @@ void	when_not_blt(t_line *final, char **env, env_vars *list)
 	}
 }
 
-int	handle_command_execution(char **av, char **env, env_vars *list)
+int	handle_command_execution(char **av, char **env, t_env_vars *list)
 {
 	char	*to_do;
 	char	*str;
@@ -56,7 +56,7 @@ int	handle_command_execution(char **av, char **env, env_vars *list)
 	return (0);
 }
 
-int	executefilepath(t_line *final, char **env, env_vars *list)
+int	executefilepath(t_line *final, char **env, t_env_vars *list)
 {
 	char	**av;
 

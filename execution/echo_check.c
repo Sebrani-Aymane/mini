@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:40:41 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/29 20:29:31 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:01:48 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	ft_strlenn(char *str)
 	return (i);
 }
 
-env_vars	*envpp_export(env_vars *list)
+t_env_vars	*envpp_export(t_env_vars *list)
 {
-	env_vars	*tmp;
+	t_env_vars	*tmp;
 
 	tmp = list;
 	if (!list)

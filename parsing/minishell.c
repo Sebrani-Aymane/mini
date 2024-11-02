@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:17:17 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:05:07 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_signals(void)
 int	main(int ac, char **av, char **env)
 {
 	t_list			shell;
-	env_vars		*list_env;
+	t_env_vars		*list_env;
 	struct termios	stats;
 
 	(void)av;

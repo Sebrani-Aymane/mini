@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:46:05 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:03:37 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	add_token(t_node **list, char *content, int start, int end)
 	token = c_malloc((sizeof(char) * (len + 1)), 1);
 	if (!token)
 		return ;
-	strncpy(token, content + start, len);
+	ft_strncpy(token, content + start, len);
 	token[len] = '\0';
 	add_node(list, token);
 }

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:22:57 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 21:42:03 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	get_delim_expand_pipe(t_line *final, t_heredoc	*heredocs, int	*i)
 }
 
 void	writing_heredoc(t_token **hered_tokens,
-						t_heredoc *heredoc, env_vars *list)
+						t_heredoc *heredoc, t_env_vars *list)
 {
 	int	j;
 
@@ -61,7 +61,7 @@ void	writing_heredoc(t_token **hered_tokens,
 	}
 }
 
-void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count)
+void	child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count)
 {
 	int	i;
 
@@ -73,7 +73,7 @@ void	child_heredoc(t_heredoc *heredocs, env_vars *list, int count)
 	while (i < count)
 	{
 		process_heredoc(&heredocs[i], list);
-		if (glob_var)
+		if (g_var)
 			return ;
 		close(heredocs[i].fd[1]);
 		i++;

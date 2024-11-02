@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/29 23:06:52 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exit_help(t_node *arg)
 	exit (255);
 }
 
-void	exitt(env_vars *env, t_line *final)
+void	exitt(t_env_vars *env, t_line *final)
 {
 	t_node		*arg;
 	long long	num;

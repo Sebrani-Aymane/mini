@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 06:25:11 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 20:21:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:06:54 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	handle_redirections(t_line *final)
 	return ;
 }
 
-int	execute_the_thing(t_line *final, char **env, env_vars *list)
+int	execute_the_thing(t_line *final, char **env, t_env_vars *list)
 {
 	int	ret;
 	int	i;
@@ -46,7 +46,7 @@ int	execute_the_thing(t_line *final, char **env, env_vars *list)
 	return (0);
 }
 
-int	handle_child_redirections(struct handle_attr *attr)
+int	handle_child_redirections(struct s_handle_attr *attr)
 {
 	if (attr->i != attr->pipes_count - 1)
 	{
@@ -72,8 +72,8 @@ void	restore_file_descriptors(t_line *final)
 	}
 }
 
-int	child_process(struct handle_attr *attr, t_line *final,
-				char **env, env_vars *list)
+int	child_process(struct s_handle_attr *attr, t_line *final,
+				char **env, t_env_vars *list)
 {
 	if (attr->pid == 0)
 	{

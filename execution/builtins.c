@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/29 23:12:20 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:01:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	echoo(t_node *node)
 	exit_status(1, 0);
 }
 
-char	*pwdd(env_vars *list)
+char	*pwdd(t_env_vars *list)
 {
-	env_vars	*tmp;
+	t_env_vars	*tmp;
 
 	tmp = list;
 	if (!list)
@@ -51,9 +51,9 @@ char	*pwdd(env_vars *list)
 	return (NULL);
 }
 
-env_vars	*envpp(env_vars *list)
+t_env_vars	*envpp(t_env_vars *list)
 {
-	env_vars	*tmp;
+	t_env_vars	*tmp;
 
 	tmp = list;
 	if (!list)
@@ -71,9 +71,9 @@ env_vars	*envpp(env_vars *list)
 	return (tmp);
 }
 
-int	chdirr(char **env, t_line *final, env_vars *list)
+int	chdirr(char **env, t_line *final, t_env_vars *list)
 {
-	env_vars	*temp;
+	t_env_vars	*temp;
 	char		*str;
 	char		*oldpwd;
 

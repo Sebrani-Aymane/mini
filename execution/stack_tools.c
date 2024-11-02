@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 21:34:18 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_key(char *str)
 	return (1);
 }
 
-int	check_builtin(t_line *final, env_vars *list, char **env)
+int	check_builtin(t_line *final, t_env_vars *list, char **env)
 {
 	char	**builtins;
 	int		j;
@@ -49,7 +49,8 @@ int	check_builtin(t_line *final, env_vars *list, char **env)
 	builtins = split("cd echo pwd export unset env exit", ' ');
 	j = -1;
 	while (builtins[++j])
-		if (final -> tokens && ft_strcmp(final->tokens->content, builtins[j]) == 0)
+		if (final -> tokens && ft_strcmp(final->tokens->content,
+				builtins[j]) == 0)
 			return (1);
 	return (0);
 }
@@ -85,7 +86,7 @@ int	handle_cd_home(char **env)
 	return (res);
 }
 
-int	cd_helper(t_line *final, env_vars *list, char **env)
+int	cd_helper(t_line *final, t_env_vars *list, char **env)
 {
 	int		res;
 	char	*pwd_bfr_cd;

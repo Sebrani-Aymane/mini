@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:44:20 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*replace_value(char *token, char *value, char *name)
 	new_token_len = calculate_new_token_len(token, value, name, &ignore_dollar);
 	pos = strstr(token, name);
 	new_token = c_malloc(sizeof(char) * (new_token_len + 1), 1);
-	strncpy(new_token, token, ignore_dollar);
+	ft_strncpy(new_token, token, ignore_dollar);
 	new_token[ignore_dollar] = '\0';
 	strcat(new_token, value);
 	strcat(new_token, pos + ft_strlen(name));
@@ -68,7 +68,7 @@ char	*check_value(char *value, char *name, t_token *temp)
 	return (value);
 }
 
-char	*counter_loop(int counter, t_token *temp, env_vars *l_env, int *notif)
+char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 {
 	char	*name;
 	char	*value;
@@ -94,7 +94,7 @@ char	*counter_loop(int counter, t_token *temp, env_vars *l_env, int *notif)
 	return (new_token);
 }
 
-void	expand(t_token **tokens, env_vars *list_env)
+void	expand(t_token **tokens, t_env_vars *list_env)
 {
 	int		i;
 	char	*new_token;

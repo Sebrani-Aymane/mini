@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:23:32 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 21:44:50 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:04:02 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ char	*get_till(char *str, char c)
 	return (ret);
 }
 
-void	add_to_list(env_vars **head, env_vars *new)
+void	add_to_list(t_env_vars **head, t_env_vars *new)
 {
-	env_vars	*temp;
+	t_env_vars	*temp;
 
 	temp = *head;
 	if (!*head)
@@ -53,16 +53,16 @@ void	add_to_list(env_vars **head, env_vars *new)
 	}
 }
 
-env_vars	*list_init(char **env)
+t_env_vars	*list_init(char **env)
 {
-	env_vars	*new;
+	t_env_vars	*new;
 	char		*temp;
-	env_vars	*temp_var;
+	t_env_vars	*temp_var;
 
 	new = NULL;
 	while (*env)
 	{
-		temp_var = c_malloc((sizeof(env_vars)), 1);
+		temp_var = c_malloc((sizeof(t_env_vars)), 1);
 		temp = ft_strchrr(*env, '=');
 		if (!temp)
 		{
@@ -80,7 +80,7 @@ env_vars	*list_init(char **env)
 	return (new);
 }
 
-int	get_nodee(env_vars *list)
+int	get_nodee(t_env_vars *list)
 {
 	while (list)
 	{

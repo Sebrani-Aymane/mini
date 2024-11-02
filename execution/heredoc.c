@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 00:01:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:05:55 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_heredoc	*get_heredocs(t_line *final, int count)
 	return (heredocs);
 }
 
-void	process_heredoc(t_heredoc *heredoc, env_vars *list_env)
+void	process_heredoc(t_heredoc *heredoc, t_env_vars *list_env)
 {
 	char	*input;
 	t_token	**hered_tokens;
@@ -83,7 +83,7 @@ void	handle_heredoc_parent(t_heredoc_params *params)
 		close(params->heredocs[i++].fd[1]);
 	waitpid(params->pid, &status, 0);
 	if (WEXITSTATUS(status) == 100)
-		glob_var = 100;
+		g_var = 100;
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, params->stats) < 0)
 		perror("Error restoring terminal attributes");
 	signal(SIGINT, sigint_handler);
@@ -94,7 +94,8 @@ void	handle_heredoc_parent(t_heredoc_params *params)
 		close(params->heredocs[i++].fd[0]);
 }
 
-void	handle_heredoc(t_line *final, env_vars *list_env, struct termios *stats)
+void	handle_heredoc(t_line *final, t_env_vars *list_env,
+						struct termios *stats)
 {
 	t_heredoc_params	params;
 

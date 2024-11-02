@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:18:51 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 15:57:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:04:30 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	unset_variable(env_vars **env, env_vars *curr, env_vars *prev)
+int	unset_variable(t_env_vars **env, t_env_vars *curr, t_env_vars *prev)
 {
 	if (!prev)
 		*env = curr->next;
@@ -24,10 +24,10 @@ int	unset_variable(env_vars **env, env_vars *curr, env_vars *prev)
 	return (0);
 }
 
-void	find_and_unset_variable(env_vars **env_bkp, char *content)
+void	find_and_unset_variable(t_env_vars **env_bkp, char *content)
 {
-	env_vars	*curr;
-	env_vars	*prev;
+	t_env_vars	*curr;
+	t_env_vars	*prev;
 	int			len;
 
 	prev = NULL;
@@ -42,10 +42,10 @@ void	find_and_unset_variable(env_vars **env_bkp, char *content)
 	}
 }
 
-int	process_unset(env_vars *env_bkp, t_node *current)
+int	process_unset(t_env_vars *env_bkp, t_node *current)
 {
-	env_vars	*curr;
-	env_vars	*prev;
+	t_env_vars	*curr;
+	t_env_vars	*prev;
 	int			ret;
 	int			len;
 
@@ -67,7 +67,7 @@ int	process_unset(env_vars *env_bkp, t_node *current)
 	return (ret);
 }
 
-int	unset(env_vars *env, t_line *final)
+int	unset(t_env_vars *env, t_line *final)
 {
 	t_node	*current;
 	int		res;
