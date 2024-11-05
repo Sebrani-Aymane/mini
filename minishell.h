@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/05 21:50:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 00:06:29 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int			handle_single_builtin(struct s_handle_attr *attr, t_line *final,
 				char **env, t_env_vars *list);
 
 /* Heredoc handling */
-void		handle_heredoc(t_line *final, t_env_vars *list_env,
+int			handle_heredoc(t_line *final, t_env_vars *list_env,
 						struct termios *stats);
 void		process_heredoc(t_heredoc *heredoc, t_env_vars *list_env);
 void		child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count);

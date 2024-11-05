@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/05 21:50:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 00:07:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,15 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 {
 	t_node	*list;
 	t_line	*lines;
-	
+	int		heredoc;
+
 	list = search_token(shell->tokens);
 	check_for_delimeter(list);
 	lines = tokens_to_lines(list);
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
-	handle_heredoc(lines, list_env, stats);
-	if (g_var == 100)
-	{
-	// 	while (i < heredoc.count)
-    // {
-    //     if (close(heredoc.heredocs[i].fd[0]) != -1 || 
-    //         close(heredoc.heredocs[i].fd[1]) != -1)
-    //         i++; 
-    // }
+	heredoc = handle_heredoc(lines, list_env, stats);
+	if (!heredoc)
 		return (0);
-	}
 	handle_pipe(lines, env, list_env);
 	if (lines->fd_in)
 		close(lines->fd_in);

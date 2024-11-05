@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/05 21:49:54 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 00:03:29 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,13 @@ void	handle_heredoc_parent(t_heredoc_params *params)
 		close(params->heredocs[i++].fd[0]);
 }
 
-void	handle_heredoc(t_line *final, t_env_vars *list_env,
+int	handle_heredoc(t_line *final, t_env_vars *list_env,
 						struct termios *stats)
 {
 	t_heredoc_params	params;
+	int i;
 
+	i = 0;
 	params.final = final;
 	params.list_env = list_env;
 	params.stats = stats;
@@ -115,4 +117,15 @@ void	handle_heredoc(t_line *final, t_env_vars *list_env,
 		child_heredoc(params.heredocs, params.list_env, params.count);
 	else
 		handle_heredoc_parent(&params);
+	if (g_var == 100)
+	{
+		while (i < params.count)
+    {
+        if (close(params.heredocs[i].fd[0]) != -1 || 
+            close(params.heredocs[i].fd[1]) != -1)
+            i++; 
+		return (0);
+    }
+	}
+	return (1);
 }
