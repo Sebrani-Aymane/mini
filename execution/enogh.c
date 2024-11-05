@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/10/28 19:09:09 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:11:05 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	is_dir(char *path)
 
 void	ft_putstr(char *s, int fd)
 {
+	int	len;
+
 	if (!s)
 		return ;
-	write(fd, s, ft_strlenn(s));
+	len = ft_strlenn(s);
+	write(fd, s, len);
 }
