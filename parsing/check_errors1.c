@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:19:02 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:21:42 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:51:40 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_unclosed_quotes(char *input, int i, int inside_d, int inside_s)
 	}
 	if (inside_d || inside_s)
 	{
-		perror("minishell: unclosed quotes\n");
+		write(2, "minishell: unclosed quotes\n", 27);
 		return (1);
 	}
 	return (0);
@@ -39,7 +39,7 @@ int	check_prohibited_char(char *input)
 	{
 		if (input[i] == '\\' || input[i] == ';')
 		{
-			perror("prohibited character\n");
+			write(2, "prohibited character\n", 21);
 			return (1);
 		}
 		i++;
@@ -59,17 +59,17 @@ int	handle_redirec_edge_cases(char *input)
 	}
 	if (input[0] == '!' && !input[1])
 	{
-		perror("minishell: syntax error near unexpected token `newline'\n");
+		printf("minishell: syntax error near unexpected token `newline'\n");
 		return (0);
 	}
 	if (input[0] == '&' && !input[1])
 	{
-		perror("minishell: syntax error near unexpected token `&'\n");
+		printf("minishell: syntax error near unexpected token `&'\n");
 		return (0);
 	}
 	if (input[0] == '&' && input[1] && input[1] == '&')
 	{
-		perror("minishell: syntax error near unexpected token `&&'\n");
+		printf("minishell: syntax error near unexpected token `&&'\n");
 		return (0);
 	}
 	return (1);
@@ -81,9 +81,9 @@ int	print_error_message(int i, char *input)
 		|| input[i] == '|')
 	{
 		if (input[i] == '|')
-			perror("minishell: syntax error near unexpected token `|'\n");
+			printf("minishell: syntax error near unexpected token `|'\n");
 		if (input[i] == '\0' || (input[0] == '!' && !input[1]))
-			perror("minishell: syntax error near unexpected token `newline'\n");
+			printf("minishell: syntax error near unexpected token `newline'\n");
 		if ((is_redirection_op(input[i]) && input[i - 1] == ' '))
 		{
 			if (input[i + 1] && is_redirection_op(input[i + 1]))

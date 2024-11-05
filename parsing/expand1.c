@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 20:13:20 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int	calculate_new_token_len(char *token, char *value, char *name, int *ig_d)
 	int		token_len;
 	int		value_len;
 
-	pos = strstr(token, name);
+	pos = ft_strstr(token, name);
+	if (*(pos - 1) != '$')
+	{
+		pos = ft_strstr(pos + ft_strlenn(name), name);
+	}
 	name_len = ft_strlen(name);
 	token_len = ft_strlen(token);
 	value_len = ft_strlen(value);
@@ -43,12 +47,16 @@ char	*replace_value(char *token, char *value, char *name)
 	char	*new_token;
 
 	new_token_len = calculate_new_token_len(token, value, name, &ignore_dollar);
-	pos = strstr(token, name);
+	pos = ft_strstr(token, name);
+	if (*(pos - 1) != '$')
+	{
+		pos = ft_strstr(pos + ft_strlenn(name), name);
+	}
 	new_token = c_malloc(sizeof(char) * (new_token_len + 1), 1);
 	ft_strncpy(new_token, token, ignore_dollar);
 	new_token[ignore_dollar] = '\0';
-	strcat(new_token, value);
-	strcat(new_token, pos + ft_strlen(name));
+	ft_strcat(new_token, value);
+	ft_strcat(new_token, pos + ft_strlen(name));
 	return (new_token);
 }
 
@@ -70,13 +78,14 @@ char	*check_value(char *value, char *name, t_token *temp)
 
 char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 {
-	char	*name;
-	char	*value;
-	char	*new_token;
+	char			*name;
+	char			*value;
+	char			*new_token;
+	static int		start;
 
 	while (counter)
 	{
-		name = variable_name(temp->content);
+		name = variable_name(temp->content, &start);
 		if (!ft_strcmp(name, "\0"))
 		{
 			*notif = 1;
@@ -91,6 +100,7 @@ char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 		temp->content = new_token;
 		counter--;
 	}
+	start = 0;
 	return (new_token);
 }
 

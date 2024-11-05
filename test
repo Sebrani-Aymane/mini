@@ -1,4 +1,2 @@
-exit status khasra
-
-segf when we create a directory and cd to it , then remove it and type pwd
-
+leaks in ctrl c handle_heredoc
+echo fd leak

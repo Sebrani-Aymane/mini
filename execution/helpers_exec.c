@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 20:23:14 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	exit_help(t_node *arg)
 	write(2, "exit\n", 5);
 	write(2, "minishell: exit: ", 17);
 	write(2, arg->content, len);
-	write(2, "numeric argument required\n", 17);
+	write(2, " numeric argument required\n", 27);
 	exit_status(1, 255);
 	c_malloc(0, 0);
 	exit (255);
@@ -74,7 +74,7 @@ void	exitt(t_env_vars *env, t_line *final)
 	num = ft_atoll(arg->content);
 	if (arg->next)
 	{
-		perror("minishell: exit: too many arguments\n");
+		write(2, "minishell: exit: too many arguments\n", 36);
 		exit_status(1, 1);
 		return ;
 	}

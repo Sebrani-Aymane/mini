@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 21:50:29 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	parse(char *input_rl, t_list *shell, t_env_vars *list_env)
 	free(input);
 	check_token_dollar(shell->tokens);
 	expand(shell->tokens, list_env);
-	expand_home(shell->tokens, list_env);
 	return (1);
 }
 
@@ -85,14 +84,22 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 {
 	t_node	*list;
 	t_line	*lines;
-
+	
 	list = search_token(shell->tokens);
 	check_for_delimeter(list);
 	lines = tokens_to_lines(list);
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
 	handle_heredoc(lines, list_env, stats);
 	if (g_var == 100)
+	{
+	// 	while (i < heredoc.count)
+    // {
+    //     if (close(heredoc.heredocs[i].fd[0]) != -1 || 
+    //         close(heredoc.heredocs[i].fd[1]) != -1)
+    //         i++; 
+    // }
 		return (0);
+	}
 	handle_pipe(lines, env, list_env);
 	if (lines->fd_in)
 		close(lines->fd_in);
@@ -107,8 +114,6 @@ void	display_prompt(t_list shell, char **env, t_env_vars *list_env,
 	while (1)
 	{
 		input_rl = readline("minishell$ ");
-		if (g_var)
-			exit_status(1, 1);
 		sig_handler(input_rl);
 		if (ft_strcmp(input_rl, ""))
 			add_history(input_rl);
@@ -124,6 +129,6 @@ void	display_prompt(t_list shell, char **env, t_env_vars *list_env,
 			continue ;
 		free(input_rl);
 		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, stats) < 0)
-			perror("terminal error ");
+			printf("terminal error ");
 	}
 }

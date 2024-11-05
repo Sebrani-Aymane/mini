@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 20:32:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/30 20:32:50 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:52:27 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	handle_pipe_start_case(char *input, int i)
 	if (input && input[i] == '|')
 	{
 		if (input[i + 1] && input[i + 1] == '|')
-			perror("minishell: syntax error near unexpected token `||'\n");
+			printf("minishell: syntax error near unexpected token `||'\n");
 		else
-			perror("minishell: syntax error near unexpected token `|'\n");
+			printf("minishell: syntax error near unexpected token `|'\n");
 		return (0);
 	}
 	return (1);
@@ -73,9 +73,9 @@ int	pipe_syntax(char *input, int i, int in_quotes)
 			if (input[i] == '\0' || input[i] == '|')
 			{
 				if (input[i + 1] && input[i + 1] == '|')
-					perror("minshell:syntax error near unexpected token`|'\n");
+					printf("minshell:syntax error near unexpected token`|'\n");
 				else
-					perror("minishell:syntax error near unexpected token`|'\n");
+					printf("minishell:syntax error near unexpected token`|'\n");
 				return (0);
 			}
 		}
@@ -91,14 +91,14 @@ int	check_for_and(char *input)
 	i = 0;
 	if (input && input[0] == '&' && input[1] && input[1] == '&')
 	{
-		perror("minishell: syntax error near unexpected token `&&'\n");
+		printf("minishell: syntax error near unexpected token `&&'\n");
 		return (1);
 	}
 	while (input && input[i] && input[i + 1] && input[i + 2])
 	{
 		if (input[i] == '&' && input[i + 1] == '&' && input[i + 2] == '&')
 		{
-			perror("minishell: syntax error near unexpected token `&&'\n");
+			printf("minishell: syntax error near unexpected token `&&'\n");
 			return (1);
 		}
 		i++;

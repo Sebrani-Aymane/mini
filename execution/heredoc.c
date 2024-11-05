@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:05:55 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 21:49:54 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ void	process_heredoc(t_heredoc *heredoc, t_env_vars *list_env)
 		input = readline(">");
 		if (!input)
 			return ;
+			
 		len = ft_strlenn(input);
 		if (ft_strncmp(input, heredoc->delimiter,
-				len) == 0)
+				len) == 0 || (!ft_strcmp(input, "")))
 		{
 			free(input);
 			break ;
@@ -85,7 +86,7 @@ void	handle_heredoc_parent(t_heredoc_params *params)
 	if (WEXITSTATUS(status) == 100)
 		g_var = 100;
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, params->stats) < 0)
-		perror("Error restoring terminal attributes");
+		write(2, "Error restoring terminal attributes\n", 36);
 	signal(SIGINT, sigint_handler);
 	if (params->final)
 		params->final->fd_in = dup(params->heredocs[params->count - 1].fd[0]);

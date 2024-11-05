@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:32:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/02 12:04:50 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 20:15:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ int	find_var_end(char *input, int *start)
 {
 	int	i;
 
-	i = 0;
-	while (input && input[i] && input[i] != '$')
-		i++;
-	*start = i + 1;
-	i++;
+	while (input && input[*start] && input[*start] != '$')
+		(*start)++;
+	(*start)++;
+	i = *start;
 	while (input[i] && ((input[i] >= 'a' && input[i] <= 'z')
 			|| (input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= '0'
 				&& input[i] <= '9') || input[i] == '_' || (input[i] == '?'
@@ -50,26 +49,24 @@ int	find_var_end(char *input, int *start)
 	return (i - 1);
 }
 
-char	*variable_name(char *input)
+char	*variable_name(char *input, int *start)
 {
-	int		start;
 	int		end;
 	int		len;
 	char	*var_name;
 
-	start = 0;
-	end = find_var_end(input, &start);
+	end = find_var_end(input, start);
 	if (input && (input[0] == '"' || input[0] == '\'')
 		&& input[end + 1] == '\0')
 	{
 		while (input[end] == '"' || input[end] == '\'')
 			end--;
 	}
-	len = end - start + 1;
+	len = end - (*start) + 1;
 	var_name = c_malloc((sizeof(char) * (len + 1)), 1);
 	if (var_name)
 	{
-		ft_strncpy(var_name, input + start, len);
+		ft_strncpy(var_name, input + (*start), len);
 		var_name[len] = '\0';
 	}
 	return (var_name);

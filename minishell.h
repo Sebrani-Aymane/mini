@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:07:06 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 21:50:07 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int			handle_single_builtin(struct s_handle_attr *attr, t_line *final,
 
 /* Heredoc handling */
 void		handle_heredoc(t_line *final, t_env_vars *list_env,
-				struct termios *stats);
+						struct termios *stats);
 void		process_heredoc(t_heredoc *heredoc, t_env_vars *list_env);
 void		child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count);
 int			get_delim_expand_pipe(t_line *final, t_heredoc *heredocs, int *len);
@@ -261,7 +261,7 @@ int			can_expand(char *input);
 int			check_edge_case(char *content);
 int			dollars_number(char *content, int need_exp);
 int			find_var_end(char *input, int *start);
-char		*variable_name(char *input);
+char		*variable_name(char *input, int *start);
 char		*exp_exit_status(char *num);
 char		*get_value(t_env_vars *list_env, char *name, char *value, int j);
 int			check_input(char *input);
@@ -289,5 +289,7 @@ int			open_files(t_line *lines, t_node *curr_node, int in, int out);
 void		check_for_delimeter(t_node *tokens);
 void		check_echo_flags(t_node **current, int *newline);
 int			check_eccho(t_node *final);
+char		*ft_strstr(const char *s1, const char *s2);
+char		*ft_strcat(char *dest, char *src);
 
 #endif

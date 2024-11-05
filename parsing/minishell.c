@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/02 12:05:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/05 21:15:55 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **env)
 	set_shlvl(shell);
 	handle_signals();
 	if (tcgetattr(STDIN_FILENO, &stats) < 0)
-		perror("terminal error ");
+		printf("terminal error \n");
 	display_prompt(shell, shell.env, list_env, &stats);
 	c_malloc(0, 0);
 }

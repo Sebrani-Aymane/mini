@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/05 15:50:48 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:15:17 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	out_file(t_node *token)
 	int	fd;
 
 	fd = 1;
-	if (token->type == 5 && ft_strncmp(token->content,">",1))
+	if (token->type == 5 && ft_strncmp(token->content, ">", 1))
 		fd = open(token->content,
 				O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	else if ((token->type == 6 && ft_strncmp(token->content,">>",2)))
+	else if ((token->type == 6 && ft_strncmp(token->content, ">>", 2)))
 		fd = open(token->content,
 				O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
