@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 15:24:22 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 16:27:00 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 	if (params.pid == 0)
 	{
 		child_heredoc(params.heredocs, params.list_env, params.count);
-		printf("this is glob: %d\n", g_var);
 		if (g_var == 100)
 			return (0);
 	}
