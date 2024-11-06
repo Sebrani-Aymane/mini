@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:41:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 19:14:11 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,12 @@ t_line	*tokens_to_lines(t_node *tokens)
 	last_line = NULL;
 	giving_type(tokens);
 	final_tokens(tokens);
+	// t_node *curr = tokens;
+	// while(curr)
+	// {
+	// 	printf("token: %shey\n", curr->content);
+	// 	curr = curr->next;
+	// }
 	while (tokens)
 	{
 		line = create_line(tokens);

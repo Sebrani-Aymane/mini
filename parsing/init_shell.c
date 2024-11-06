@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 16:27:18 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 19:36:12 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	int		heredoc;
 
 	list = search_token(shell->tokens);
+	// t_node *curr = list;
+	// while(curr)
+	// {
+	// 	printf("token: %shey\n", curr->content);
+	// 	curr = curr->next;
+	// }
 	check_for_delimeter(list);
 	lines = tokens_to_lines(list);
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);

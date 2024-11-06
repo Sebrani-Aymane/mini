@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 16:27:00 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 18:11:56 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ void	process_heredoc(t_heredoc *heredoc, t_env_vars *list_env)
 		input = readline(">");
 		if (!input)
 			return ;
-		len = ft_strlenn(input);
-		if (ft_strrncmp(input, heredoc->delimiter,
-				len) == 0)
+		len = ft_strlenn(heredoc->delimiter);
+		if (ft_strcmp(input, heredoc->delimiter) == 0)
 		{
 			free(input);
 			break ;
@@ -104,10 +103,10 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 	params.stats = stats;
 	params.count = check_for_herdoc(final);
 	if (params.count == 0)
-		return (0);
+		return (12);
 	params.heredocs = get_heredocs(final, params.count);
 	if (!params.heredocs)
-		return (0);
+		return (12);
 	signal(SIGINT, SIG_IGN);
 	params.pid = fork();
 	if (params.pid == 0)

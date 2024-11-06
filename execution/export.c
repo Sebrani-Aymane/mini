@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:02:57 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 18:55:19 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,4 @@ int	export_all(t_env_vars *env, t_line *final)
 		current = current->next;
 	}
 	return (ret);
-}
-
-long long	ft_atoll(char *str)
-{
-	long long	result;
-	int			sign;
-	int			i;
-
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
 }

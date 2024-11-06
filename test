@@ -7,21 +7,13 @@ minishell$ << '<<' And '|'
 >>Error restoring terminal attributes
 minishell$ exit
 
-cd | cat << l (also will redirec)
-ls > file2 << ''
+cd | cat << l
 
 export f="    "
 $f
 
-exit LLONG 
-
-; should be like other chars
-
- echo $DS<$
-
  minishell$ unset HOME
-minishell$ echo $HOME
-[1]    86865 segmentation fault  ./minishell
+minishell$ echo $HOME should give newline
 
 
 /Users/cbajji/Desktop/mini/1/2/3/4/../../../../../../../../../../../../../../../..

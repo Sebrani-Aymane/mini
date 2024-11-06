@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:38:59 by cbajji            #+#    #+#             */
-/*   Updated: 2024/10/31 20:26:23 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 19:21:37 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rem_quotes_while(char *content, int *i, char *final, int *j)
 	}
 }
 
-char	*remove_quotes(char *content, int i, int j)
+char	* remove_quotes(char *content, int i, int j)
 {
 	char	*final;
 
