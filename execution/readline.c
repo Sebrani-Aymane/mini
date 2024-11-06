@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/05 16:09:54 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:38:53 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ char	**create_av(t_node *tokens)
 	{
 		if (current->type == 1 || current->type == 2)
 		{
-			av[i] = ft_strdup(current->content);
+			if(!ft_strcmp(current->content,""))
+				av[i] = NULL;
+			else
+				av[i] = ft_strdup(current->content);
 			i++;
 		}
 		current = current->next;
