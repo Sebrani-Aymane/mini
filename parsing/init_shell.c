@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 00:07:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 12:07:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	lines = tokens_to_lines(list);
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
 	heredoc = handle_heredoc(lines, list_env, stats);
-	if (!heredoc)
+	if (heredoc)
 		return (0);
 	handle_pipe(lines, env, list_env);
 	if (lines->fd_in)

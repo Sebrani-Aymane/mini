@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/05 16:57:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:08:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*pwdd(t_env_vars *list)
 			return (tmp->var_value);
 		tmp = tmp->next;
 	}
-	puts("here");
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 00:03:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 12:05:44 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 	params.stats = stats;
 	params.count = check_for_herdoc(final);
 	if (params.count == 0)
-		return ;
+		return (0);
 	params.heredocs = get_heredocs(final, params.count);
 	if (!params.heredocs)
-		return ;
+		return (0) ;
 	signal(SIGINT, SIG_IGN);
 	params.pid = fork();
 	if (params.pid == 0)

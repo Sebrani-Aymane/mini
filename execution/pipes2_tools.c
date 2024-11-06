@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes2_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:08:08 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 12:27:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	handle_pipe(t_line *final, char **env, t_env_vars *list)
 	init_pipe_attr(&attr, final);
 	builtin_ret = handle_single_builtin(&attr, final, env, list);
 	if (builtin_ret != -3)
-		return (builtin_ret);
+		return (cleanup_pipe_handler(&attr), builtin_ret);
 	while (++attr.i < attr.pipes_count)
 	{
 		pipe_ret = setup_pipe(&attr);
