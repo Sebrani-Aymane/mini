@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:25:24 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 11:58:39 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 21:23:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	handle_command_execution(char **av, char **env, t_env_vars *list)
 	to_do = find_executable(NULL, list, av);
 	if (to_do)
 	{
+		puts("here");
 		exit_status(1, 0);
 		execve(to_do, av, env);
 	}

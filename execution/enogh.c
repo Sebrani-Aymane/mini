@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 20:01:26 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:02:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_strcmp(char *str, char *str1)
 int	ft_listsize(t_line *lst)
 {
 	int	i;
-	i = 0;
+	i = 1;
 	if (!lst)
 		return (0);
 	while (lst)
