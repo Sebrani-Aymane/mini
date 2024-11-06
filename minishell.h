@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 00:06:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 14:20:32 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void		sig_handler(char *input_rl);
 /* Parser utilities */
 int			count_words(char *str, char c);
 char		*return_word(char *str, char c);
+int			ft_strrncmp(char *s1, char *s2, int n);
 char		**split(char *str, char sep);
 char		*get_till(char *str, char c);
 int			get_nodee(t_env_vars *list);
