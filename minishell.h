@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 14:20:32 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 15:24:07 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int			handle_single_builtin(struct s_handle_attr *attr, t_line *final,
 
 /* Heredoc handling */
 int			handle_heredoc(t_line *final, t_env_vars *list_env,
-						struct termios *stats);
+				struct termios *stats);
 void		process_heredoc(t_heredoc *heredoc, t_env_vars *list_env);
 void		child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count);
 int			get_delim_expand_pipe(t_line *final, t_heredoc *heredocs, int *len);

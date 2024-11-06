@@ -1,1 +1,30 @@
 leaks in ctrl c handle_heredoc
+
+$DSAKDNJKASN -- it gives no such a file
+
+ls > $DKJSANJKN //amg red
+
+minishell$ << '<<' And '|'
+>>Error restoring terminal attributes
+minishell$ exit
+
+cd | cat << l (also will redirec)
+ls > file2 << ''
+
+export f="    "
+$f
+
+cat << l
+
+exit LLONG 
+
+; should be like other chars
+
+ echo $DS<$
+
+ minishell$ unset HOME
+minishell$ echo $HOME
+[1]    86865 segmentation fault  ./minishell
+
+
+/Users/cbajji/Desktop/mini/1/2/3/4/../../../../../../../../../../../../../../../..

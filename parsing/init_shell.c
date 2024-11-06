@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 12:07:06 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:13:11 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
 	heredoc = handle_heredoc(lines, list_env, stats);
 	if (heredoc)
+	{
+		if (lines->fd_in)
+			close(lines->fd_in);
 		return (0);
+	}
 	handle_pipe(lines, env, list_env);
 	if (lines->fd_in)
 		close(lines->fd_in);
@@ -118,9 +122,9 @@ void	display_prompt(t_list shell, char **env, t_env_vars *list_env,
 		g_var = 0;
 		if (!parse(input_rl, &shell, list_env))
 			continue ;
+		free(input_rl);
 		if (!execution(env, list_env, &shell, stats))
 			continue ;
-		free(input_rl);
 		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, stats) < 0)
 			printf("terminal error ");
 	}

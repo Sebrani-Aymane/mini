@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 14:28:01 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/06 15:24:22 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 						struct termios *stats)
 {
 	t_heredoc_params	params;
-	int i;
 
-	i = 0;
 	params.final = final;
 	params.list_env = list_env;
 	params.stats = stats;
@@ -109,22 +107,17 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 		return (0);
 	params.heredocs = get_heredocs(final, params.count);
 	if (!params.heredocs)
-		return (0) ;
+		return (0);
 	signal(SIGINT, SIG_IGN);
 	params.pid = fork();
 	if (params.pid == 0)
+	{
 		child_heredoc(params.heredocs, params.list_env, params.count);
+		printf("this is glob: %d\n", g_var);
+		if (g_var == 100)
+			return (0);
+	}
 	else
 		handle_heredoc_parent(&params);
-	if (g_var == 100)
-	{
-		while (i < params.count)
-    {
-        if (close(params.heredocs[i].fd[0]) != -1 && 
-            close(params.heredocs[i].fd[1]) != -1)
-            i++; 
-		return (0);
-    }
-	}
 	return (1);
 }
