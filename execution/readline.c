@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 19:38:53 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 02:58:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	execute_blts(char *blt, t_line *final, t_env_vars *list, char **env)
 	else if (ft_strncmp(blt, "unset", 5) == 0)
 		ret = unset(list, final);
 	else if (ft_strncmp(blt, "exit", 4) == 0)
-		exitt(list, final);
+		exitt(final);
 	return (ret);
 }
 
@@ -108,7 +108,7 @@ char	**create_av(t_node *tokens)
 	{
 		if (current->type == 1 || current->type == 2)
 		{
-			if(!ft_strcmp(current->content,""))
+			if (!ft_strcmp(current->content, ""))
 				av[i] = NULL;
 			else
 				av[i] = ft_strdup(current->content);

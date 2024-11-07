@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 21:25:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 02:51:56 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,9 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 	signal(SIGINT, SIG_IGN);
 	params.pid = fork();
 	if (params.pid == 0)
-	{
 		child_heredoc(params.heredocs, params.list_env, params.count);
-	}
 	else
 	{
-		
 		handle_heredoc_parent(&params);
 		if (g_var == 100)
 			return (0);

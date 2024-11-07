@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 19:48:58 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 03:00:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ void	add_n_l(t_node *curr, t_node **frst, t_node **last, t_line *line)
 
 t_line	*create_line(t_node *node)
 {
-
 	t_node	*current;
 	t_node	*first;
 	t_node	*last ;
 	t_line	*line;
+
 	current = node;
 	first = NULL;
 	last = NULL;

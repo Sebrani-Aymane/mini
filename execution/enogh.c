@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enogh.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 20:41:05 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 21:46:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 02:41:45 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_isalnum(int c)
 int	ft_strcmp(char *str, char *str1)
 {
 	int	i;
+
 	if (!str || !str1)
 		return (-1);
 	i = 0;
@@ -34,6 +35,7 @@ int	ft_strcmp(char *str, char *str1)
 int	ft_listsize(t_line *lst)
 {
 	int	i;
+
 	i = 1;
 	if (!lst)
 		return (0);

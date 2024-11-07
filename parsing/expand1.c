@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 18:53:51 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 02:53:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,10 @@ char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 			continue ;
 		}
 		value = get_value(l_env, name, NULL, 0);
-		// printf("value before check: %shey\n", value);
 		value = check_value(value, name, temp);
-		// printf("value after check: %shey\n", value);
 		if (!ft_strcmp(name, "_") && !ft_strcmp(value, "/usr/bin/env"))
 			value = ft_strdup("env");
 		new_token = replace_value(temp->content, value, name);
-		// printf("new token: %shey\n", new_token);
 		temp->content = new_token;
 		counter--;
 	}
@@ -125,15 +122,11 @@ void	expand(t_token **tokens, t_env_vars *list_env)
 			continue ;
 		}
 		new_token = counter_loop(counter, tokens[i], list_env, &notif);
-		// printf("new token: %shey\n", new_token);
 		if (!notif)
 			tokens[i]->content = new_token;
 		else
-		{
 			if (check_edge_case(new_token))
 				tokens[i]->content = pass_dollar(new_token);
-		}
-		// printf("new token: %shey\n", tokens[i]->content);
 		i++;
 	}
 }

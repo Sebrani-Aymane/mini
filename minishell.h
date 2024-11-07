@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 15:24:07 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 02:42:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ char		*pwdd(t_env_vars *list);
 int			export_all(t_env_vars *env, t_line *final);
 int			export_it(t_env_vars *env, char *str);
 int			export_with_plus(char *av, t_env_vars *env);
-void		exitt(t_env_vars *env, t_line *final);
+void		exitt(t_line *final);
 int			unset(t_env_vars *env, t_line *final);
 int			chdirr(char **env, t_line *final, t_env_vars *list);
 void		chdiir_help(t_line *final, t_env_vars *list, char *pwd);

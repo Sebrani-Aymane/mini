@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 00:06:10 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 18:57:24 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 02:52:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ void	exit_help(t_node *arg)
 	exit (255);
 }
 
-void	exitt(t_env_vars *env, t_line *final)
+void	exit_helper(void)
+{
+	write(2, "minishell: exit: too many arguments\n", 36);
+	exit_status(1, 1);
+	return ;
+}
+
+void	exitt(t_line *final)
 {
 	t_node		*arg;
 	long long	num;
 
-	(void)env;
 	arg = final->tokens->next;
 	if (!arg)
 	{
@@ -72,15 +78,11 @@ void	exitt(t_env_vars *env, t_line *final)
 	if (!is_valid_number(arg->content))
 		exit_help(arg);
 	num = ft_atoi(arg->content);
-	if ((num == 0 || num == -1 ) && arg->content[0] != '0'
+	if ((num == 0 || num == -1) && arg->content[0] != '0'
 		&& ft_strlen(arg->content) >= 19)
 		exit_help(arg);
 	if (arg->next)
-	{
-		write(2, "minishell: exit: too many arguments\n", 36);
-		exit_status(1, 1);
-		return ;
-	}
+		return (exit_helper());
 	printf("exit\n");
 	num = (num % 256 + 256) % 256;
 	exit_status(1, num);

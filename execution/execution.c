@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:25:24 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 21:23:22 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 02:41:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,33 @@ void	when_not_blt(t_line *final, char **env, t_env_vars *list)
 	}
 }
 
+void	errorrr(char *av)
+{
+	char	*str;
+
+	str = str_joiner(av, " :command not found\n");
+	exit_status(1, 127);
+	write(2, "minishell: ", 11);
+	write(2, str, ft_strlenn(av) + 20);
+	exit(127);
+}
+
 int	handle_command_execution(char **av, char **env, t_env_vars *list)
 {
 	char	*to_do;
-	char	*str;
 
 	to_do = find_executable(NULL, list, av);
 	if (to_do)
 	{
-		puts("here");
 		exit_status(1, 0);
 		execve(to_do, av, env);
 	}
 	else if (!to_do && get_path_from_list(list, "PATH"))
-	{
-		str = str_joiner(av[0], " :command not found\n");
-		exit_status(1, 127);
-		write(2, "minishell: ", 11);
-		write(2, str, ft_strlenn(av[0]) + 20);
-		exit(127);
-	}
+		errorrr(av[0]);
 	if (!to_do && !get_path_from_list(list, "PATH"))
 	{
-		exit_status(1, 127);
 		execve(av[0], av, env);
-		exit(127);
+		errorrr(av[0]);
 	}
 	return (0);
 }

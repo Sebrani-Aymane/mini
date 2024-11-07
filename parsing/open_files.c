@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 12:37:10 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 03:00:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ int	out_file(t_node *token)
 	return (fd);
 }
 
+int	handle_output(t_line *curr_line, t_node *curr_node, int out)
+{
+	if (curr_line->fd_out != 1)
+		close(curr_line->fd_out);
+	out = out_file(curr_node->next);
+	curr_line->fd_out = out;
+	return (out);
+}
+
 int	open_files(t_line *curr_line, t_node *curr_node, int in, int out)
 {
 	while (curr_line)
@@ -68,10 +77,7 @@ int	open_files(t_line *curr_line, t_node *curr_node, int in, int out)
 			if ((curr_node->type == 5 && curr_node->next->type == 5)
 				|| (curr_node->type == 6 && curr_node->next->type == 6))
 			{
-				if (curr_line->fd_out != 1)
-					close(curr_line->fd_out);
-				out = out_file(curr_node->next);
-				curr_line->fd_out = out;
+				out = handle_output(curr_line, curr_node, out);
 				if (!out)
 					return (0);
 			}
