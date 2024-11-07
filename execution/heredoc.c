@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 02:51:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:38:41 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,12 @@ void	process_heredoc(t_heredoc *heredoc, t_env_vars *list_env)
 {
 	char	*input;
 	t_token	**hered_tokens;
-	int		len;
 
 	while (1)
 	{
 		input = readline(">");
 		if (!input)
 			return ;
-		len = ft_strlenn(heredoc->delimiter);
 		if (ft_strcmp(input, heredoc->delimiter) == 0)
 		{
 			free(input);

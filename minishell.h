@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 02:42:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:50:47 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_node
 	char			*content;
 	int				type;
 	int				delimeter_inside_quotes;
+	int				inside_quotes;
 	struct s_node	*next;
 }	t_node;
 
@@ -228,6 +229,7 @@ int			exit_status(int type, int value);
 void		handle_redirections(t_line *final);
 int			check_file_path(t_line *final);
 char		**create_av(t_node *tokens);
+void		conf_inside_quotes(t_node *tokens);
 
 /* Token handling */
 void		ft_lstadd_back(t_node **lst, t_node *neew);
@@ -243,7 +245,6 @@ void		display_prompt(t_list shell, char **env, t_env_vars *list_env,
 int			check_unclosed_quotes(char *input, int i, int inside_d,
 				int inside_s);
 t_token		**into_tokens(char *input, int i, int start);
-int			check_prohibited_char(char *input);
 int			is_redirection_op(char c);
 int			skip_spaces(char *input, int i);
 int			validate_redirection_syntax(char *input);

@@ -1,0 +1,10 @@
+>>
+Makefile
+execution
+ji
+ko
+m
+minishell
+minishell.h
+parsing
+test

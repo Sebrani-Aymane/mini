@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 18:32:44 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 15:24:48 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:28:53 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,19 @@ int	ft_strrncmp(char *s1, char *s2, int n)
 	while (i < n - 1 && s1[i] == s2[i] && s2[i] && s1[i])
 		i++;
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
+}
+
+void	conf_inside_quotes(t_node *tokens)
+{
+	t_node	*curr;
+
+	curr = tokens;
+	while (curr)
+	{
+		if (inside_quotes(curr->content))
+			curr->inside_quotes = 1;
+		else
+			curr->inside_quotes = 0;
+		curr = curr->next;
+	}
 }

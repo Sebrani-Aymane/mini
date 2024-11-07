@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:39:33 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/02 11:03:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 10:28:17 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	check_input(char *input)
 		return (1);
 	if (!ft_strcmp(input, "''") || !ft_strcmp(input, "\"\"")
 		|| check_unclosed_quotes(input, 0, 0, 0)
-		|| check_prohibited_char(input)
 		|| !validate_redirection_syntax(input)
 		|| !pipe_syntax(input, 0, 0))
 	{

@@ -1,16 +1,7 @@
 
-$DSAKDNJKASN -- it gives no such a file
 
 ls > $DKJSANJKN //amg red
 
-minishell$ << '<<' And '|'
->>Error restoring terminal attributes
-minishell$ exit
-
-cd | cat << l
-
-export f="    "
-$f
-
- minishell$ unset HOME
-minishell$ echo $HOME should give newline
+>> '>>'
+ls > k > M > n
+ 

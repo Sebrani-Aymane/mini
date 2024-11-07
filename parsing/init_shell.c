@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 21:00:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:26:50 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ int	parse(char *input_rl, t_list *shell, t_env_vars *list_env)
 		return (0);
 	}
 	shell->tokens = into_tokens(input, 0, 0);
+	// 	int i = 0;
+	// while(shell->tokens[i])
+	// {
+	// 	printf("this is token: %s\n", shell->tokens[i]->content);
+	// 	i++;
+	// }
 	free(input);
 	check_token_dollar(shell->tokens);
 	expand(shell->tokens, list_env);
@@ -87,10 +93,28 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	int		heredoc;
 
 	list = search_token(shell->tokens);
+	// t_node *curr = list;
+	// while (curr)
+	// {
+	// 	printf("this is node : %s\n", curr->content);
+	// 	curr = curr->next;
+	// }
 	check_for_delimeter(list);
 	lines = tokens_to_lines(list);
 	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
 	heredoc = handle_heredoc(lines, list_env, stats);
+	// t_line *curr = lines;
+	// while(curr)
+	// {
+	// 	printf("this is line: \n");
+	// 	t_node *current = curr->tokens;
+	// 	while(current)
+	// 	{
+	// 		printf("this is node: %s and this is type: %d\n", current->content, current->type);
+	// 		current = current->next;
+	// 	}
+	// 	curr = curr->next;
+	// }
 	if (!heredoc)
 	{
 		if (lines->fd_in)

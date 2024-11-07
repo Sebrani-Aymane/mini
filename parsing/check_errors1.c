@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:19:02 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/02 12:51:40 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 10:28:33 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,6 @@ int	check_unclosed_quotes(char *input, int i, int inside_d, int inside_s)
 	{
 		write(2, "minishell: unclosed quotes\n", 27);
 		return (1);
-	}
-	return (0);
-}
-
-int	check_prohibited_char(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input && input[i])
-	{
-		if (input[i] == '\\' || input[i] == ';')
-		{
-			write(2, "prohibited character\n", 21);
-			return (1);
-		}
-		i++;
 	}
 	return (0);
 }

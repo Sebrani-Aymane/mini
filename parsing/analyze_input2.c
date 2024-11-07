@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:24:23 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:37:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:32:10 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int	more_than_op(char *input)
 	int	i;
 	int	count;
 
-	count = 0;
 	i = 0;
 	while (input && input[i])
 	{
+		count = 0;
 		if (input[i] == '<' || input[i] == '>')
 		{
 			while (input[i] == '<' || input[i] == '>')
@@ -60,11 +60,13 @@ int	more_than_op(char *input)
 				count++;
 				i++;
 				if (count > 2)
-					return (i);
+					return (1);
 			}
 		}
-		count = 0;
-		i++;
+		else
+		{
+			i++;
+		}
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 03:00:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:02:21 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,36 @@ void	redirections_classifier(t_node **lst_token)
 		else if (current->type == 6 && !ft_strcmp(current->content, ">>")
 			&& current->next != NULL)
 			current->next->type = 6;
-		else if (current->type == 3 && (!ft_strcmp(current->content, "<<"))
-			&& current->next != NULL)
-			current->next->type = 3;
 		current = current->next;
 	}
 }
 
 void	giving_type(t_node *token)
 {
-	t_node	*current;
+	t_node	*cur;
 
-	current = token;
-	while (current)
+	cur = token;
+	while (cur)
 	{
-		if (!ft_strcmp(current->content, "<"))
-			current->type = 4;
-		else if (!ft_strcmp(current->content, ">"))
-			current->type = 5;
-		else if (!ft_strcmp(current->content, ">>"))
-			current->type = 6;
-		else if (!ft_strcmp(current->content, "<<"))
-			current->type = 3;
-		else if (!ft_strcmp(current->content, "echo")
-			|| !ft_strcmp(current->content, "cd")
-			|| !ft_strcmp(current->content, "pwd")
-			|| !ft_strcmp(current->content, "export")
-			|| !ft_strcmp(current->content, "unset")
-			|| !ft_strcmp(current->content, "env")
-			|| !ft_strcmp(current->content, "exit"))
-			current->type = 2;
+		if (!ft_strcmp(cur->content, "<") && !inside_quotes(cur->content))
+			cur->type = 4;
+		else if (!ft_strcmp(cur->content, ">") && !inside_quotes(cur->content))
+			cur->type = 5;
+		else if (!ft_strcmp(cur->content, ">>") && !inside_quotes(cur->content))
+			cur->type = 6;
+		else if (!ft_strcmp(cur->content, "<<") && !inside_quotes(cur->content))
+			cur->type = 3;
+		else if (!ft_strcmp(cur->content, "echo")
+			|| !ft_strcmp(cur->content, "cd")
+			|| !ft_strcmp(cur->content, "pwd")
+			|| !ft_strcmp(cur->content, "export")
+			|| !ft_strcmp(cur->content, "unset")
+			|| !ft_strcmp(cur->content, "env")
+			|| !ft_strcmp(cur->content, "exit"))
+			cur->type = 2;
 		else
-			current->type = 1;
-		current = current->next;
+			cur->type = 1;
+		cur = cur->next;
 	}
 }
 
@@ -108,7 +105,8 @@ t_line	*create_line(t_node *node)
 	if (!line)
 		return (NULL);
 	line->tokens = NULL;
-	while (current && ft_strcmp(current->content, "|") != 0)
+	while (current && (ft_strcmp(current->content, "|") != 0
+			|| current->inside_quotes))
 	{
 		add_n_l(current, &first, &last, line);
 		current = current->next;
@@ -128,6 +126,7 @@ t_line	*tokens_to_lines(t_node *tokens)
 
 	first_line = NULL;
 	last_line = NULL;
+	conf_inside_quotes(tokens);
 	giving_type(tokens);
 	final_tokens(tokens);
 	while (tokens)
@@ -138,9 +137,11 @@ t_line	*tokens_to_lines(t_node *tokens)
 		else
 			last_line->next = line;
 		last_line = line;
-		while (tokens && ft_strcmp(tokens->content, "|") != 0)
+		while (tokens && (ft_strcmp(tokens->content, "|") != 0
+				|| tokens->inside_quotes))
 			tokens = tokens->next;
-		if (tokens && ft_strcmp(tokens->content, "|") == 0)
+		if (tokens && ft_strcmp(tokens->content, "|") == 0
+			&& !tokens->inside_quotes)
 			tokens = tokens->next;
 	}
 	return (first_line);
