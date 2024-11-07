@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 02:58:38 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:41:04 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,15 @@
 int	handle_pwd_command(t_env_vars *list)
 {
 	char	*pwd;
-	int		flag;	
 
-	flag = 0;
 	pwd = pwdd(list);
 	if (!pwd)
-	{
 		pwd = getcwd(NULL, 0);
-		flag = 1;
-	}
 	if (!pwd)
 		pwd = list->pwd;
 	ft_putstr(pwd, 1);
 	ft_putstr("\n", 1);
-	if (flag)
+	if (pwd)
 		free(pwd);
 	return (0);
 }

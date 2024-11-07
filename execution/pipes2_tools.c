@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes2_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 15:27:38 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 20:43:10 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,7 @@ int	handle_pipe(t_line *final, char **env, t_env_vars *list)
 	int						fork_ret;
 	int						builtin_ret;
 	int						pipe_ret;
-	t_line *curr = final;
-	while(curr)
-	{
-		t_node *current = curr->tokens;
-		while(current)
-		{
-			printf("this is node: %s and this is type: %d\n", current->content, current->type);
-			current = current->next;
-		}
-		curr = curr->next;
-	}
+
 	init_pipe_attr(&attr, final);
 	builtin_ret = handle_single_builtin(&attr, final, env, list);
 	if (builtin_ret != -3)

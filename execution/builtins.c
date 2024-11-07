@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 12:08:24 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:46:02 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,13 @@ int	chdirr(char **env, t_line *final, t_env_vars *list)
 		if (!ft_strncmp(list->vars, "PWD", 3))
 		{
 			list->var_value = ft_strdup(str);
-			list->pwd = list->var_value;
+			list->pwd = ft_strdup(list->var_value);
 		}
 		if (!ft_strncmp(list->vars, "OLDPWD", 6))
 			list->var_value = oldpwd;
 		list = list ->next;
 	}
-	list = temp;
-	return (free(str), 0);
+	if (str)
+		free(str);
+	return ((list = temp), 0);
 }

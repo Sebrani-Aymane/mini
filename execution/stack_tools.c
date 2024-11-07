@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/05 16:13:05 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:44:29 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ int	cd_helper(t_line *final, t_env_vars *list, char **env)
 			chdiir_help2(final, list, pwd_bfr_cd);
 		res = 0;
 	}
-	return (free(tmp), res);
+	if (tmp)
+		free(tmp);
+	return (res);
 }
