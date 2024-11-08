@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/08 10:33:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:37:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ int	parse(char *input_rl, t_list *shell, t_env_vars *list_env)
 		free(input_rl);
 		return (0);
 	}
-	shell->tokens = into_tokens(input, 0, 0);
+	shell->tokens = into_tokens(input, 0, 0, 0);
 	free(input);
 	check_token_dollar(shell->tokens);
-	expand(shell->tokens, list_env);
+	if (expand(shell->tokens, list_env, 0, 0)){
+		shell->tokens = into_tokens(join_tokens(shell), 0, 0, 0);
+	}
 	return (1);
 }
 
@@ -86,6 +88,8 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	t_line	*lines;
 	int		heredoc;
 
+	if (!shell->tokens)
+		return (0);
 	list = search_token(shell->tokens);
 	check_for_delimeter(list);
 	lines = tokens_to_lines(list);
@@ -121,7 +125,6 @@ void	display_prompt(t_list shell, char **env, t_env_vars *list_env,
 			free(input_rl);
 			continue ;
 		}
-		g_var = 0;
 		if (!parse(input_rl, &shell, list_env))
 			continue ;
 		free(input_rl);

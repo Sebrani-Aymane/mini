@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:22:57 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 15:31:49 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:39:56 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	writing_heredoc(t_token **hered_tokens,
 	if (heredoc->expand_vars)
 	{
 		check_token_dollar(hered_tokens);
-		expand(hered_tokens, list);
+		expand(hered_tokens, list, 0, 0);
 	}
 	while (hered_tokens && hered_tokens[j])
 	{
@@ -61,7 +61,8 @@ void	writing_heredoc(t_token **hered_tokens,
 	}
 }
 
-void	child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count)
+void	child_heredoc(t_heredoc *heredocs, t_env_vars *list,
+			int count, int *sig_var)
 {
 	int	i;
 
@@ -73,7 +74,7 @@ void	child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count)
 	while (i < count)
 	{
 		process_heredoc(&heredocs[i], list);
-		if (g_var)
+		if (*sig_var)
 			return ;
 		close(heredocs[i].fd[1]);
 		i++;

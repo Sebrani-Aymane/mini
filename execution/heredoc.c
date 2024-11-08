@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 01:27:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 15:38:41 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:39:41 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ void	process_heredoc(t_heredoc *heredoc, t_env_vars *list_env)
 			free(input);
 			break ;
 		}
-		hered_tokens = into_tokens(input, 0, 0);
+		hered_tokens = into_tokens(input, 0, 0, 0);
 		writing_heredoc(hered_tokens, heredoc, list_env);
 		write(heredoc->fd[1], "\n", 1);
 		free(input);
 	}
 }
 
-void	handle_heredoc_parent(t_heredoc_params *params)
+void	handle_heredoc_parent(t_heredoc_params *params, int *sig_var)
 {
 	int	i;
 	int	status;
@@ -80,7 +80,7 @@ void	handle_heredoc_parent(t_heredoc_params *params)
 		close(params->heredocs[i++].fd[1]);
 	waitpid(params->pid, &status, 0);
 	if (WEXITSTATUS(status) == 100)
-		g_var = 100;
+		*sig_var = 100;
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, params->stats) < 0)
 		write(2, "Error restoring terminal attributes\n", 36);
 	signal(SIGINT, sigint_handler);
@@ -95,7 +95,9 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 						struct termios *stats)
 {
 	t_heredoc_params	params;
+	static int			sig_var;
 
+	sig_var = 0;
 	params.final = final;
 	params.list_env = list_env;
 	params.stats = stats;
@@ -108,11 +110,11 @@ int	handle_heredoc(t_line *final, t_env_vars *list_env,
 	signal(SIGINT, SIG_IGN);
 	params.pid = fork();
 	if (params.pid == 0)
-		child_heredoc(params.heredocs, params.list_env, params.count);
+		child_heredoc(params.heredocs, params.list_env, params.count, &sig_var);
 	else
 	{
-		handle_heredoc_parent(&params);
-		if (g_var == 100)
+		handle_heredoc_parent(&params, &sig_var);
+		if (sig_var == 100)
 			return (0);
 	}
 	return (1);

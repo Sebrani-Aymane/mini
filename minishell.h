@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/08 10:26:07 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:39:28 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <signal.h>
-
-int	g_var;
 
 typedef struct s_token
 {
@@ -199,7 +197,8 @@ int			handle_single_builtin(struct s_handle_attr *attr, t_line *final,
 int			handle_heredoc(t_line *final, t_env_vars *list_env,
 				struct termios *stats);
 void		process_heredoc(t_heredoc *heredoc, t_env_vars *list_env);
-void		child_heredoc(t_heredoc *heredocs, t_env_vars *list, int count);
+void		child_heredoc(t_heredoc *heredocs, t_env_vars *list,
+				int count, int *sig_var);
 int			get_delim_expand_pipe(t_line *final, t_heredoc *heredocs, int *len);
 void		writing_heredoc(t_token **hered_tokens, t_heredoc *heredoc,
 				t_env_vars *list);
@@ -245,7 +244,7 @@ void		display_prompt(t_list shell, char **env, t_env_vars *list_env,
 				struct termios *stats);
 int			check_unclosed_quotes(char *input, int i, int inside_d,
 				int inside_s);
-t_token		**into_tokens(char *input, int i, int start);
+t_token		**into_tokens(char *input, int i, int start, int count);
 int			is_redirection_op(char c);
 int			skip_spaces(char *input, int i);
 int			validate_redirection_syntax(char *input);
@@ -277,10 +276,11 @@ char		*replace_value(char *token, char *value, char *name);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
 
 /* Expansion handling */
-void		expand(t_token **tokens, t_env_vars *list_env);
+int			expand(t_token **tokens, t_env_vars *list_env, int notif, int i);
 void		expand_home(t_token **tokens, t_env_vars *list_env);
 char		*pass_dollar(char *content);
 int			dollar_inside_quotes_alone(char *content);
+char		*join_tokens(t_list *shell);
 
 /* Line handling */
 t_node		*search_token(t_token **tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/08 12:18:01 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:43:09 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,13 @@ char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 	return (new_token);
 }
 
-void	expand(t_token **tokens, t_env_vars *list_env)
+int	expand(t_token **tokens, t_env_vars *list_env, int notif, int i)
 {
-	int		i;
 	char	*new_token;
-	int		notif;
 	int		counter;
+	int		flag;
 
-	i = 0;
+	flag = 0;
 	while (tokens[i])
 	{
 		notif = 0;
@@ -123,6 +122,7 @@ void	expand(t_token **tokens, t_env_vars *list_env)
 			continue ;
 		}
 		new_token = counter_loop(counter, tokens[i], list_env, &notif);
+		flag = 1;
 		if (!notif)
 			tokens[i]->content = new_token;
 		else
@@ -130,4 +130,5 @@ void	expand(t_token **tokens, t_env_vars *list_env)
 				tokens[i]->content = pass_dollar(new_token);
 		i++;
 	}
+	return (flag);
 }

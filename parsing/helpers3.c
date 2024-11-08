@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 18:32:44 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 12:28:53 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 20:38:21 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,25 @@ void	conf_inside_quotes(t_node *tokens)
 			curr->inside_quotes = 0;
 		curr = curr->next;
 	}
+}
+
+char	*join_tokens(t_list *shell)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = ft_strdup("");
+	if (!shell->tokens)
+		return (NULL);
+	while (shell->tokens[i])
+	{
+		str = ft_strjoin(str, shell->tokens[i]->content);
+		if (shell->tokens[i + 1])
+			str = ft_strjoin(str, " ");
+		i++;
+	}
+	if (!str)
+		return (NULL);
+	return (str);
 }

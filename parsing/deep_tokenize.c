@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deep_tokenize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:21:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 19:56:58 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:42:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ t_node	*search_token(t_token **tokens)
 	{
 		if (!contains_only_symbol(tokens[i]->content)
 			&& contains_symbol(tokens[i]->content)
-			&& !inside_quotes(tokens[i]->content))
+			&& !inside_quotes(tokens[i]->content)
+			&& (i == 0 || ft_strcmp(tokens[i - 1]->content,
+					"export") != 0))
 			divide_and_add(&list, tokens[i]->content);
 		else if (!inside_quotes(tokens[i]->content)
 			&& tokens[i]->divide_space == 1)

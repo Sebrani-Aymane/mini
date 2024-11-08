@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/01 21:43:02 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 17:04:50 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,13 @@ char	*cat_token(char *input, int start, int end)
 	return (token);
 }
 
-t_token	**into_tokens(char *input, int i, int start)
+t_token	**into_tokens(char *input, int i, int start, int count)
 {
 	t_token	**tokens;
-	int		count;
 	int		last_start;
 
+	if (!input)
+		return (NULL);
 	count = tokens_number(input, 0, 0, 0);
 	tokens = c_malloc((sizeof(t_token *) * (count + 1)), 1);
 	if (!tokens)
@@ -116,6 +117,5 @@ t_token	**into_tokens(char *input, int i, int start)
 		tokens[i]->content = cat_token(input, last_start, start);
 		i++;
 	}
-	tokens[i] = NULL;
-	return (tokens);
+	return ((tokens[i] = NULL), tokens);
 }
