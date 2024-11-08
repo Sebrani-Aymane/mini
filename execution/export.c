@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/06 18:55:19 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 12:19:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,24 @@ int	export_all(t_env_vars *env, t_line *final)
 		current = current->next;
 	}
 	return (ret);
+}
+
+int	ft_listsizeee(t_line *lst)
+{
+	int	i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		if (lst->next)
+		{
+			lst = lst->next;
+			i++;
+		}
+		else
+			return (i);
+	}
+	return (i);
 }

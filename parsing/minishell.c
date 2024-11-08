@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/05 21:15:55 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 12:23:51 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sig_handler(char *input_rl)
 		c_malloc(0, 0);
 		rl_clear_history();
 		printf("exit\n");
-		exit(0);
+		exit(exit_status(GET, 0));
 	}
 }
 

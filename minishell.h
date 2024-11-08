@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 11:50:47 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/08 10:26:07 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int			ft_isalnum(int c);
 int			ft_isdigit(int c);
 int			is_space(char *str);
 int			ft_is_space(char *input);
+int			ft_listsizeee(t_line *lst);
 
 /* Number utilities */
 long long	ft_atoll(char *str);

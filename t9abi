@@ -1,0 +1,5 @@
+minishell$ export a="dsfsdf | sdf"
+minishell:  sdf :command not found
+
+------------------------------------------------------------
+

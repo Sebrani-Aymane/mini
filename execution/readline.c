@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 20:41:04 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:23:35 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,25 @@
 
 int	handle_pwd_command(t_env_vars *list)
 {
-	char	*pwd;
+	char		*pwd;
+	int			flag;
+	static char	*save_pwd;
 
+	flag = 0;
+	(!save_pwd) && (save_pwd = pwdd(list));
 	pwd = pwdd(list);
 	if (!pwd)
+	{
 		pwd = getcwd(NULL, 0);
+		flag = 1;
+	}
+	else
+		save_pwd = ft_strdup(pwd);
 	if (!pwd)
-		pwd = list->pwd;
+		(1) && (pwd = save_pwd, flag = 0);
 	ft_putstr(pwd, 1);
 	ft_putstr("\n", 1);
-	if (pwd)
+	if (flag)
 		free(pwd);
 	return (0);
 }
@@ -101,7 +110,7 @@ char	**create_av(t_node *tokens)
 	current = tokens;
 	while (current)
 	{
-		if (current->type == 1 || current->type == 2)
+		if ((current->type == 1 || current->type == 2))
 		{
 			if (!ft_strcmp(current->content, ""))
 				av[i] = NULL;

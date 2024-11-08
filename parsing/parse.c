@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 15:02:21 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:08:29 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	redirections_classifier(t_node **lst_token)
 		else if (current->type == 5 && !ft_strcmp(current->content, ">")
 			&& current->next != NULL)
 			current->next->type = 5;
+		else if (current->type == 3 && !ft_strcmp(current->content, "<<")
+			&& current->next != NULL)
+			current->next->type = 7;
 		else if (current->type == 6 && !ft_strcmp(current->content, ">>")
 			&& current->next != NULL)
 			current->next->type = 6;

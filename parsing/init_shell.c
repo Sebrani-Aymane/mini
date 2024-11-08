@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 20:42:45 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 10:33:35 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	list = search_token(shell->tokens);
 	check_for_delimeter(list);
 	lines = tokens_to_lines(list);
-	last_command(list_env, lines, ft_listsize(lines), lines->tokens);
+	if (!lines)
+		return (0);
+	last_command(list_env, lines, ft_listsizeee(lines), lines->tokens);
 	heredoc = handle_heredoc(lines, list_env, stats);
 	if (!heredoc)
 	{

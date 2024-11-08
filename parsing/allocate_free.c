@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 21:25:03 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 20:40:46 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:55:14 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	ft_collclear(t_coll **lst)
 		tmp = (*lst)->next;
 		if (*lst)
 		{
-			if ((*lst)->ptr)
-				free((*lst)->ptr);
+			free((*lst)->ptr);
 			free(*lst);
 		}
 		*lst = tmp;

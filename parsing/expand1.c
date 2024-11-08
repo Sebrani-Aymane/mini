@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 02:53:02 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:18:01 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 	char			*new_token;
 	static int		start;
 
+	new_token = NULL;
 	while (counter)
 	{
 		name = variable_name(temp->content, &start);
