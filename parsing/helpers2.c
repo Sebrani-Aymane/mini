@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:27:48 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 19:59:09 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:46:04 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	pass_spaces_end(char *input)
 {
 	int	i;
 
-	i = ft_strlenn(input) - 1;
+	i = ft_strlenn(input);
 	while (input[i] == ' ' || input[i] == '\t')
 		i--;
 	return (i);

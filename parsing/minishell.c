@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/08 12:23:51 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:53:31 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int	main(int ac, char **av, char **env)
 
 	(void)av;
 	(void)ac;
-	if (!isatty(STDIN_FILENO))
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+	// if (!isatty(STDIN_FILENO))
+	// {
+	// 	write(2, "Error\n", 6);
+	// 	exit(1);
+	// }
 	if (!*env)
 		env = fake_env();
 	shell.env = copy_env(env);

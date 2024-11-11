@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/08 16:43:09 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/11 17:52:29 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	calculate_new_token_len(char *token, char *value, char *name, int *ig_d)
 	else
 	{
 		*ig_d = (pos - token) - 1;
-		return ((token_len - name_len - 1) + value_len);
+		return ((token_len - name_len) + value_len);
 	}
 }
 
