@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/08 17:39:28 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:18:08 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_token
 	char	*content;
 	int		need_expand;
 	int		divide_space;
+	int		expanded;
 }	t_token;
 
 typedef struct s_list
@@ -53,6 +54,7 @@ typedef struct s_node
 	int				type;
 	int				delimeter_inside_quotes;
 	int				inside_quotes;
+	int				need_expand;
 	struct s_node	*next;
 }	t_node;
 
@@ -228,7 +230,7 @@ int			ft_listsize(t_line *lst);
 int			exit_status(int type, int value);
 void		handle_redirections(t_line *final);
 int			check_file_path(t_line *final);
-char		**create_av(t_node *tokens);
+char		**create_av(t_node *tokens, int i);
 void		conf_inside_quotes(t_node *tokens);
 
 /* Token handling */
@@ -236,8 +238,8 @@ void		ft_lstadd_back(t_node **lst, t_node *neew);
 t_node		*ft_lstnew(char *content);
 int			ft_lstsize(t_node *lst);
 t_node		*ft_lstlast(t_node *lst);
-void		add_node(t_node **list, char *content);
-void		add_token(t_node **list, char *content, int start, int end);
+void		add_node(t_node **list, char *content, int need_expand);
+void		add_token(t_node **list, t_token *tokens, int start, int end);
 
 /* Parser functions */
 void		display_prompt(t_list shell, char **env, t_env_vars *list_env,
@@ -261,7 +263,7 @@ int			contains_only_symbol(char *str);
 int			contains_symbol(char *str);
 int			can_expand(char *input);
 int			check_edge_case(char *content);
-int			dollars_number(char *content, int need_exp);
+int			dollars_number(char *content, int need_exp, char where);
 int			find_var_end(char *input, int *start);
 char		*variable_name(char *input, int *start);
 char		*exp_exit_status(char *num);
@@ -276,11 +278,13 @@ char		*replace_value(char *token, char *value, char *name);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
 
 /* Expansion handling */
-int			expand(t_token **tokens, t_env_vars *list_env, int notif, int i);
+int			expand(t_token **tokens, t_env_vars *list_env, int notif,
+				char where);
 void		expand_home(t_token **tokens, t_env_vars *list_env);
 char		*pass_dollar(char *content);
 int			dollar_inside_quotes_alone(char *content);
 char		*join_tokens(t_list *shell);
+char		*check_value(char *value, char *name, t_token *temp);
 
 /* Line handling */
 t_node		*search_token(t_token **tokens);

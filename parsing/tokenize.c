@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:49:18 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/08 17:04:50 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:15:56 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,27 @@ char	*cat_token(char *input, int start, int end)
 	return (token);
 }
 
-t_token	**into_tokens(char *input, int i, int start, int count)
+t_token	**into_tokens_help(char *input, int *count)
 {
 	t_token	**tokens;
-	int		last_start;
 
 	if (!input)
 		return (NULL);
-	count = tokens_number(input, 0, 0, 0);
-	tokens = c_malloc((sizeof(t_token *) * (count + 1)), 1);
+	*count = tokens_number(input, 0, 0, 0);
+	tokens = c_malloc((sizeof(t_token *) * (*count + 1)), 1);
 	if (!tokens)
+		return (NULL);
+	return (tokens);
+}
+
+t_token	**into_tokens(char *input, int i, int start, int flag)
+{
+	t_token	**tokens;
+	int		last_start;
+	int		count;
+
+	tokens = into_tokens_help(input, &count);
+	if (tokens == NULL)
 		return (NULL);
 	while (i < count)
 	{
@@ -115,6 +126,8 @@ t_token	**into_tokens(char *input, int i, int start, int count)
 			last_start++;
 		start = divide(input, last_start, 0, 0);
 		tokens[i]->content = cat_token(input, last_start, start);
+		if (flag)
+			tokens[i]->expanded = 1;
 		i++;
 	}
 	return ((tokens[i] = NULL), tokens);

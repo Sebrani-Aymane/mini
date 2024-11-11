@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/11 17:46:30 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/11 23:34:49 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	set_shlvl(t_list shell)
 int	parse(char *input_rl, t_list *shell, t_env_vars *list_env)
 {
 	char	*input;
+	int		flag;
 
+	flag = 0;
 	input = malloc(sizeof(char) * ((pass_spaces_end(input_rl)
 					- pass_spaces(input_rl)) + 2));
 	copy_without_spaces(input, input_rl);
@@ -75,8 +77,10 @@ int	parse(char *input_rl, t_list *shell, t_env_vars *list_env)
 	shell->tokens = into_tokens(input, 0, 0, 0);
 	free(input);
 	check_token_dollar(shell->tokens);
-	if (expand(shell->tokens, list_env, 0, 0)){
-		shell->tokens = into_tokens(join_tokens(shell), 0, 0, 0);
+	if (expand(shell->tokens, list_env, 0, 'm'))
+	{
+		flag = 1;
+		shell->tokens = into_tokens(join_tokens(shell), 0, 0, 1);
 	}
 	return (1);
 }
@@ -101,6 +105,7 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	{
 		if (lines->fd_in)
 			close(lines->fd_in);
+		exit_status(1, 1);
 		return (0);
 	}
 	handle_pipe(lines, env, list_env);

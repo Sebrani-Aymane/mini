@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:22:49 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/11 17:52:29 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:17:40 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,6 @@ char	*replace_value(char *token, char *value, char *name)
 	return (new_token);
 }
 
-char	*check_value(char *value, char *name, t_token *temp)
-{
-	if (value && ft_strchr(value, ' '))
-		temp->divide_space = 1;
-	else
-		temp->divide_space = 0;
-	if (value == NULL)
-	{
-		if (name[0] >= '0' && name[0] <= '9')
-			value = copy_str(value, name + 1);
-		else
-			value = "";
-	}
-	return (value);
-}
-
 char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 {
 	char			*name;
@@ -105,22 +89,32 @@ char	*counter_loop(int counter, t_token *temp, t_env_vars *l_env, int *notif)
 	return (new_token);
 }
 
-int	expand(t_token **tokens, t_env_vars *list_env, int notif, int i)
+int	expand_help(int counter, int *i)
+{
+	if (counter == 0)
+	{
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
+
+int	expand(t_token **tokens, t_env_vars *list_env, int notif, char where)
 {
 	char	*new_token;
 	int		counter;
 	int		flag;
+	int		i;
 
 	flag = 0;
+	i = 0;
 	while (tokens[i])
 	{
 		notif = 0;
-		counter = dollars_number(tokens[i]->content, tokens[i]->need_expand);
-		if (counter == 0)
-		{
-			i++;
+		counter = dollars_number(tokens[i]->content,
+				tokens[i]->need_expand, where);
+		if (expand_help(counter, &i))
 			continue ;
-		}
 		new_token = counter_loop(counter, tokens[i], list_env, &notif);
 		flag = 1;
 		if (!notif)

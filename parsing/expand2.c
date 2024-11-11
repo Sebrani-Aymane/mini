@@ -6,22 +6,22 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:32:42 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/06 21:47:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:14:57 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	dollars_number(char *content, int need_exp)
+int	dollars_number(char *content, int need_exp, char where)
 {
 	int	i;
 	int	counter;
 
 	i = 0;
 	counter = 0;
-	if (can_expand(content) && need_exp
-		&& !dollar_inside_quotes_alone(content)
-		&& ft_strcmp(content, "$"))
+	if (need_exp && !dollar_inside_quotes_alone(content)
+		&& ft_strcmp(content, "$")
+		&& (where == 'h' || can_expand(content)))
 	{
 		while (content[i])
 		{

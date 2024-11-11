@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/08 12:23:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:09:20 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,12 @@ int	count_valid_tokens(t_node *tokens)
 	return (count);
 }
 
-char	**create_av(t_node *tokens)
+char	**create_av(t_node *tokens, int i)
 {
 	t_node	*current;
 	char	**av;
-	int		i;
 	int		count;
 
-	i = 0;
 	count = count_valid_tokens(tokens);
 	av = c_malloc(sizeof(char *) * (count + 1), 1);
 	if (!av)
@@ -112,7 +110,9 @@ char	**create_av(t_node *tokens)
 	{
 		if ((current->type == 1 || current->type == 2))
 		{
-			if (!ft_strcmp(current->content, ""))
+			if (!ft_strcmp(current->content, "")
+				&& !current->inside_quotes
+				&& current->need_expand == 1)
 				av[i] = NULL;
 			else
 				av[i] = ft_strdup(current->content);

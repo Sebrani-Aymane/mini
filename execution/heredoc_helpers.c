@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:22:57 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/08 17:39:56 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:17:44 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	writing_heredoc(t_token **hered_tokens,
 	if (heredoc->expand_vars)
 	{
 		check_token_dollar(hered_tokens);
-		expand(hered_tokens, list, 0, 0);
+		expand(hered_tokens, list, 0, 'h');
 	}
 	while (hered_tokens && hered_tokens[j])
 	{
@@ -80,4 +80,20 @@ void	child_heredoc(t_heredoc *heredocs, t_env_vars *list,
 		i++;
 	}
 	exit(0);
+}
+
+char	*check_value(char *value, char *name, t_token *temp)
+{
+	if (value && ft_strchr(value, ' '))
+		temp->divide_space = 1;
+	else
+		temp->divide_space = 0;
+	if (value == NULL)
+	{
+		if (name[0] >= '0' && name[0] <= '9')
+			value = copy_str(value, name + 1);
+		else
+			value = "";
+	}
+	return (value);
 }

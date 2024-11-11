@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:25:24 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/07 15:15:48 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:06:06 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	executefilepath(t_line *final, char **env, t_env_vars *list)
 {
 	char	**av;
 
-	av = create_av(final->tokens);
+	av = create_av(final->tokens, 0);
 	if (!av || !*av)
 		return (0);
 	if (!check_file_path(final))

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 12:20:30 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/08 15:00:06 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 00:15:30 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	add_n_l(t_node *curr, t_node **frst, t_node **last, t_line *line)
 	new_node->content = curr->content;
 	new_node->type = curr->type;
 	new_node->delimeter_inside_quotes = curr->delimeter_inside_quotes;
+	new_node->inside_quotes = curr->inside_quotes;
+	new_node->need_expand = curr->need_expand;
 	new_node->next = NULL;
 	if (!(*frst))
 	{

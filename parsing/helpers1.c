@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:51:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 11:41:12 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/11 22:21:49 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,18 @@ void	check_for_delimeter(t_node *tokens)
 	}
 }
 
-void	add_node(t_node **list, char *content)
+void	add_node(t_node **list, char *content, int need_expand)
 {
 	t_node	*new_node;
 
 	new_node = ft_lstnew(content);
 	if (!new_node)
 		return ;
+	new_node->need_expand = need_expand;
 	ft_lstadd_back(list, new_node);
 }
 
-void	add_token(t_node **list, char *content, int start, int end)
+void	add_token(t_node **list, t_token *tokens, int start, int end)
 {
 	int		len;
 	char	*token;
@@ -71,7 +72,7 @@ void	add_token(t_node **list, char *content, int start, int end)
 	token = c_malloc((sizeof(char) * (len + 1)), 1);
 	if (!token)
 		return ;
-	ft_strncpy(token, content + start, len);
+	ft_strncpy(token, tokens->content + start, len);
 	token[len] = '\0';
-	add_node(list, token);
+	add_node(list, token, tokens->expanded);
 }
