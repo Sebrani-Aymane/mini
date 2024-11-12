@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:53:54 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/07 20:42:59 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/12 01:15:06 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	in_file(t_node *token)
 	int	fd;
 
 	fd = open(token->content, O_RDONLY);
+	if ((!ft_strcmp(token->content, "") && token->need_expand == 1)
+		|| token->content == NULL)
+	{
+		printf("minishell: %s: ambiguous redirect\n", token->content);
+		return (0);
+	}
 	if (fd == -1)
 	{
 		ft_putstr("minishell:", 2);
@@ -43,6 +49,12 @@ int	out_file(t_node *token)
 	int	fd;
 
 	fd = 1;
+	if ((!ft_strcmp(token->content, "") && token->need_expand == 1)
+		|| token->content == NULL)
+	{
+		printf("minishell: %s: ambiguous redirect\n", token->content);
+		return (0);
+	}
 	if ((token->type == 5 && ft_strncmp(token->content, ">", 1))
 		|| (token->type == 6 && token->inside_quotes))
 		fd = open(token->content,
