@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/12 00:18:08 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 18:41:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int			get_shlvl(char **env, int notif, int i);
 /* Builtin commands */
 void		echoo(t_node *current);
 char		*pwdd(t_env_vars *list);
+int			check_key_un(char *str);
 int			export_all(t_env_vars *env, t_line *final);
 int			export_it(t_env_vars *env, char *str);
 int			export_with_plus(char *av, t_env_vars *env);

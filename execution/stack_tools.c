@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   stack_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/08 11:52:39 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:30:36 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// TODO: pass in the error type for a more correct error message 
 int	check_key(char *str)
 {
 	int	i;

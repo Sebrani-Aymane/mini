@@ -6,39 +6,11 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/01 21:42:15 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 18:42:52 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	**split(char *str, char sep)
-{
-	int		count_word;
-	int		n;
-	char	**strs;
-
-	if (!str)
-		return (NULL);
-	n = 0;
-	count_word = count_words(str, sep);
-	strs = c_malloc(sizeof(char *) * (count_word + 1), 1);
-	if (!strs)
-		return (NULL);
-	while (n < count_word && *str)
-	{
-		while (*str && *str == sep)
-			str++;
-		strs[n] = return_word(str, sep);
-		if (!strs[n])
-			return (NULL);
-		while (*str && *str != sep)
-			str++;
-		n++;
-	}
-	strs[n] = NULL;
-	return (strs);
-}
 
 void	copy_it(char *dest, char *src)
 {
@@ -88,4 +60,32 @@ int	is_space(char *str)
 		|| str[i] == '\f' || str[i] == '\r')
 		return (1);
 	return (0);
+}
+
+char	**split(char *str, char sep)
+{
+	int		count_word;
+	int		n;
+	char	**strs;
+
+	if (!str)
+		return (NULL);
+	n = 0;
+	count_word = count_words(str, sep);
+	strs = c_malloc(sizeof(char *) * (count_word + 1), 1);
+	if (!strs)
+		return (NULL);
+	while (n < count_word && *str)
+	{
+		while (*str && *str == sep)
+			str++;
+		strs[n] = return_word(str, sep);
+		if (!strs[n])
+			return (NULL);
+		while (*str && *str != sep)
+			str++;
+		n++;
+	}
+	strs[n] = NULL;
+	return (strs);
 }

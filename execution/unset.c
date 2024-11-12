@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:18:51 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:04:30 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 18:41:30 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	process_unset(t_env_vars *env_bkp, t_node *current)
 	prev = NULL;
 	while (current)
 	{
-		if (check_key(current->content) == 1
+		if (check_key_un(current->content) == 1
 			&& ft_strncmp("_", current->content, len))
 		{
 			ret = 0;
