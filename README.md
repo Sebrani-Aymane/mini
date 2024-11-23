@@ -49,7 +49,7 @@ minishell/
 
     Clone the repository:
 
-git clone https://github.com/yourusername/minishell.git
+git clone git@github.com:Sebrani-Aymane/mini.git
 cd minishell
 
 Build the project:
