@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/11 22:44:38 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 21:06:18 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	handle_pipe(t_line *final, char **env, t_env_vars *list)
 			return (pipe_ret);
 		fork_ret = create_child_process(&attr);
 		if (fork_ret != 0)
-			return (fork_ret);
+			return (-1);
 		if (child_process(&attr, final, env, list))
 			return (-1);
 		else if (parent_process(&attr) != 0)

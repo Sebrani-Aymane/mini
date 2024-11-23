@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:14:20 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/12 17:38:42 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 21:10:03 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	handle_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-// TODO : echo write an extra space at the end if files
-// echo "111" > file.txt | wc -c  should output 3 not 4 
 int	main(int ac, char **av, char **env)
 {
 	t_list			shell;
@@ -70,7 +68,7 @@ int	main(int ac, char **av, char **env)
 	set_shlvl(shell);
 	handle_signals();
 	if (tcgetattr(STDIN_FILENO, &stats) < 0)
-		printf("terminal error \n");
+		printf("terminal error here \n");
 	display_prompt(shell, shell.env, list_env, &stats);
 	c_malloc(0, 0);
 }

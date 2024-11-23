@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:32:50 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:06:54 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 21:04:01 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	create_child_process(struct s_handle_attr *attr)
 {
 	attr->pid = fork();
 	if (attr->pid == -1)
-		return (ft_putstr("error in forking", 2), -1);
+		return (ft_putstr("error in forking\n", 2), -1);
 	return (0);
 }
 
@@ -45,7 +45,7 @@ void	wait_for_children(struct s_handle_attr *attr)
 {
 	while (attr->pipes_count-- > 0)
 	{
-		wait(&attr->status);
+		waitpid(attr->pid, &attr->status, 0);
 		handle_child_signals(attr->status);
 	}
 }

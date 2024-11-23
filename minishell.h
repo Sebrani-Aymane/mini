@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/12 18:41:46 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 21:08:46 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,8 +290,6 @@ char		*check_value(char *value, char *name, t_token *temp);
 /* Line handling */
 t_node		*search_token(t_token **tokens);
 t_line		*tokens_to_lines(t_node *tokens);
-void		last_command(t_env_vars *list, t_line *final, int final_size,
-				t_node *curr);
 int			pipe_syntax(char *input, int i, int in_quotes);
 int			open_files(t_line *lines, t_node *curr_node, int in, int out);
 void		check_for_delimeter(t_node *tokens);

@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/11/02 12:03:31 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 20:08:41 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	help_execute_files(t_line *final, char **env, char **av)
 			exit (126);
 		}
 		perror(final->tokens->content);
-		exit (128);
+		exit (127);
 	}
 	return (ret);
 }

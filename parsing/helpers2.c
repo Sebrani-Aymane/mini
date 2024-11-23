@@ -6,38 +6,11 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:27:48 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/11 17:46:04 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 21:10:25 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	last_command(t_env_vars *list, t_line *final, int f_s, t_node *curr)
-{
-	t_env_vars	*curr_list;
-	t_node		*last_token;
-
-	curr_list = list;
-	if (!list || !final)
-		return ;
-	while (list)
-	{
-		if (!ft_strncmp(list->vars, "_", 1))
-			break ;
-		list = list->next;
-	}
-	if (f_s > 1 && list)
-		list->var_value = ft_strdup("");
-	else
-	{
-		last_token = ft_lstlast(curr);
-		if (!ft_strcmp(last_token->content, "env") && list)
-			list->var_value = ft_strdup("/usr/bin/env");
-		else
-			list->var_value = ft_strdup(last_token->content);
-	}
-	list = curr_list;
-}
 
 char	*copy_str(char *dest, char *src)
 {

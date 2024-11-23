@@ -6,7 +6,7 @@
 /*   By: cbajji <cbajji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:10:58 by cbajji            #+#    #+#             */
-/*   Updated: 2024/11/12 17:26:59 by cbajji           ###   ########.fr       */
+/*   Updated: 2024/11/12 21:09:06 by cbajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 	lines = tokens_to_lines(list);
 	if (!lines)
 		return (0);
-	last_command(list_env, lines, ft_listsizeee(lines), lines->tokens);
 	heredoc = handle_heredoc(lines, list_env, stats);
 	if (!heredoc)
 	{
@@ -108,7 +107,8 @@ int	execution(char **env, t_env_vars *list_env, t_list *shell,
 		exit_status(1, 1);
 		return (0);
 	}
-	handle_pipe(lines, env, list_env);
+	if (handle_pipe(lines, env, list_env) == -1)
+		return (0);
 	if (lines->fd_in)
 		close(lines->fd_in);
 	return (1);
